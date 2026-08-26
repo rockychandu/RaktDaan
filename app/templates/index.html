@@ -23,7 +23,7 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-        h1, h2, h3, h4, .brand-name { font-family: 'Outfit', sans-serif; }
+        h1, h2, h3, h4, .brand-name, .motto-quote { font-family: 'Outfit', sans-serif; }
 
         body {
             background-color: var(--bg-main);
@@ -198,11 +198,11 @@
             transform: translateY(-2px);
         }
 
-        /* SVG Medical Illustration Hero Card */
-        .illustration-card {
+        /* Motto & Image Hero Card */
+        .motto-card {
             background: white;
             border-radius: 24px;
-            padding: 35px;
+            padding: 40px;
             border: 2px solid var(--primary-border);
             box-shadow: var(--shadow-lg);
             display: flex;
@@ -210,12 +210,32 @@
             align-items: center;
             justify-content: center;
             text-align: center;
+            background-image: radial-gradient(var(--primary-light) 1px, transparent 1px);
+            background-size: 24px 24px;
         }
 
-        .illustration-svg {
+        .motto-svg {
             width: 100%;
-            max-width: 320px;
+            max-width: 220px;
             height: auto;
+            margin-bottom: 20px;
+        }
+
+        .motto-quote {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            font-style: italic;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .motto-author {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
         /* Live Database Statistics Bar */
@@ -408,34 +428,28 @@
                 </div>
             </div>
 
-            <!-- Custom Medical Hero SVG Illustration Drawing -->
-            <div class="illustration-card">
-                <svg class="illustration-svg" viewBox="0 0 300 260" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Background Glow Circle -->
-                    <circle cx="150" cy="130" r="100" fill="#FFF1F2" stroke="#FECDD3" stroke-width="2"/>
-                    <!-- Blood Bag Drawing -->
-                    <rect x="110" y="55" width="80" height="120" rx="14" fill="#FFFFFF" stroke="#E11D48" stroke-width="4"/>
-                    <!-- Blood Liquid in Bag -->
-                    <path d="M112 110C112 110 130 100 150 110C170 120 188 110 188 110V161C188 168.732 181.732 175 174 175H126C118.268 175 112 168.732 112 161V110Z" fill="#E11D48"/>
-                    <!-- Medical Cross Symbol -->
-                    <rect x="144" y="70" width="12" height="24" rx="2" fill="#E11D48"/>
-                    <rect x="138" y="76" width="24" height="12" rx="2" fill="#E11D48"/>
-                    <!-- Bag Top Hanger -->
-                    <path d="M135 55V40C135 37.2386 137.239 35 140 35H160C162.761 35 165 37.2386 165 40V55" stroke="#BE123C" stroke-width="4"/>
-                    <circle cx="150" cy="45" r="4" fill="#BE123C"/>
-                    <!-- Tube Drawing -->
-                    <path d="M150 175V210C150 218.284 156.716 225 165 225H200" stroke="#E11D48" stroke-width="4" stroke-linecap="round" stroke-dasharray="4 4"/>
-                    <!-- Heart Pulse Drawing -->
-                    <path d="M40 140H70L78 120L88 160L98 130L106 140H130" stroke="#E11D48" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                    <!-- Floating Blood Drop Drawings -->
-                    <path d="M225 90C225 90 240 110 240 120C240 128.284 233.284 135 225 135C216.716 135 210 128.284 210 120C210 110 225 90 225 90Z" fill="#E11D48"/>
-                    <path d="M75 70C75 70 85 85 85 92C85 97.5228 80.5228 102 75 102C69.4772 102 65 97.5228 65 92C65 85 75 70 75 70Z" fill="#BE123C"/>
+            <!-- RaktDaan Motto & Blood Drop Heart Artwork Card -->
+            <div class="motto-card">
+                <svg class="motto-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Glow Circle -->
+                    <circle cx="100" cy="100" r="85" fill="#FFF1F2" stroke="#FECDD3" stroke-width="2"/>
+                    <!-- Crimson Blood Drop Artwork -->
+                    <path d="M100 25C100 25 155 90 155 125C155 155.376 130.376 180 100 180C69.6243 180 45 155.376 45 125C45 90 100 25 100 25Z" fill="url(#mottoGrad)"/>
+                    <!-- White Heart Artwork Inside Drop -->
+                    <path d="M100 95C92 72 65 88 80 110L100 130L120 110C135 88 108 72 100 95Z" fill="white"/>
+                    <defs>
+                        <linearGradient id="mottoGrad" x1="100" y1="25" x2="100" y2="180" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#E11D48"/>
+                            <stop offset="1" stop-color="#BE123C"/>
+                        </linearGradient>
+                    </defs>
                 </svg>
-                <div style="margin-top: 15px; font-weight: 700; color: var(--primary-dark); font-size: 1.1rem;">
-                    Safe & Certified Blood Network
+
+                <div class="motto-quote">
+                    “Tears of a mother cannot save her child, but your blood can. Be a hero, donate blood.”
                 </div>
-                <div style="font-size: 0.88rem; color: var(--text-muted); margin-top: 4px;">
-                    100% Verified Donors & Temperature Controlled Stock
+                <div class="motto-author">
+                    — RaktDaan Motto
                 </div>
             </div>
         </section>
@@ -482,7 +496,6 @@
                     <div class="process-step-num">STEP 01</div>
                     <svg class="process-drawing" viewBox="0 0 100 100" fill="none">
                         <circle cx="50" cy="50" r="45" fill="#FFF1F2" stroke="#FECDD3" stroke-width="2"/>
-                        <!-- Clipboard & Pen Drawing -->
                         <rect x="30" y="25" width="40" height="52" rx="6" fill="white" stroke="#E11D48" stroke-width="3"/>
                         <rect x="40" y="20" width="20" height="8" rx="2" fill="#E11D48"/>
                         <line x1="38" y1="38" x2="62" y2="38" stroke="#E11D48" stroke-width="3" stroke-linecap="round"/>
@@ -498,9 +511,7 @@
                     <div class="process-step-num">STEP 02</div>
                     <svg class="process-drawing" viewBox="0 0 100 100" fill="none">
                         <circle cx="50" cy="50" r="45" fill="#FFF1F2" stroke="#FECDD3" stroke-width="2"/>
-                        <!-- Blood Drop & Shield Drawing -->
                         <path d="M50 20C50 20 75 50 75 64C75 77.8071 63.8071 89 50 89C36.1929 89 25 77.8071 25 64C25 50 50 20 50 20Z" fill="#E11D48"/>
-                        <!-- Shield Pulse in Drop -->
                         <path d="M42 58L47 63L58 52" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                     <h3 class="process-h3">Health Check & Donation</h3>
@@ -512,7 +523,6 @@
                     <div class="process-step-num">STEP 03</div>
                     <svg class="process-drawing" viewBox="0 0 100 100" fill="none">
                         <circle cx="50" cy="50" r="45" fill="#FFF1F2" stroke="#FECDD3" stroke-width="2"/>
-                        <!-- Heart & Pulse Gift Drawing -->
                         <path d="M50 35C45 -5 10 25 32 50L50 68L68 50C90 25 55 -5 50 35Z" fill="#E11D48"/>
                         <path d="M25 78H75" stroke="#BE123C" stroke-width="4" stroke-linecap="round"/>
                     </svg>
