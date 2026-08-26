@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RaktDaan - Enterprise Blood Bank & Donor Network</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>RaktDaan - Enterprise Blood Bank Network</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #e11d48;
@@ -33,7 +33,7 @@
             flex-direction: column;
         }
 
-        /* Navbar */
+        /* Top Navbar */
         .navbar {
             background: var(--card-bg);
             border-bottom: 1px solid var(--border-light);
@@ -88,7 +88,7 @@
         .btn-nav-donor {
             background: var(--primary);
             color: white;
-            padding: 10px 20px;
+            padding: 10px 22px;
             border-radius: 10px;
             text-decoration: none;
             font-weight: 600;
@@ -99,13 +99,12 @@
 
         .btn-nav-donor:hover {
             background: var(--primary-dark);
-            transform: translateY(-1px);
         }
 
         .btn-nav-admin {
             background: #0f172a;
             color: white;
-            padding: 10px 20px;
+            padding: 10px 22px;
             border-radius: 10px;
             text-decoration: none;
             font-weight: 600;
@@ -115,23 +114,6 @@
 
         .btn-nav-admin:hover {
             background: #1e293b;
-            transform: translateY(-1px);
-        }
-
-        .btn-nav-register {
-            background: var(--primary-light);
-            color: var(--primary);
-            border: 1.5px solid var(--primary-border);
-            padding: 10px 20px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.2s ease;
-        }
-
-        .btn-nav-register:hover {
-            background: #ffe4e6;
         }
 
         /* Hero Section */
@@ -174,9 +156,6 @@
 
         .hero-title span {
             color: var(--primary);
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
 
         .hero-text {
@@ -217,7 +196,6 @@
         .btn-lg-primary:hover {
             background: var(--primary-dark);
             transform: translateY(-2px);
-            box-shadow: 0 12px 25px rgba(225, 29, 72, 0.4);
         }
 
         .btn-lg-secondary {
@@ -233,83 +211,61 @@
             transform: translateY(-2px);
         }
 
-        /* Right Card Container */
-        .hero-visual {
+        /* Blood Compatibility Guide Box */
+        .compatibility-card {
             background: white;
             border-radius: 24px;
             padding: 35px;
             border: 2px solid var(--primary-border);
             box-shadow: var(--shadow-lg);
-            position: relative;
         }
 
-        .visual-header {
+        .comp-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-dark);
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
+            gap: 10px;
+        }
+
+        .comp-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .comp-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .comp-table th {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            text-align: left;
+            padding: 10px 12px;
+            font-weight: 700;
+            border-radius: 6px;
+        }
+
+        .comp-table td {
+            padding: 12px;
             border-bottom: 1px solid var(--border-light);
         }
 
-        .visual-title {
-            font-size: 1.25rem;
+        .bg-badge {
+            background: var(--primary);
+            color: white;
             font-weight: 700;
-            color: var(--text-dark);
-        }
-
-        .status-chip {
-            background: #ecfdf5;
-            color: #047857;
-            border: 1px solid #a7f3d0;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .quick-access-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        .access-card {
-            background: var(--bg-main);
-            border: 1.5px solid var(--border-light);
-            border-radius: 16px;
-            padding: 20px;
-            text-decoration: none;
-            color: var(--text-dark);
-            transition: all 0.2s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .access-card:hover {
-            border-color: var(--primary);
-            background: var(--primary-light);
-            transform: translateY(-3px);
-        }
-
-        .access-icon {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-        }
-
-        .access-name {
-            font-size: 1.05rem;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .access-desc {
+            padding: 3px 8px;
+            border-radius: 6px;
             font-size: 0.85rem;
-            color: var(--text-muted);
         }
 
-        /* Stats Bar */
+        /* Stats Section */
         .stats-bar {
             background: white;
             border-y: 1px solid var(--border-light);
@@ -343,80 +299,6 @@
             font-weight: 500;
         }
 
-        /* Features Section */
-        .features-section {
-            max-width: 1200px;
-            margin: 80px auto;
-            padding: 0 24px;
-        }
-
-        .section-title-box {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto 50px;
-        }
-
-        .section-title {
-            font-size: 2.2rem;
-            font-weight: 800;
-            margin-bottom: 12px;
-        }
-
-        .section-desc {
-            color: var(--text-muted);
-            font-size: 1.05rem;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
-
-        @media (max-width: 900px) {
-            .features-grid { grid-template-columns: 1fr; }
-        }
-
-        .feature-card {
-            background: white;
-            border: 1.5px solid var(--border-light);
-            border-radius: 20px;
-            padding: 35px;
-            transition: all 0.3s ease;
-        }
-
-        .feature-card:hover {
-            border-color: var(--primary-border);
-            box-shadow: var(--shadow-md);
-            transform: translateY(-4px);
-        }
-
-        .feature-icon {
-            width: 54px;
-            height: 54px;
-            border-radius: 14px;
-            background: var(--primary-light);
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.6rem;
-            margin-bottom: 20px;
-            border: 1px solid var(--primary-border);
-        }
-
-        .feature-h3 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .feature-p {
-            color: var(--text-muted);
-            line-height: 1.6;
-            font-size: 0.95rem;
-        }
-
         /* Footer */
         .footer {
             margin-top: auto;
@@ -431,7 +313,7 @@
 </head>
 <body>
 
-    <!-- Header Navigation -->
+    <!-- Header Navbar -->
     <header class="navbar">
         <div class="nav-container">
             <a href="/" class="brand-link">
@@ -440,8 +322,7 @@
             </a>
 
             <div class="nav-actions">
-                <a href="/register" class="btn-nav-register">Become a Donor</a>
-                <a href="/donor/login" class="btn-nav-donor">Donor Login</a>
+                <a href="/donor/login" class="btn-nav-donor">Donor Portal</a>
                 <a href="/admin/login" class="btn-nav-admin">Admin Portal</a>
             </div>
         </div>
@@ -452,48 +333,60 @@
         <section class="hero">
             <div class="hero-content">
                 <div class="hero-badge">
-                    <span>❤️</span> Every Drop Saves Lives
+                    <span>❤️</span> Voluntary Blood Donation System
                 </div>
                 <h1 class="hero-title">Connecting Donors with <span>Life-Saving</span> Need</h1>
                 <p class="hero-text">
-                    RaktDaan is a secure Blood Bank Management platform connecting voluntary blood donors, blood banks, and hospital emergency requests seamlessly.
+                    RaktDaan is a secure Blood Bank Management system connecting voluntary blood donors, blood banks, and hospital emergency requests.
                 </p>
                 <div class="hero-cta">
                     <a href="/register" class="btn-lg btn-lg-primary">
                         <span>🩸</span> Register as Donor
                     </a>
                     <a href="/donor/login" class="btn-lg btn-lg-secondary">
-                        Donor Access →
+                        Donor Sign In →
                     </a>
                 </div>
             </div>
 
-            <!-- Quick Access Card -->
-            <div class="hero-visual">
-                <div class="visual-header">
-                    <div class="visual-title">Direct Portal Access</div>
-                    <div class="status-chip">🟢 System Live</div>
+            <!-- Blood Compatibility Reference Guide Card -->
+            <div class="compatibility-card">
+                <div class="comp-title">
+                    <span>🔬</span> Blood Group Compatibility Guide
                 </div>
+                <p class="comp-desc">Reference guide for donor and recipient blood group matching:</p>
 
-                <div class="quick-access-grid">
-                    <a href="/donor/login" class="access-card">
-                        <div class="access-icon">👤</div>
-                        <div class="access-name">Donor Login</div>
-                        <div class="access-desc">Login to manage your profile & eligibility</div>
-                    </a>
-
-                    <a href="/admin/login" class="access-card">
-                        <div class="access-icon">🛡️</div>
-                        <div class="access-name">Admin Portal</div>
-                        <div class="access-desc">Manage blood stock & hospital requests</div>
-                    </a>
-
-                    <a href="/register" class="access-card" style="grid-column: span 2;">
-                        <div class="access-icon">📝</div>
-                        <div class="access-name">New Donor Registration</div>
-                        <div class="access-desc">Register with blood group, city, & emergency contact</div>
-                    </a>
-                </div>
+                <table class="comp-table">
+                    <thead>
+                        <tr>
+                            <th>Blood Group</th>
+                            <th>Can Donate To</th>
+                            <th>Can Receive From</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="bg-badge">O-</span></td>
+                            <td>All Blood Groups (Universal Donor)</td>
+                            <td>O-</td>
+                        </tr>
+                        <tr>
+                            <td><span class="bg-badge">O+</span></td>
+                            <td>O+, A+, B+, AB+</td>
+                            <td>O+, O-</td>
+                        </tr>
+                        <tr>
+                            <td><span class="bg-badge">A+</span></td>
+                            <td>A+, AB+</td>
+                            <td>A+, A-, O+, O-</td>
+                        </tr>
+                        <tr>
+                            <td><span class="bg-badge">AB+</span></td>
+                            <td>AB+ Only</td>
+                            <td>Everyone (Universal Recipient)</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </section>
 
@@ -513,36 +406,8 @@
                     <div class="stat-label">Cities Covered</div>
                 </div>
                 <div>
-                    <div class="stat-num">24/7</div>
-                    <div class="stat-label">Emergency Network</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Features Grid -->
-        <section class="features-section">
-            <div class="section-title-box">
-                <h2 class="section-title">Enterprise Blood Management</h2>
-                <p class="section-desc">Designed with high security, privacy protection, and instantaneous role-based authorization.</p>
-            </div>
-
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🔒</div>
-                    <h3 class="feature-h3">Self-Contained Security</h3>
-                    <p class="feature-p">Runs 100% locally with zero external API key requirements. Encrypted PII and PBKDF2/scrypt password security.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">🩸</div>
-                    <h3 class="feature-h3">Blood Group Matching</h3>
-                    <p class="feature-p">Automatic verification of blood group compatibility (A+, A-, B+, B-, AB+, AB-, O+, O-) across donors and recipients.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">🛡️</div>
-                    <h3 class="feature-h3">Role-Based Access</h3>
-                    <p class="feature-p">Strict backend separation between Donor and Admin accounts preventing unauthorized role escalation.</p>
+                    <div class="stat-num">100%</div>
+                    <div class="stat-label">Local & Private (No API Keys)</div>
                 </div>
             </div>
         </section>
