@@ -1,0 +1,86 @@
+{
+  "country": "India",
+  "total_states": 28,
+  "total_union_territories": 8,
+  "states": [
+    {
+      "state": "Maharashtra",
+      "capital": "Mumbai",
+      "cities": [
+        { "name": "Mumbai", "pincode_prefix": "400", "blood_banks_count": 54 },
+        { "name": "Pune", "pincode_prefix": "411", "blood_banks_count": 32 },
+        { "name": "Nagpur", "pincode_prefix": "440", "blood_banks_count": 18 },
+        { "name": "Thane", "pincode_prefix": "400", "blood_banks_count": 14 },
+        { "name": "Nashik", "pincode_prefix": "422", "blood_banks_count": 12 },
+        { "name": "Pimpri-Chinchwad", "pincode_prefix": "411", "blood_banks_count": 10 }
+      ]
+    },
+    {
+      "state": "Delhi",
+      "capital": "New Delhi",
+      "cities": [
+        { "name": "Delhi", "pincode_prefix": "110", "blood_banks_count": 68 },
+        { "name": "New Delhi", "pincode_prefix": "110", "blood_banks_count": 24 }
+      ]
+    },
+    {
+      "state": "Karnataka",
+      "capital": "Bengaluru",
+      "cities": [
+        { "name": "Bengaluru", "pincode_prefix": "560", "blood_banks_count": 48 },
+        { "name": "Mysuru", "pincode_prefix": "570", "blood_banks_count": 11 },
+        { "name": "Mangaluru", "pincode_prefix": "575", "blood_banks_count": 9 },
+        { "name": "Hubballi", "pincode_prefix": "580", "blood_banks_count": 7 }
+      ]
+    },
+    {
+      "state": "Tamil Nadu",
+      "capital": "Chennai",
+      "cities": [
+        { "name": "Chennai", "pincode_prefix": "600", "blood_banks_count": 52 },
+        { "name": "Coimbatore", "pincode_prefix": "641", "blood_banks_count": 21 },
+        { "name": "Madurai", "pincode_prefix": "625", "blood_banks_count": 15 },
+        { "name": "Tiruchirappalli", "pincode_prefix": "620", "blood_banks_count": 11 }
+      ]
+    },
+    {
+      "state": "Gujarat",
+      "capital": "Gandhinagar",
+      "cities": [
+        { "name": "Ahmedabad", "pincode_prefix": "380", "blood_banks_count": 36 },
+        { "name": "Surat", "pincode_prefix": "395", "blood_banks_count": 25 },
+        { "name": "Vadodara", "pincode_prefix": "390", "blood_banks_count": 16 },
+        { "name": "Rajkot", "pincode_prefix": "360", "blood_banks_count": 10 }
+      ]
+    },
+    {
+      "state": "Telangana",
+      "capital": "Hyderabad",
+      "cities": [
+        { "name": "Hyderabad", "pincode_prefix": "500", "blood_banks_count": 45 },
+        { "name": "Warangal", "pincode_prefix": "506", "blood_banks_count": 8 }
+      ]
+    },
+    {
+      "state": "West Bengal",
+      "capital": "Kolkata",
+      "cities": [
+        { "name": "Kolkata", "pincode_prefix": "700", "blood_banks_count": 42 },
+        { "name": "Howrah", "pincode_prefix": "711", "blood_banks_count": 12 },
+        { "name": "Siliguri", "pincode_prefix": "734", "blood_banks_count": 7 }
+      ]
+    },
+    {
+      "state": "Uttar Pradesh",
+      "capital": "Lucknow",
+      "cities": [
+        { "name": "Lucknow", "pincode_prefix": "226", "blood_banks_count": 28 },
+        { "name": "Kanpur", "pincode_prefix": "208", "blood_banks_count": 22 },
+        { "name": "Ghaziabad", "pincode_prefix": "201", "blood_banks_count": 16 },
+        { "name": "Agra", "pincode_prefix": "282", "blood_banks_count": 14 },
+        { "name": "Varanasi", "pincode_prefix": "221", "blood_banks_count": 15 },
+        { "name": "Noida", "pincode_prefix": "201", "blood_banks_count": 18 }
+      ]
+    }
+  ]
+}

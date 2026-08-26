@@ -19,7 +19,8 @@ def test_successful_donor_registration(client):
     payload = get_valid_donor_payload()
     response = client.post("/api/v1/auth/register", json=payload)
     assert response.status_code == 201
-    data = response.get_json()
+    res_json = response.get_json()
+    data = res_json.get("data", res_json)
     assert data["email"] == "john.donor@example.com"
     assert data["role"] == "DONOR"
     assert data["donor_profile"]["blood_group"] == "O+"

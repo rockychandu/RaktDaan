@@ -1,26 +1,24 @@
 import pytest
 from app.main import create_app
-from app.config import Config
+from app.config import TestingConfig
 from app.database.connection import db
-from app.database.seed import seed_initial_admin
-
-class TestConfig(Config):
-    TESTING = True
-    SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
-    SECRET_KEY = "test_secret_key"
+from app.database.seed import seed_all
+from app.security.rate_limiter import SlidingWindowRateLimiter
 
 @pytest.fixture(scope="function")
 def app():
     """
-    Creates and configures a new Flask app instance for each test.
+    Creates and configures a fresh Flask app instance for testing.
     """
-    app = create_app(TestConfig)
+    app = create_app(TestingConfig)
+    SlidingWindowRateLimiter.reset()
     with app.app_context():
         db.create_all()
-        seed_initial_admin()
+        seed_all()
         yield app
         db.session.remove()
         db.drop_all()
+    SlidingWindowRateLimiter.reset()
 
 @pytest.fixture(scope="function")
 def client(app):

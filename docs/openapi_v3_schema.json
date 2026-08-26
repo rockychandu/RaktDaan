@@ -1,0 +1,384 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "RaktDaan Enterprise Blood Bank Management System - Auth & Database API",
+    "description": "Comprehensive REST API for Donor Registration, Donor Authentication, Admin Authentication, Role-Based Authorization, and Shared Database Foundation built by Member 1.",
+    "termsOfService": "https://raktdaan.org/terms",
+    "contact": {
+      "name": "RaktDaan Core Engineering Team",
+      "email": "api-support@raktdaan.org",
+      "url": "https://raktdaan.org"
+    },
+    "license": {
+      "name": "MIT License",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "version": "2.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:5000/api/v1",
+      "description": "Local Development Server"
+    },
+    {
+      "url": "https://api-staging.raktdaan.org/api/v1",
+      "description": "Staging Environment"
+    },
+    {
+      "url": "https://api.raktdaan.org/api/v1",
+      "description": "Production Cloud Environment"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Authentication",
+      "description": "Donor Registration, Donor Login, Admin Login, Token Operations"
+    },
+    {
+      "name": "User Identity",
+      "description": "User Profile Management, Current User Context"
+    },
+    {
+      "name": "Health Diagnostics",
+      "description": "System Health, DB Connectivity Check"
+    }
+  ],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Register a new Donor Account",
+        "description": "Accepts 12 required fields, validates input formatting, age requirements (>=18), email uniqueness, password strength, and creates User + DonorProfile records atomically.",
+        "operationId": "registerDonor",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/DonorRegisterRequest" },
+              "example": {
+                "name": "Aarav Sharma",
+                "email": "aarav.sharma@example.com",
+                "phone": "9876543210",
+                "password": "Password123!",
+                "confirm_password": "Password123!",
+                "date_of_birth": "1996-08-20",
+                "gender": "Male",
+                "blood_group": "O+",
+                "address": "402 Heights Boulevard, Bandra West",
+                "city": "Mumbai",
+                "state": "Maharashtra",
+                "emergency_contact": "9876543211"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Donor successfully registered.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserSuccessResponse" }
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed request payload syntax.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation error (duplicate email, weak password, invalid age/phone/blood group).",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ValidationErrorResponse" }
+              }
+            }
+          },
+          "429": {
+            "description": "Rate limit exceeded (10 requests per minute per IP).",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/donor/login": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Donor Login Endpoint",
+        "description": "Authenticates donor credentials, verifies DONOR role, checks account lock status, and returns a JWT Access/Refresh token pair.",
+        "operationId": "donorLogin",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/LoginRequest" },
+              "example": {
+                "email": "aarav.sharma@example.com",
+                "password": "Password123!"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Donor login successful. Token returned.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TokenResponse" }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials or unauthorized role access.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          },
+          "423": {
+            "description": "Account locked due to 5 consecutive failed login attempts.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/admin/login": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Admin Login Endpoint",
+        "description": "Authenticates administrator credentials, verifies ADMIN role, rejects standard donor accounts attempting admin access, and returns JWT tokens.",
+        "operationId": "adminLogin",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/LoginRequest" },
+              "example": {
+                "email": "admin@raktdaan.org",
+                "password": "Admin@RaktDaan123"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Admin login successful. Token returned.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TokenResponse" }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid admin credentials or donor account attempting admin login.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/me": {
+      "get": {
+        "tags": ["User Identity"],
+        "summary": "Get Current Logged-in User Profile",
+        "description": "Returns profile details of the authenticated donor or admin. Excludes sensitive password hash.",
+        "operationId": "getCurrentUser",
+        "security": [
+          { "BearerAuth": [] }
+        ],
+        "responses": {
+          "200": {
+            "description": "Current user profile data.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/User" }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing or invalid Bearer token.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Logout Current Session",
+        "description": "Revokes the active session token and blacklists the token JTI.",
+        "operationId": "logout",
+        "security": [
+          { "BearerAuth": [] }
+        ],
+        "responses": {
+          "200": {
+            "description": "Logout successful.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": { "type": "boolean", "example": true },
+                    "message": { "type": "string", "example": "Successfully logged out user." }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "tags": ["Health Diagnostics"],
+        "summary": "System Health Diagnostics",
+        "description": "Returns app status and database connection health status.",
+        "operationId": "healthCheck",
+        "responses": {
+          "200": {
+            "description": "System fully operational.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string", "example": "online" },
+                    "app_name": { "type": "string", "example": "RaktDaan Enterprise Blood Bank System" },
+                    "version": { "type": "string", "example": "2.0.0" },
+                    "database": { "type": "string", "example": "healthy" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Enter your JWT token in format: Bearer <token>"
+      }
+    },
+    "schemas": {
+      "DonorRegisterRequest": {
+        "type": "object",
+        "required": [
+          "name", "email", "phone", "password", "confirm_password",
+          "date_of_birth", "gender", "blood_group", "address", "city",
+          "state", "emergency_contact"
+        ],
+        "properties": {
+          "name": { "type": "string", "minLength": 2, "maxLength": 100 },
+          "email": { "type": "string", "format": "email" },
+          "phone": { "type": "string", "pattern": "^\\+?[0-9]{10,15}$" },
+          "password": { "type": "string", "minLength": 8 },
+          "confirm_password": { "type": "string" },
+          "date_of_birth": { "type": "string", "format": "date", "example": "1996-08-20" },
+          "gender": { "type": "string", "enum": ["Male", "Female", "Other"] },
+          "blood_group": { "type": "string", "enum": ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"] },
+          "address": { "type": "string", "minLength": 3, "maxLength": 255 },
+          "city": { "type": "string", "minLength": 2, "maxLength": 100 },
+          "state": { "type": "string", "minLength": 2, "maxLength": 100 },
+          "emergency_contact": { "type": "string", "pattern": "^\\+?[0-9]{10,15}$" }
+        }
+      },
+      "LoginRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": { "type": "string", "format": "email" },
+          "password": { "type": "string" }
+        }
+      },
+      "TokenResponse": {
+        "type": "object",
+        "properties": {
+          "access_token": { "type": "string" },
+          "refresh_token": { "type": "string" },
+          "token_type": { "type": "string", "example": "bearer" },
+          "expires_in": { "type": "integer", "example": 3600 },
+          "role": { "type": "string", "example": "DONOR" },
+          "user": { "$ref": "#/components/schemas/User" }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "example": 42 },
+          "name": { "type": "string", "example": "Aarav Sharma" },
+          "email": { "type": "string", "example": "aarav.sharma@example.com" },
+          "phone": { "type": "string", "example": "9876543210" },
+          "role": { "type": "string", "example": "DONOR" },
+          "status": { "type": "string", "example": "ACTIVE" },
+          "donor_profile": { "$ref": "#/components/schemas/DonorProfile" }
+        }
+      },
+      "DonorProfile": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "example": 18 },
+          "date_of_birth": { "type": "string", "format": "date", "example": "1996-08-20" },
+          "gender": { "type": "string", "example": "Male" },
+          "blood_group": { "type": "string", "example": "O+" },
+          "address": { "type": "string", "example": "402 Heights Boulevard, Bandra West" },
+          "city": { "type": "string", "example": "Mumbai" },
+          "state": { "type": "string", "example": "Maharashtra" },
+          "emergency_contact": { "type": "string", "example": "9876543211" },
+          "eligibility_status": { "type": "string", "example": "ELIGIBLE" }
+        }
+      },
+      "UserSuccessResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean", "example": true },
+          "message": { "type": "string", "example": "Donor registered successfully." },
+          "data": { "$ref": "#/components/schemas/User" }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean", "example": false },
+          "message": { "type": "string", "example": "Invalid email or password." },
+          "detail": { "type": "string", "example": "Invalid email or password." }
+        }
+      },
+      "ValidationErrorResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean", "example": false },
+          "message": { "type": "string", "example": "Validation failed for request data." },
+          "detail": {
+            "type": "object",
+            "additionalProperties": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}
