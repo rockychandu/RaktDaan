@@ -4,22 +4,122 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - RaktDaan</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #dc2626;
+            --primary-hover: #b91c1c;
+            --primary-light: #fff1f2;
+            --primary-border: #fecdd3;
+            --bg-main: #f8fafc;
+            --card-bg: #ffffff;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --border-light: #e2e8f0;
+        }
+
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-        body { background: #090d16; color: #f8fafc; min-height: 100vh; padding: 30px 20px; }
-        .nav { display: flex; justify-content: space-between; align-items: center; max-width: 1000px; margin: 0 auto 30px; background: #111827; padding: 15px 25px; border-radius: 12px; border: 1px solid #1f2937; }
-        .nav h1 { color: #ef4444; font-size: 1.5rem; }
-        .btn-logout { background: #1f2937; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 600; }
-        .btn-logout:hover { background: #374151; }
-        .container { max-width: 1000px; margin: 0 auto; }
-        .card { background: #111827; border: 1px solid #1f2937; border-radius: 16px; padding: 30px; margin-bottom: 25px; }
-        .card h2 { color: #f8fafc; margin-bottom: 15px; font-size: 1.3rem; }
-        .badge-admin { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid #ef4444; }
-        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px; }
-        .info-item { background: #1f2937; padding: 15px; border-radius: 8px; border: 1px solid #374151; }
-        .info-label { color: #9ca3af; font-size: 0.85rem; margin-bottom: 5px; }
-        .info-val { color: #f8fafc; font-weight: 600; font-size: 1.05rem; }
+        
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+            min-height: 100vh;
+            padding: 30px 20px;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto 30px;
+            background: var(--card-bg);
+            padding: 16px 30px;
+            border-radius: 16px;
+            border: 2px solid var(--border-light);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+
+        .nav h1 {
+            color: #0f172a;
+            font-size: 1.6rem;
+            font-weight: 800;
+        }
+
+        .btn-logout {
+            background: #f1f5f9;
+            color: #0f172a;
+            border: 1px solid #cbd5e1;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+
+        .btn-logout:hover {
+            background: #e2e8f0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 2px solid var(--border-light);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+
+        .card h2 {
+            color: var(--text-dark);
+            margin-bottom: 12px;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .badge-admin {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            background: #eff6ff;
+            color: #1d4ed8;
+            border: 1px solid #bfdbfe;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 18px;
+            margin-top: 25px;
+        }
+
+        .info-item {
+            background: var(--bg-main);
+            padding: 18px;
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+        }
+
+        .info-label {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .info-val {
+            color: var(--text-dark);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
     </style>
 </head>
 <body>
@@ -30,17 +130,17 @@
 
     <div class="container">
         <div class="card">
-            <h2>System Administrator: <span id="admin-email">Loading...</span> <span class="badge-admin">ADMINISTRATOR</span></h2>
-            <p style="color: #9ca3af;">Authenticated as Administrator via backend role authorization module (`@require_admin`).</p>
+            <h2>System Administrator: <span id="admin-email" style="color: var(--primary);">Loading...</span> <span class="badge-admin">ADMINISTRATOR</span></h2>
+            <p style="color: var(--text-muted);">Authenticated as Administrator via backend role authorization module (`@require_admin`).</p>
 
             <div class="info-grid">
                 <div class="info-item">
                     <div class="info-label">Role</div>
-                    <div class="info-val" style="color: #ef4444;">ADMIN</div>
+                    <div class="info-val" style="color: var(--primary);">ADMIN</div>
                 </div>
                 <div class="info-item">
                     <div class="info-label">System Status</div>
-                    <div class="info-val" style="color: #10b981;">OPERATIONAL</div>
+                    <div class="info-val" style="color: #047857;">OPERATIONAL</div>
                 </div>
                 <div class="info-item">
                     <div class="info-label">Backend API URL</div>

@@ -4,22 +4,122 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Donor Dashboard - RaktDaan</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #dc2626;
+            --primary-hover: #b91c1c;
+            --primary-light: #fff1f2;
+            --primary-border: #fecdd3;
+            --bg-main: #f8fafc;
+            --card-bg: #ffffff;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --border-light: #e2e8f0;
+        }
+
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-        body { background: #0f172a; color: #f8fafc; min-height: 100vh; padding: 30px 20px; }
-        .nav { display: flex; justify-content: space-between; align-items: center; max-width: 1000px; margin: 0 auto 30px; background: #1e293b; padding: 15px 25px; border-radius: 12px; border: 1px solid #334155; }
-        .nav h1 { color: #dc2626; font-size: 1.5rem; }
-        .btn-logout { background: #334155; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 600; text-decoration: none; }
-        .btn-logout:hover { background: #475569; }
-        .container { max-width: 1000px; margin: 0 auto; }
-        .card { background: #1e293b; border: 1px solid #334155; border-radius: 16px; padding: 30px; margin-bottom: 25px; }
-        .card h2 { color: #f8fafc; margin-bottom: 15px; font-size: 1.3rem; }
-        .profile-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px; }
-        .info-item { background: #0f172a; padding: 15px; border-radius: 8px; border: 1px solid #334155; }
-        .info-label { color: #94a3b8; font-size: 0.85rem; margin-bottom: 5px; }
-        .info-val { color: #f8fafc; font-weight: 600; font-size: 1.05rem; }
-        .badge { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid #10b981; }
+        
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+            min-height: 100vh;
+            padding: 30px 20px;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto 30px;
+            background: var(--card-bg);
+            padding: 16px 30px;
+            border-radius: 16px;
+            border: 2px solid var(--border-light);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+
+        .nav h1 {
+            color: var(--primary);
+            font-size: 1.6rem;
+            font-weight: 800;
+        }
+
+        .btn-logout {
+            background: var(--primary-light);
+            color: var(--primary);
+            border: 1px solid var(--primary-border);
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+
+        .btn-logout:hover {
+            background: #ffe4e6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 2px solid var(--border-light);
+            border-radius: 20px;
+            padding: 35px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+
+        .card h2 {
+            color: var(--text-dark);
+            margin-bottom: 12px;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 18px;
+            margin-top: 25px;
+        }
+
+        .info-item {
+            background: var(--bg-main);
+            padding: 18px;
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+        }
+
+        .info-label {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .info-val {
+            color: var(--text-dark);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            background: #ecfdf5;
+            color: #047857;
+            border: 1px solid #a7f3d0;
+        }
     </style>
 </head>
 <body>
@@ -30,8 +130,8 @@
 
     <div class="container">
         <div class="card">
-            <h2>Welcome Back, <span id="user-name">Donor</span>! <span class="badge">ELIGIBLE</span></h2>
-            <p style="color: #94a3b8;">Your authenticated donor session is active. Below are your account details retrieved securely from the backend API.</p>
+            <h2>Welcome Back, <span id="user-name" style="color: var(--primary);">Donor</span>! <span class="badge">ELIGIBLE</span></h2>
+            <p style="color: var(--text-muted);">Your authenticated donor session is active. Account details retrieved from backend API:</p>
 
             <div class="profile-grid">
                 <div class="info-item">
@@ -44,7 +144,7 @@
                 </div>
                 <div class="info-item">
                     <div class="info-label">Blood Group</div>
-                    <div class="info-val" id="val-blood" style="color: #dc2626;">Loading...</div>
+                    <div class="info-val" id="val-blood" style="color: var(--primary);">Loading...</div>
                 </div>
                 <div class="info-item">
                     <div class="info-label">City</div>

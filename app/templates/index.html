@@ -4,16 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RaktDaan - Blood Bank Management System</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #dc2626;
             --primary-hover: #b91c1c;
-            --dark-bg: #0f172a;
-            --card-bg: #1e293b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border-color: #334155;
+            --primary-light: #fff1f2;
+            --primary-border: #fecdd3;
+            --bg-main: #f8fafc;
+            --card-bg: #ffffff;
+            --text-dark: #0f172a;
+            --text-muted: #64748b;
+            --border-light: #e2e8f0;
         }
 
         * {
@@ -24,178 +26,406 @@
         }
 
         body {
-            background-color: var(--dark-bg);
-            color: var(--text-main);
+            background-color: var(--bg-main);
+            color: var(--text-dark);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 20px;
+            padding: 40px 20px;
         }
 
-        .header {
-            text-align: center;
+        /* Top Navigation Header */
+        .top-navbar {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
             margin-bottom: 40px;
         }
 
-        .header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 10px;
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            background: var(--primary);
+            color: white;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
         }
 
-        .header p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
+        .brand-name {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.5px;
         }
 
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            max-width: 900px;
-            width: 100%;
+        .system-status-badge {
+            background: #ecfdf5;
+            color: #047857;
+            border: 1px solid #a7f3d0;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 30px;
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+        }
+
+        /* Hero Banner */
+        .hero-banner {
             text-align: center;
+            max-width: 750px;
+            margin-bottom: 50px;
+        }
+
+        .hero-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            line-height: 1.25;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-title span {
+            color: var(--primary);
+        }
+
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Portal Cards Grid */
+        .portal-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            max-width: 1100px;
+            width: 100%;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .portal-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .portal-card {
+            background: var(--card-bg);
+            border: 2px solid var(--border-light);
+            border-radius: 20px;
+            padding: 40px;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: space-between;
+            position: relative;
+            overflow: hidden;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            box-shadow: 0 20px 35px -10px rgba(220, 38, 38, 0.25);
+        .portal-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: var(--primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
-        .icon-box {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            background: rgba(220, 38, 38, 0.1);
-            color: var(--primary);
+        .portal-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--primary-border);
+            box-shadow: 0 20px 40px rgba(220, 38, 38, 0.12);
+        }
+
+        .portal-card:hover::before {
+            opacity: 1;
+        }
+
+        .card-header-box {
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 2rem;
+            gap: 16px;
             margin-bottom: 20px;
         }
 
-        .card h2 {
-            font-size: 1.4rem;
-            margin-bottom: 12px;
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            background: var(--primary-light);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            border: 1px solid var(--primary-border);
         }
 
-        .card p {
+        .card-title-box h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .card-title-box p {
+            font-size: 0.88rem;
             color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.5;
-            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .card-description {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
 
         .btn {
             width: 100%;
-            padding: 14px;
-            border-radius: 10px;
+            padding: 15px;
+            border-radius: 12px;
             border: none;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 1rem;
             cursor: pointer;
             text-decoration: none;
-            display: inline-block;
-            transition: background 0.2s ease;
+            text-align: center;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
         .btn-primary {
             background: var(--primary);
             color: white;
+            box-shadow: 0 4px 14px rgba(220, 38, 38, 0.3);
         }
 
         .btn-primary:hover {
             background: var(--primary-hover);
+            box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
         }
 
-        .btn-secondary {
-            background: #334155;
-            color: white;
+        .btn-outline {
+            background: var(--primary-light);
+            color: var(--primary);
+            border: 1.5px solid var(--primary-border);
         }
 
-        .btn-secondary:hover {
-            background: #475569;
+        .btn-outline:hover {
+            background: #ffe4e6;
         }
 
-        .footer-note {
-            margin-top: 40px;
-            font-size: 0.85rem;
+        /* "Who is the Admin?" Information Section */
+        .admin-info-section {
+            width: 100%;
+            max-width: 1100px;
+            background: var(--card-bg);
+            border: 2px solid var(--primary-border);
+            border-radius: 20px;
+            padding: 35px 40px;
+            box-shadow: 0 10px 30px rgba(220, 38, 38, 0.06);
+            margin-bottom: 40px;
+        }
+
+        .admin-info-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+
+        .admin-info-header h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .admin-info-body {
+            color: var(--text-dark);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .admin-credentials-box {
+            margin-top: 20px;
+            background: var(--primary-light);
+            border: 1px solid var(--primary-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .cred-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+        }
+
+        .cred-label {
+            font-weight: 600;
             color: var(--text-muted);
-            text-align: center;
         }
 
-        .footer-note code {
-            background: #1e293b;
-            padding: 4px 8px;
-            border-radius: 4px;
-            color: #38bdf8;
+        .cred-val {
+            font-family: monospace;
+            font-weight: 700;
+            color: var(--primary);
+            background: white;
+            padding: 4px 10px;
+            border-radius: 6px;
+            border: 1px solid var(--primary-border);
+        }
+
+        .footer {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>🩸 RaktDaan</h1>
-        <p>Blood Bank Management System - Portal Select</p>
-    </div>
+    <!-- Top Navigation Bar -->
+    <nav class="top-navbar">
+        <a href="/" class="brand-logo">
+            <div class="brand-icon">🩸</div>
+            <span class="brand-name">RaktDaan</span>
+        </a>
+        <div class="system-status-badge">
+            <span class="status-dot"></span>
+            System Online
+        </div>
+    </nav>
 
-    <div class="card-grid">
-        <!-- Donor Login Card -->
-        <div class="card">
+    <!-- Hero Section -->
+    <section class="hero-banner">
+        <h1 class="hero-title">Blood Bank Management System <span>Portal Select</span></h1>
+        <p class="hero-subtitle">Choose your user portal below to access Donor services or Administrative controls.</p>
+    </section>
+
+    <!-- Main Portal Grid -->
+    <div class="portal-grid">
+
+        <!-- DONOR PORTAL CARD -->
+        <div class="portal-card">
             <div>
-                <div class="icon-box">👤</div>
-                <h2>Donor Login</h2>
-                <p>Access your donor profile, view eligibility status, donation history, and schedule appointments.</p>
+                <div class="card-header-box">
+                    <div class="card-icon">🩸</div>
+                    <div class="card-title-box">
+                        <h2>Donor Portal</h2>
+                        <p>For Blood Donors & Volunteers</p>
+                    </div>
+                </div>
+                <p class="card-description">
+                    Register as a new blood donor or log into your donor account. View donation eligibility, update health details, and access your profile.
+                </p>
             </div>
-            <a href="/donor/login" class="btn btn-primary">[ DONOR LOGIN ]</a>
+            <div class="button-group">
+                <a href="/donor/login" class="btn btn-primary">[ DONOR LOGIN ]</a>
+                <a href="/register" class="btn btn-outline">[ REGISTER AS DONOR ]</a>
+            </div>
         </div>
 
-        <!-- Admin Login Card -->
-        <div class="card">
+        <!-- ADMIN PORTAL CARD -->
+        <div class="portal-card">
             <div>
-                <div class="icon-box">🛡️</div>
-                <h2>Admin Login</h2>
-                <p>System Administrator portal for managing blood inventory, donor profiles, and blood requests.</p>
+                <div class="card-header-box">
+                    <div class="card-icon">🛡️</div>
+                    <div class="card-title-box">
+                        <h2>Admin Portal</h2>
+                        <p>For Authorized Administrators</p>
+                    </div>
+                </div>
+                <p class="card-description">
+                    Secure management portal for System Administrators to oversee blood stock, manage donor records, process hospital requests, and review system audit logs.
+                </p>
             </div>
-            <a href="/admin/login" class="btn btn-secondary">[ ADMIN LOGIN ]</a>
+            <div class="button-group">
+                <a href="/admin/login" class="btn btn-primary" style="background: #0f172a; color: white;">[ ADMIN LOGIN ]</a>
+            </div>
         </div>
 
-        <!-- Donor Registration Card -->
-        <div class="card">
-            <div>
-                <div class="icon-box">📝</div>
-                <h2>Register as Donor</h2>
-                <p>Create a new donor account with full medical background and blood group verification.</p>
-            </div>
-            <a href="/register" class="btn btn-primary">[ REGISTER DONOR ]</a>
-        </div>
     </div>
 
-    <div class="footer-note">
-        Backend API Base URL: <code>/api/v1/auth</code> | Status: 🟢 Online
-    </div>
+    <!-- WHO IS THE ADMIN? SECTION -->
+    <section class="admin-info-section">
+        <div class="admin-info-header">
+            <span style="font-size: 1.8rem;">❓</span>
+            <h3>Who is the Admin?</h3>
+        </div>
+        <div class="admin-info-body">
+            <p>
+                The <strong>System Administrator (Admin)</strong> is an authorized manager responsible for overseeing blood bank inventory, approving blood requests, verifying donor eligibility, and auditing security logs. 
+            </p>
+            <p style="margin-top: 10px; color: var(--text-muted);">
+                🔒 <strong>Security Policy:</strong> Admin accounts <em>cannot be created publicly</em> via a registration form. Admin credentials are created securely during system setup.
+            </p>
+            
+            <div class="admin-credentials-box">
+                <div class="cred-item">
+                    <span class="cred-label">Seeded Admin Email:</span>
+                    <span class="cred-val">admin@raktdaan.org</span>
+                </div>
+                <div class="cred-item">
+                    <span class="cred-label">Password:</span>
+                    <span class="cred-val">Admin@RaktDaan123</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        RaktDaan Enterprise Blood Bank System &copy; 2026 | Built with Red & White Medical Design
+    </footer>
 
 </body>
 </html>
