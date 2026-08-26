@@ -23,7 +23,7 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-        h1, h2, h3, h4, .brand-name, .quote-text { font-family: 'Outfit', sans-serif; }
+        h1, h2, h3, h4, .brand-name { font-family: 'Outfit', sans-serif; }
 
         body {
             background-color: var(--bg-main);
@@ -118,7 +118,7 @@
 
         /* Hero Section */
         .hero {
-            padding: 70px 24px 50px;
+            padding: 60px 24px 50px;
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
@@ -128,7 +128,7 @@
         }
 
         @media (max-width: 900px) {
-            .hero { grid-template-columns: 1fr; text-align: center; gap: 40px; padding: 50px 24px; }
+            .hero { grid-template-columns: 1fr; text-align: center; gap: 40px; padding: 40px 24px; }
         }
 
         .hero-badge {
@@ -198,41 +198,24 @@
             transform: translateY(-2px);
         }
 
-        /* Quotations Featured Card */
-        .quote-hero-card {
+        /* SVG Medical Illustration Hero Card */
+        .illustration-card {
             background: white;
             border-radius: 24px;
-            padding: 40px;
+            padding: 35px;
             border: 2px solid var(--primary-border);
             box-shadow: var(--shadow-lg);
-            position: relative;
-            background-image: radial-gradient(var(--primary-light) 1px, transparent 1px);
-            background-size: 20px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
         }
 
-        .quote-mark {
-            font-size: 3.5rem;
-            color: var(--primary-border);
-            line-height: 1;
-            font-family: serif;
-            margin-bottom: 10px;
-        }
-
-        .quote-text {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: var(--primary-dark);
-            line-height: 1.4;
-            margin-bottom: 15px;
-            font-style: italic;
-        }
-
-        .quote-author {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        .illustration-svg {
+            width: 100%;
+            max-width: 320px;
+            height: auto;
         }
 
         /* Live Database Statistics Bar */
@@ -294,8 +277,8 @@
             display: inline-block;
         }
 
-        /* Quotations Grid Section */
-        .quotes-section {
+        /* Process Visual Drawings Section */
+        .process-section {
             max-width: 1200px;
             margin: 60px auto 80px;
             padding: 0 24px;
@@ -319,50 +302,63 @@
             font-size: 1.05rem;
         }
 
-        .quotes-grid {
+        .process-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 25px;
         }
 
         @media (max-width: 900px) {
-            .quotes-grid { grid-template-columns: 1fr; }
+            .process-grid { grid-template-columns: 1fr; }
         }
 
-        .quote-box {
+        .process-card {
             background: white;
             border: 1.5px solid var(--border-light);
             border-radius: 20px;
             padding: 30px;
             box-shadow: var(--shadow-sm);
             transition: all 0.3s ease;
+            text-align: center;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            align-items: center;
         }
 
-        .quote-box:hover {
+        .process-card:hover {
             border-color: var(--primary-border);
             box-shadow: var(--shadow-md);
             transform: translateY(-4px);
         }
 
-        .quote-box-text {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-dark);
-            line-height: 1.5;
+        .process-drawing {
+            width: 120px;
+            height: 120px;
             margin-bottom: 20px;
-            font-style: italic;
         }
 
-        .quote-box-footer {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .process-step-num {
+            background: var(--primary-light);
             color: var(--primary);
+            font-weight: 800;
+            font-size: 0.85rem;
+            padding: 4px 12px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border: 1px solid var(--primary-border);
+        }
+
+        .process-h3 {
+            font-size: 1.25rem;
             font-weight: 700;
-            font-size: 0.9rem;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .process-p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
         }
 
         /* Footer */
@@ -399,11 +395,11 @@
         <section class="hero">
             <div class="hero-content">
                 <div class="hero-badge">
-                    <span>❤️</span> Life-Saving Voluntary Donation
+                    <span>❤️</span> Voluntary Blood Donation System
                 </div>
                 <h1 class="hero-title">Connecting Donors with <span>Life-Saving</span> Need</h1>
                 <p class="hero-text">
-                    RaktDaan is a secure Blood Bank Management platform connecting voluntary donors, blood banks, and hospital emergency requests seamlessly.
+                    RaktDaan is a secure Blood Bank Management platform connecting voluntary blood donors, blood banks, and hospital emergency requests.
                 </p>
                 <div class="hero-cta">
                     <a href="/register" class="btn-lg btn-lg-primary">
@@ -412,14 +408,34 @@
                 </div>
             </div>
 
-            <!-- Featured Quotation Card -->
-            <div class="quote-hero-card">
-                <div class="quote-mark">“</div>
-                <div class="quote-text">
-                    “Tears of a mother cannot save her child, but your blood can. Be a hero, donate blood.”
+            <!-- Custom Medical Hero SVG Illustration Drawing -->
+            <div class="illustration-card">
+                <svg class="illustration-svg" viewBox="0 0 300 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Background Glow Circle -->
+                    <circle cx="150" cy="130" r="100" fill="#FFF1F2" stroke="#FECDD3" stroke-width="2"/>
+                    <!-- Blood Bag Drawing -->
+                    <rect x="110" y="55" width="80" height="120" rx="14" fill="#FFFFFF" stroke="#E11D48" stroke-width="4"/>
+                    <!-- Blood Liquid in Bag -->
+                    <path d="M112 110C112 110 130 100 150 110C170 120 188 110 188 110V161C188 168.732 181.732 175 174 175H126C118.268 175 112 168.732 112 161V110Z" fill="#E11D48"/>
+                    <!-- Medical Cross Symbol -->
+                    <rect x="144" y="70" width="12" height="24" rx="2" fill="#E11D48"/>
+                    <rect x="138" y="76" width="24" height="12" rx="2" fill="#E11D48"/>
+                    <!-- Bag Top Hanger -->
+                    <path d="M135 55V40C135 37.2386 137.239 35 140 35H160C162.761 35 165 37.2386 165 40V55" stroke="#BE123C" stroke-width="4"/>
+                    <circle cx="150" cy="45" r="4" fill="#BE123C"/>
+                    <!-- Tube Drawing -->
+                    <path d="M150 175V210C150 218.284 156.716 225 165 225H200" stroke="#E11D48" stroke-width="4" stroke-linecap="round" stroke-dasharray="4 4"/>
+                    <!-- Heart Pulse Drawing -->
+                    <path d="M40 140H70L78 120L88 160L98 130L106 140H130" stroke="#E11D48" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <!-- Floating Blood Drop Drawings -->
+                    <path d="M225 90C225 90 240 110 240 120C240 128.284 233.284 135 225 135C216.716 135 210 128.284 210 120C210 110 225 90 225 90Z" fill="#E11D48"/>
+                    <path d="M75 70C75 70 85 85 85 92C85 97.5228 80.5228 102 75 102C69.4772 102 65 97.5228 65 92C65 85 75 70 75 70Z" fill="#BE123C"/>
+                </svg>
+                <div style="margin-top: 15px; font-weight: 700; color: var(--primary-dark); font-size: 1.1rem;">
+                    Safe & Certified Blood Network
                 </div>
-                <div class="quote-author">
-                    — Blood Donation Motto
+                <div style="font-size: 0.88rem; color: var(--text-muted); margin-top: 4px;">
+                    100% Verified Donors & Temperature Controlled Stock
                 </div>
             </div>
         </section>
@@ -453,39 +469,55 @@
             </div>
         </section>
 
-        <!-- Blood Donation Quotations Grid Section -->
-        <section class="quotes-section">
+        <!-- Blood Donation Process Visual Drawings Section -->
+        <section class="process-section">
             <div class="section-title-box">
-                <h2 class="section-title">Inspirational Quotations</h2>
-                <p class="section-desc">Words that inspire thousands of voluntary donors across our network every day.</p>
+                <h2 class="section-title">Blood Donation Process</h2>
+                <p class="section-desc">Simple 3-step safe and voluntary donation workflow.</p>
             </div>
 
-            <div class="quotes-grid">
-                <div class="quote-box">
-                    <div class="quote-box-text">
-                        “A single drop of blood can create an ocean of hope for a patient in emergency.”
-                    </div>
-                    <div class="quote-box-footer">
-                        <span>❤️</span> Gift of Life
-                    </div>
+            <div class="process-grid">
+                <!-- Step 1 Drawing -->
+                <div class="process-card">
+                    <div class="process-step-num">STEP 01</div>
+                    <svg class="process-drawing" viewBox="0 0 100 100" fill="none">
+                        <circle cx="50" cy="50" r="45" fill="#FFF1F2" stroke="#FECDD3" stroke-width="2"/>
+                        <!-- Clipboard & Pen Drawing -->
+                        <rect x="30" y="25" width="40" height="52" rx="6" fill="white" stroke="#E11D48" stroke-width="3"/>
+                        <rect x="40" y="20" width="20" height="8" rx="2" fill="#E11D48"/>
+                        <line x1="38" y1="38" x2="62" y2="38" stroke="#E11D48" stroke-width="3" stroke-linecap="round"/>
+                        <line x1="38" y1="48" x2="62" y2="48" stroke="#E11D48" stroke-width="3" stroke-linecap="round"/>
+                        <line x1="38" y1="58" x2="52" y2="58" stroke="#E11D48" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
+                    <h3 class="process-h3">Donor Registration</h3>
+                    <p class="process-p">Register your medical profile, blood group, age eligibility, and contact details.</p>
                 </div>
 
-                <div class="quote-box">
-                    <div class="quote-box-text">
-                        “Donate your blood today so that someone can celebrate another tomorrow.”
-                    </div>
-                    <div class="quote-box-footer">
-                        <span>🩸</span> Save Lives
-                    </div>
+                <!-- Step 2 Drawing -->
+                <div class="process-card">
+                    <div class="process-step-num">STEP 02</div>
+                    <svg class="process-drawing" viewBox="0 0 100 100" fill="none">
+                        <circle cx="50" cy="50" r="45" fill="#FFF1F2" stroke="#FECDD3" stroke-width="2"/>
+                        <!-- Blood Drop & Shield Drawing -->
+                        <path d="M50 20C50 20 75 50 75 64C75 77.8071 63.8071 89 50 89C36.1929 89 25 77.8071 25 64C25 50 50 20 50 20Z" fill="#E11D48"/>
+                        <!-- Shield Pulse in Drop -->
+                        <path d="M42 58L47 63L58 52" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <h3 class="process-h3">Health Check & Donation</h3>
+                    <p class="process-p">Quick 10-minute safe donation conducted by trained blood bank healthcare professionals.</p>
                 </div>
 
-                <div class="quote-box">
-                    <div class="quote-box-text">
-                        “You don't need an extra power to be a superhero. Just donate blood!”
-                    </div>
-                    <div class="quote-box-footer">
-                        <span>🛡️</span> Everyday Heroes
-                    </div>
+                <!-- Step 3 Drawing -->
+                <div class="process-card">
+                    <div class="process-step-num">STEP 03</div>
+                    <svg class="process-drawing" viewBox="0 0 100 100" fill="none">
+                        <circle cx="50" cy="50" r="45" fill="#FFF1F2" stroke="#FECDD3" stroke-width="2"/>
+                        <!-- Heart & Pulse Gift Drawing -->
+                        <path d="M50 35C45 -5 10 25 32 50L50 68L68 50C90 25 55 -5 50 35Z" fill="#E11D48"/>
+                        <path d="M25 78H75" stroke="#BE123C" stroke-width="4" stroke-linecap="round"/>
+                    </svg>
+                    <h3 class="process-h3">Save Up To 3 Lives</h3>
+                    <p class="process-p">Your single blood donation unit is tested, processed, and dispatched to save hospital patients.</p>
                 </div>
             </div>
         </section>
