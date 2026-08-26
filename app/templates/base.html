@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="RaktDaan - Enterprise Voluntary Blood Bank Management System. Connecting blood donors, hospitals, and emergency requests across India.">
+    <meta name="keywords" content="RaktDaan, Blood Bank, Blood Donation, Donate Blood, Voluntary Blood Donor, Emergency Blood Request">
+    <meta name="author" content="RaktDaan Enterprise Team">
+    <title>{% block title %}RaktDaan - Blood Bank & Voluntary Donor Network{% endblock %}</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- CSS Architecture -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tokens.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tables.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/blood-cards.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/blood-info.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/awareness.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/accessibility.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/print.css') }}" media="print">
+
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <div class="page-wrapper">
+        <!-- Emergency Announcement Bar -->
+        <div class="emergency-bar" role="region" aria-label="Emergency Announcement">
+            <div class="emergency-bar-content">
+                <span class="emergency-badge">24/7 Emergency</span>
+                <span>Urgent Blood Requests & Hospital Supplies Active in Network</span>
+                <a href="#blood-availability" class="emergency-link">Check Blood Stock →</a>
+            </div>
+        </div>
+
+        <!-- Global Header Navbar -->
+        {% include "components/navbar.html" %}
+
+        <!-- Flash & Notification Area -->
+        {% include "components/flash_messages.html" %}
+
+        <!-- Main Page Content Block -->
+        <main id="main-content" class="main-content">
+            {% block content %}{% endblock %}
+        </main>
+
+        <!-- Global Footer -->
+        {% include "components/footer.html" %}
+    </div>
+
+    <!-- JavaScript Core Modules -->
+    <script src="{{ url_for('static', filename='js/common.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/navigation.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/notifications.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/modal.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/tabs.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/accordion.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/dropdown.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/validation.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/password-toggle.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/search.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/filters.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/sorting.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/pagination.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/blood-availability.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/charts-ui.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/eligibility-checker.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/blood-compatibility-tool.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/contact.js') }}"></script>
+    
+    {% block scripts %}{% endblock %}
+</body>
+</html>

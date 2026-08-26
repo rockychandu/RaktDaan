@@ -1,0 +1,14 @@
+{% macro render_request_card(request_id, blood_group, hospital, city, status='Pending Approval') %}
+<div class="card" style="margin-bottom: 16px;">
+    <div class="flex-between" style="margin-bottom: 10px;">
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <div class="blood-type-badge" style="width: 40px; height: 40px; font-size: 1rem; margin: 0;">{{ blood_group }}</div>
+            <div>
+                <strong style="font-size: 0.95rem;">{{ hospital }}</strong>
+                <div style="font-size: 0.8rem; color: var(--text-muted);">{{ city }} • {{ request_id }}</div>
+            </div>
+        </div>
+        <span class="badge badge-warning">{{ status }}</span>
+    </div>
+</div>
+{% endmacro %}

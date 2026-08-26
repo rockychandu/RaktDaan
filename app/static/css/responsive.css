@@ -1,0 +1,29 @@
+/* Responsive Queries Matrix */
+
+@media (max-width: 1200px) {
+  .dashboard-grid, .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 992px) {
+  .hero-grid { grid-template-columns: 1fr; text-align: center; }
+  .motto-card { margin-top: 32px; }
+  .grid-3 { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .navbar-nav { display: none; }
+  .mobile-nav-toggle { display: block; }
+  .dashboard-layout { flex-direction: column; }
+  .dashboard-sidebar { width: 100%; border-right: none; border-bottom: 1.5px solid var(--border-light); }
+  .dashboard-main { padding: 24px 16px; }
+  .form-row { grid-template-columns: 1fr; }
+  .process-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 576px) {
+  .container { padding-left: 1rem; padding-right: 1rem; }
+  .hero-title { font-size: 2.25rem; }
+  .motto-card { padding: 24px 16px; }
+  .motto-svg { max-width: 180px; }
+}

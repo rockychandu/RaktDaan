@@ -1,0 +1,80 @@
+<footer class="footer" role="contentinfo">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="brand-link" style="margin-bottom: 14px; display: flex; align-items: center;">
+                    <svg class="brand-logo-svg" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
+                        <path d="M16 3C16 3 25 13.5 25 19.5C25 24.4706 20.9706 28.5 16 28.5C11.0294 28.5 7 24.4706 7 19.5C7 13.5 16 3 16 3Z" fill="url(#footerLogoGrad)" stroke="#E11D48" stroke-width="1.5"/>
+                        <path d="M11 20H13.5L15 17L17 22L18.5 19.5L19.5 20H21" stroke="white" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                        <defs>
+                            <linearGradient id="footerLogoGrad" x1="16" y1="3" x2="16" y2="28.5" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#E11D48"/>
+                                <stop offset="1" stop-color="#9F1239"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <span class="brand-name" style="color: white; font-family: var(--font-heading); font-weight: 800; font-size: 1.4rem; margin-left: 10px;">RaktDaan</span>
+                </div>
+                <p>
+                    RaktDaan is a secure, voluntary blood donation platform connecting generous blood donors, licensed blood banks, and hospital emergency requests.
+                </p>
+                <div class="emergency-contact-box">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: #94a3b8; text-transform: uppercase;">Emergency Helpline</span>
+                    <div class="emergency-phone">📞 1800-RAKT-DAAN</div>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="footer-heading">Quick Links</h4>
+                <div class="footer-links">
+                    <a href="{{ url_for('ui.index_page') }}">Home</a>
+                    <a href="#about">About RaktDaan</a>
+                    <a href="#services">Services</a>
+                    <a href="#why-donate">Donate Blood</a>
+                    <a href="#blood-availability">Blood Availability</a>
+                    <a href="#request-blood">Request Blood</a>
+                    <a href="#faq">FAQ</a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="footer-heading">Portals</h4>
+                <div class="footer-links">
+                    <a href="{{ url_for('ui.donor_login_page') }}">Donor Login</a>
+                    <a href="{{ url_for('ui.admin_login_page') }}">Admin Console</a>
+                    <a href="{{ url_for('ui.register_page') }}">Donor Registration</a>
+                    <a href="{{ url_for('ui.donor_dashboard_page') }}">Donor Dashboard</a>
+                    <a href="{{ url_for('ui.admin_dashboard_page') }}">Admin Dashboard</a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="footer-heading">Blood Types</h4>
+                <p style="font-size: 0.875rem; color: #94a3b8; margin-bottom: 14px;">
+                    Voluntary donation saves lives. We manage all 8 major blood group types:
+                </p>
+                <div>
+                    <span class="blood-badge-inline">A+</span>
+                    <span class="blood-badge-inline">A-</span>
+                    <span class="blood-badge-inline">B+</span>
+                    <span class="blood-badge-inline">B-</span>
+                    <span class="blood-badge-inline">AB+</span>
+                    <span class="blood-badge-inline">AB-</span>
+                    <span class="blood-badge-inline">O+</span>
+                    <span class="blood-badge-inline">O-</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div>
+                &copy; 2026 RaktDaan. All rights reserved.
+            </div>
+            <div class="footer-bottom-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Security Audit</a>
+            </div>
+        </div>
+    </div>
+</footer>

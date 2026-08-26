@@ -1,0 +1,163 @@
+/* ==========================================================================
+   RaktDaan Spacious Enterprise Navbar Architecture
+   ========================================================================== */
+
+.navbar {
+  background-color: var(--bg-surface);
+  border-bottom: 1.5px solid var(--border-light);
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06);
+}
+
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 84px;
+  gap: 32px;
+}
+
+/* Brand Logo Link */
+.brand-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 6px 0;
+  flex-shrink: 0;
+}
+
+.brand-icon-wrapper {
+  width: 44px;
+  height: 44px;
+  background: var(--primary-light);
+  border: 1.5px solid var(--primary-border);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition-fast);
+}
+
+.brand-link:hover .brand-icon-wrapper {
+  transform: scale(1.05);
+}
+
+.brand-name {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  margin-left: 12px;
+}
+
+/* Navigation Links Container */
+.nav-menu, .navbar-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-link {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.nav-link:hover {
+  color: var(--primary);
+  background-color: var(--primary-light);
+}
+
+.nav-link.active {
+  color: var(--primary);
+  font-weight: 800;
+  background-color: var(--primary-light);
+}
+
+/* Authentication Action Buttons Container */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.btn-nav-login {
+  padding: 10px 20px;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--text-primary);
+  background: transparent;
+  border: 1.5px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.btn-nav-login:hover {
+  border-color: var(--primary-border);
+  color: var(--primary);
+  background-color: var(--primary-light);
+}
+
+.btn-nav-admin {
+  padding: 10px 20px;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--secondary-700);
+  background: var(--secondary-100);
+  border: 1.5px solid var(--secondary-200);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.btn-nav-admin:hover {
+  background: var(--secondary-200);
+  color: var(--secondary-900);
+}
+
+.btn-nav-register {
+  padding: 10px 24px;
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  color: #ffffff;
+  background: var(--primary);
+  border: 1.5px solid var(--primary);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  box-shadow: var(--shadow-primary);
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.btn-nav-register:hover {
+  background: var(--primary-dark);
+  border-color: var(--primary-dark);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* Mobile Toggle */
+.mobile-toggle, .mobile-nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  cursor: pointer;
+  padding: 8px;
+}

@@ -1,0 +1,23 @@
+{% macro render_hero(title, subtitle, primary_btn_text, primary_btn_url, secondary_btn_text=None, secondary_btn_url=None) %}
+<section class="hero-section">
+    <div class="container hero-grid">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span>❤️</span> RaktDaan Voluntary Network
+            </div>
+            <h1 class="hero-title">{{ title|safe }}</h1>
+            <p class="hero-description">{{ subtitle }}</p>
+            <div class="hero-cta-group">
+                <a href="{{ primary_btn_url }}" class="btn btn-primary btn-lg">
+                    <span>🩸</span> {{ primary_btn_text }}
+                </a>
+                {% if secondary_btn_text and secondary_btn_url %}
+                <a href="{{ secondary_btn_url }}" class="btn btn-outline btn-lg">
+                    <span>🔍</span> {{ secondary_btn_text }}
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endmacro %}

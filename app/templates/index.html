@@ -1,542 +1,261 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RaktDaan - Blood Bank & Donor Network</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #e11d48;
-            --primary-dark: #be123c;
-            --primary-hover: #9f1239;
-            --primary-light: #fff1f2;
-            --primary-border: #fecdd3;
-            --bg-main: #fafafa;
-            --card-bg: #ffffff;
-            --text-dark: #0f172a;
-            --text-muted: #64748b;
-            --border-light: #f1f5f9;
-            --shadow-sm: 0 4px 12px rgba(225, 29, 72, 0.04);
-            --shadow-md: 0 12px 30px rgba(225, 29, 72, 0.08);
-            --shadow-lg: 0 20px 40px rgba(225, 29, 72, 0.12);
-        }
+{% extends "base.html" %}
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-        h1, h2, h3, h4, .brand-name, .motto-quote { font-family: 'Outfit', sans-serif; }
+{% block title %}RaktDaan - Enterprise Blood Bank & Voluntary Donor Network{% endblock %}
 
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-dark);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Top Navbar */
-        .navbar {
-            background: var(--card-bg);
-            border-bottom: 1px solid var(--border-light);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 24px;
-        }
-
-        .brand-link {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-        }
-
-        .brand-icon {
-            width: 44px;
-            height: 44px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            box-shadow: 0 4px 14px rgba(225, 29, 72, 0.3);
-        }
-
-        .brand-name {
-            font-size: 1.7rem;
-            font-weight: 800;
-            color: var(--primary-dark);
-            letter-spacing: -0.5px;
-        }
-
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .btn-nav-donor {
-            background: var(--primary);
-            color: white;
-            padding: 10px 22px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 12px rgba(225, 29, 72, 0.25);
-        }
-
-        .btn-nav-donor:hover {
-            background: var(--primary-dark);
-        }
-
-        .btn-nav-admin {
-            background: #0f172a;
-            color: white;
-            padding: 10px 22px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.2s ease;
-        }
-
-        .btn-nav-admin:hover {
-            background: #1e293b;
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 60px 24px 50px;
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-        }
-
-        @media (max-width: 900px) {
-            .hero { grid-template-columns: 1fr; text-align: center; gap: 40px; padding: 40px 24px; }
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--primary-light);
-            color: var(--primary);
-            border: 1px solid var(--primary-border);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.88rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-
-        .hero-title {
-            font-size: 3.2rem;
-            font-weight: 800;
-            line-height: 1.15;
-            color: var(--text-dark);
-            margin-bottom: 20px;
-            letter-spacing: -1px;
-        }
-
-        .hero-title span {
-            color: var(--primary);
-        }
-
-        .hero-text {
-            font-size: 1.15rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-            margin-bottom: 35px;
-        }
-
-        .hero-cta {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        @media (max-width: 900px) {
-            .hero-cta { justify-content: center; }
-        }
-
-        .btn-lg {
-            padding: 16px 32px;
-            font-size: 1.05rem;
-            border-radius: 12px;
-            font-weight: 700;
-            text-decoration: none;
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .btn-lg-primary {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 8px 20px rgba(225, 29, 72, 0.3);
-        }
-
-        .btn-lg-primary:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-        }
-
-        /* Motto & Image Hero Card */
-        .motto-card {
-            background: white;
-            border-radius: 24px;
-            padding: 40px;
-            border: 2px solid var(--primary-border);
-            box-shadow: var(--shadow-lg);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            background-image: radial-gradient(var(--primary-light) 1px, transparent 1px);
-            background-size: 24px 24px;
-        }
-
-        .motto-svg {
-            width: 100%;
-            max-width: 220px;
-            height: auto;
-            margin-bottom: 20px;
-        }
-
-        .motto-quote {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--primary-dark);
-            font-style: italic;
-            line-height: 1.5;
-            margin-bottom: 12px;
-        }
-
-        .motto-author {
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: var(--text-muted);
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-
-        /* Live Database Statistics Bar */
-        .stats-bar {
-            background: white;
-            border-y: 1px solid var(--border-light);
-            padding: 40px 24px;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .stats-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            text-align: center;
-        }
-
-        @media (max-width: 768px) {
-            .stats-container { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        .stat-card {
-            background: var(--bg-main);
-            border: 1.5px solid var(--border-light);
-            border-radius: 16px;
-            padding: 24px 16px;
-            transition: all 0.2s;
-        }
-
-        .stat-card:hover {
-            border-color: var(--primary-border);
-            transform: translateY(-2px);
-        }
-
-        .stat-num {
-            font-size: 2.6rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 4px;
-            font-family: 'Outfit', sans-serif;
-        }
-
-        .stat-label {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            font-weight: 600;
-        }
-
-        .stat-badge {
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: #047857;
-            background: #ecfdf5;
-            padding: 2px 8px;
-            border-radius: 10px;
-            margin-top: 6px;
-            display: inline-block;
-        }
-
-        /* Process Visual Drawings Section */
-        .process-section {
-            max-width: 1200px;
-            margin: 60px auto 80px;
-            padding: 0 24px;
-        }
-
-        .section-title-box {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto 40px;
-        }
-
-        .section-title {
-            font-size: 2.2rem;
-            font-weight: 800;
-            margin-bottom: 10px;
-            color: var(--text-dark);
-        }
-
-        .section-desc {
-            color: var(--text-muted);
-            font-size: 1.05rem;
-        }
-
-        .process-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-        }
-
-        @media (max-width: 900px) {
-            .process-grid { grid-template-columns: 1fr; }
-        }
-
-        .process-card {
-            background: white;
-            border: 1.5px solid var(--border-light);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: var(--shadow-sm);
-            transition: all 0.3s ease;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .process-card:hover {
-            border-color: var(--primary-border);
-            box-shadow: var(--shadow-md);
-            transform: translateY(-4px);
-        }
-
-        .process-drawing {
-            width: 120px;
-            height: 120px;
-            margin-bottom: 20px;
-        }
-
-        .process-step-num {
-            background: var(--primary-light);
-            color: var(--primary);
-            font-weight: 800;
-            font-size: 0.85rem;
-            padding: 4px 12px;
-            border-radius: 12px;
-            margin-bottom: 12px;
-            border: 1px solid var(--primary-border);
-        }
-
-        .process-h3 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: var(--text-dark);
-        }
-
-        .process-p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-
-        /* Footer */
-        .footer {
-            margin-top: auto;
-            background: white;
-            border-top: 1px solid var(--border-light);
-            padding: 30px 24px;
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Header Navbar -->
-    <header class="navbar">
-        <div class="nav-container">
-            <a href="/" class="brand-link">
-                <div class="brand-icon">🩸</div>
-                <span class="brand-name">RaktDaan</span>
-            </a>
-
-            <div class="nav-actions">
-                <a href="/donor/login" class="btn-nav-donor">Donor Portal</a>
-                <a href="/admin/login" class="btn-nav-admin">Admin Portal</a>
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container hero-grid">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span>❤️</span> Voluntary Blood Donation Management System
+            </div>
+            <h1 class="hero-title">Connecting Donors with <span>Life-Saving</span> Need</h1>
+            <p class="hero-description">
+                RaktDaan is an enterprise digital Blood Bank platform connecting voluntary blood donors, accredited repositories, and hospital emergency requests across India.
+            </p>
+            <div class="hero-cta-group">
+                <a href="{{ url_for('ui.register_page') }}" class="btn btn-primary btn-lg">
+                    <span>🩸</span> Register as Donor
+                </a>
+                <a href="#find-blood-section" class="btn btn-outline btn-lg">
+                    <span>🔍</span> Search Live Stock
+                </a>
             </div>
         </div>
-    </header>
 
-    <!-- Main Hero Section -->
-    <main>
-        <section class="hero">
-            <div class="hero-content">
-                <div class="hero-badge">
-                    <span>❤️</span> Voluntary Blood Donation System
+        <!-- RaktDaan Motto Artwork Card -->
+        <div class="motto-card">
+            <svg class="motto-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="100" cy="100" r="85" fill="#FFF1F2" stroke="#FECDD3" stroke-width="2"/>
+                <path d="M100 25C100 25 155 90 155 125C155 155.376 130.376 180 100 180C69.6243 180 45 155.376 45 125C45 90 100 25 100 25Z" fill="url(#mottoGrad)"/>
+                <path d="M100 95C92 72 65 88 80 110L100 130L120 110C135 88 108 72 100 95Z" fill="white"/>
+                <defs>
+                    <linearGradient id="mottoGrad" x1="100" y1="25" x2="100" y2="180" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#E11D48"/>
+                        <stop offset="1" stop-color="#BE123C"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+
+            <div class="motto-quote">
+                “Tears of a mother cannot save her child, but your blood can. Be a hero, donate blood.”
+            </div>
+            <div class="motto-author">
+                — RaktDaan Voluntary Motto
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Live Database Statistics Bar -->
+<section class="section-padding bg-surface" style="border-y: 1px solid var(--border-light);">
+    <div class="container">
+        <div class="grid-4">
+            <div class="card text-center">
+                <div class="font-heading" style="font-size: 2.75rem; font-weight: 800; color: var(--primary); line-height: 1.1;">
+                    {{ total_donors }}
                 </div>
-                <h1 class="hero-title">Connecting Donors with <span>Life-Saving</span> Need</h1>
-                <p class="hero-text">
-                    RaktDaan is a secure Blood Bank Management platform connecting voluntary blood donors, blood banks, and hospital emergency requests.
-                </p>
-                <div class="hero-cta">
-                    <a href="/register" class="btn-lg btn-lg-primary">
-                        <span>🩸</span> Register as Donor
-                    </a>
-                </div>
+                <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-muted);">Registered Donors</div>
+                <span class="badge badge-success" style="margin-top: 8px;">Live DB Count</span>
             </div>
 
-            <!-- RaktDaan Motto & Blood Drop Heart Artwork Card -->
-            <div class="motto-card">
-                <svg class="motto-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Glow Circle -->
-                    <circle cx="100" cy="100" r="85" fill="#FFF1F2" stroke="#FECDD3" stroke-width="2"/>
-                    <!-- Crimson Blood Drop Artwork -->
-                    <path d="M100 25C100 25 155 90 155 125C155 155.376 130.376 180 100 180C69.6243 180 45 155.376 45 125C45 90 100 25 100 25Z" fill="url(#mottoGrad)"/>
-                    <!-- White Heart Artwork Inside Drop -->
-                    <path d="M100 95C92 72 65 88 80 110L100 130L120 110C135 88 108 72 100 95Z" fill="white"/>
-                    <defs>
-                        <linearGradient id="mottoGrad" x1="100" y1="25" x2="100" y2="180" gradientUnits="userSpaceOnUse">
-                            <stop stop-color="#E11D48"/>
-                            <stop offset="1" stop-color="#BE123C"/>
-                        </linearGradient>
-                    </defs>
+            <div class="card text-center">
+                <div class="font-heading" style="font-size: 2.75rem; font-weight: 800; color: var(--primary); line-height: 1.1;">
+                    {{ total_units }}
+                </div>
+                <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-muted);">Available Units</div>
+                <span class="badge badge-success" style="margin-top: 8px;">Live Inventory</span>
+            </div>
+
+            <div class="card text-center">
+                <div class="font-heading" style="font-size: 2.75rem; font-weight: 800; color: var(--primary); line-height: 1.1;">
+                    {{ total_cities }}
+                </div>
+                <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-muted);">Active Cities</div>
+                <span class="badge badge-success" style="margin-top: 8px;">Network Coverage</span>
+            </div>
+
+            <div class="card text-center">
+                <div class="font-heading" style="font-size: 2.75rem; font-weight: 800; color: var(--primary); line-height: 1.1;">
+                    {{ total_users }}
+                </div>
+                <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-muted);">System Accounts</div>
+                <span class="badge badge-success" style="margin-top: 8px;">Verified Records</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Live Blood Availability Section -->
+{% include "home/blood_availability.html" %}
+
+<!-- Public Find Blood Search Utility -->
+{% include "public_services/find_blood.html" %}
+
+<!-- Voluntary Donation 3-Step Process -->
+<section id="why-donate" class="section-padding bg-light">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Simple & Safe Workflow</span>
+            <h2 class="section-title">Voluntary Blood Donation Process</h2>
+            <p class="section-subtitle">A safe 3-step voluntary donation process conducted by healthcare professionals.</p>
+        </div>
+
+        <div class="process-grid">
+            <div class="process-card">
+                <span class="process-step-badge">STEP 01</span>
+                <svg class="process-drawing" viewBox="0 0 100 100" fill="none">
+                    <circle cx="50" cy="50" r="45" fill="#FFF1F2" stroke="#FECDD3" stroke-width="2"/>
+                    <rect x="30" y="25" width="40" height="52" rx="6" fill="white" stroke="#E11D48" stroke-width="3"/>
+                    <rect x="40" y="20" width="20" height="8" rx="2" fill="#E11D48"/>
+                    <line x1="38" y1="38" x2="62" y2="38" stroke="#E11D48" stroke-width="3" stroke-linecap="round"/>
+                    <line x1="38" y1="48" x2="62" y2="48" stroke="#E11D48" stroke-width="3" stroke-linecap="round"/>
                 </svg>
-
-                <div class="motto-quote">
-                    “Tears of a mother cannot save her child, but your blood can. Be a hero, donate blood.”
-                </div>
-                <div class="motto-author">
-                    — RaktDaan Motto
-                </div>
-            </div>
-        </section>
-
-        <!-- Live Database Statistics Bar -->
-        <section class="stats-bar">
-            <div class="stats-container">
-                <div class="stat-card">
-                    <div class="stat-num">{{ total_donors }}</div>
-                    <div class="stat-label">Registered Donors</div>
-                    <div class="stat-badge">Live DB Count</div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-num">{{ total_units }}</div>
-                    <div class="stat-label">Units Available</div>
-                    <div class="stat-badge">Live Inventory</div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-num">{{ total_cities }}</div>
-                    <div class="stat-label">Active Cities</div>
-                    <div class="stat-badge">Network Coverage</div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-num">{{ total_users }}</div>
-                    <div class="stat-label">System Accounts</div>
-                    <div class="stat-badge">Verified Records</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Blood Donation Process Visual Drawings Section -->
-        <section class="process-section">
-            <div class="section-title-box">
-                <h2 class="section-title">Blood Donation Process</h2>
-                <p class="section-desc">Simple 3-step safe and voluntary donation workflow.</p>
+                <h3 class="process-title">1. Donor Registration</h3>
+                <p class="process-text">Register your profile, blood group, age eligibility, and contact details in seconds.</p>
             </div>
 
-            <div class="process-grid">
-                <!-- Step 1 Drawing -->
-                <div class="process-card">
-                    <div class="process-step-num">STEP 01</div>
-                    <svg class="process-drawing" viewBox="0 0 100 100" fill="none">
-                        <circle cx="50" cy="50" r="45" fill="#FFF1F2" stroke="#FECDD3" stroke-width="2"/>
-                        <rect x="30" y="25" width="40" height="52" rx="6" fill="white" stroke="#E11D48" stroke-width="3"/>
-                        <rect x="40" y="20" width="20" height="8" rx="2" fill="#E11D48"/>
-                        <line x1="38" y1="38" x2="62" y2="38" stroke="#E11D48" stroke-width="3" stroke-linecap="round"/>
-                        <line x1="38" y1="48" x2="62" y2="48" stroke="#E11D48" stroke-width="3" stroke-linecap="round"/>
-                        <line x1="38" y1="58" x2="52" y2="58" stroke="#E11D48" stroke-width="3" stroke-linecap="round"/>
-                    </svg>
-                    <h3 class="process-h3">Donor Registration</h3>
-                    <p class="process-p">Register your medical profile, blood group, age eligibility, and contact details.</p>
-                </div>
-
-                <!-- Step 2 Drawing -->
-                <div class="process-card">
-                    <div class="process-step-num">STEP 02</div>
-                    <svg class="process-drawing" viewBox="0 0 100 100" fill="none">
-                        <circle cx="50" cy="50" r="45" fill="#FFF1F2" stroke="#FECDD3" stroke-width="2"/>
-                        <path d="M50 20C50 20 75 50 75 64C75 77.8071 63.8071 89 50 89C36.1929 89 25 77.8071 25 64C25 50 50 20 50 20Z" fill="#E11D48"/>
-                        <path d="M42 58L47 63L58 52" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <h3 class="process-h3">Health Check & Donation</h3>
-                    <p class="process-p">Quick 10-minute safe donation conducted by trained blood bank healthcare professionals.</p>
-                </div>
-
-                <!-- Step 3 Drawing -->
-                <div class="process-card">
-                    <div class="process-step-num">STEP 03</div>
-                    <svg class="process-drawing" viewBox="0 0 100 100" fill="none">
-                        <circle cx="50" cy="50" r="45" fill="#FFF1F2" stroke="#FECDD3" stroke-width="2"/>
-                        <path d="M50 35C45 -5 10 25 32 50L50 68L68 50C90 25 55 -5 50 35Z" fill="#E11D48"/>
-                        <path d="M25 78H75" stroke="#BE123C" stroke-width="4" stroke-linecap="round"/>
-                    </svg>
-                    <h3 class="process-h3">Save Up To 3 Lives</h3>
-                    <p class="process-p">Your single blood donation unit is tested, processed, and dispatched to save hospital patients.</p>
-                </div>
+            <div class="process-card">
+                <span class="process-step-badge">STEP 02</span>
+                <svg class="process-drawing" viewBox="0 0 100 100" fill="none">
+                    <circle cx="50" cy="50" r="45" fill="#FFF1F2" stroke="#FECDD3" stroke-width="2"/>
+                    <path d="M50 20C50 20 75 50 75 64C75 77.8071 63.8071 89 50 89C36.1929 89 25 77.8071 25 64C25 50 50 20 50 20Z" fill="#E11D48"/>
+                    <path d="M42 58L47 63L58 52" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <h3 class="process-title">2. Health Screening & Donation</h3>
+                <p class="process-text">Quick 10-minute safe collection conducted using single-use sterile medical equipment.</p>
             </div>
-        </section>
-    </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        RaktDaan Blood Bank Management System &copy; 2026 | Built with Clean Red & White Architecture
-    </footer>
+            <div class="process-card">
+                <span class="process-step-badge">STEP 03</span>
+                <svg class="process-drawing" viewBox="0 0 100 100" fill="none">
+                    <circle cx="50" cy="50" r="45" fill="#FFF1F2" stroke="#FECDD3" stroke-width="2"/>
+                    <path d="M50 35C45 -5 10 25 32 50L50 68L68 50C90 25 55 -5 50 35Z" fill="#E11D48"/>
+                    <path d="M25 78H75" stroke="#BE123C" stroke-width="4" stroke-linecap="round"/>
+                </svg>
+                <h3 class="process-title">3. Save Up To 3 Lives</h3>
+                <p class="process-text">Your single voluntary unit is tested, processed, and dispatched to hospital emergency units.</p>
+            </div>
+        </div>
+    </div>
+</section>
 
-</body>
-</html>
+<!-- Educational Guides & Emergency Logistics -->
+{% include "blood_info/donation_guide.html" %}
+{% include "blood_info/preparation.html" %}
+{% include "blood_info/aftercare.html" %}
+{% include "blood_info/eligibility.html" %}
+{% include "blood_info/emergency_info.html" %}
+
+<!-- Educational Blood Compatibility Matrix -->
+<section class="section-padding bg-surface">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Educational Reference</span>
+            <h2 class="section-title">Blood Group Compatibility Matrix</h2>
+            <p class="section-subtitle">Understanding donor and recipient blood group matching for safe transfusions.</p>
+        </div>
+
+        <div class="compatibility-card">
+            <div class="compatibility-table-wrapper">
+                <table class="compatibility-table">
+                    <thead>
+                        <tr>
+                            <th>Blood Type</th>
+                            <th>Can Give Blood To (Donates To)</th>
+                            <th>Can Receive Blood From (Receives From)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="blood-badge-inline">A+</span></td>
+                            <td>A+, AB+</td>
+                            <td>A+, A-, O+, O-</td>
+                        </tr>
+                        <tr>
+                            <td><span class="blood-badge-inline">O+</span></td>
+                            <td>O+, A+, B+, AB+</td>
+                            <td>O+, O-</td>
+                        </tr>
+                        <tr>
+                            <td><span class="blood-badge-inline">B+</span></td>
+                            <td>B+, AB+</td>
+                            <td>B+, B-, O+, O-</td>
+                        </tr>
+                        <tr>
+                            <td><span class="blood-badge-inline">AB+</span></td>
+                            <td>AB+ Only (Universal Recipient)</td>
+                            <td>All Blood Types (A+, A-, B+, B-, AB+, AB-, O+, O-)</td>
+                        </tr>
+                        <tr>
+                            <td><span class="blood-badge-inline">A-</span></td>
+                            <td>A+, A-, AB+, AB-</td>
+                            <td>A-, O-</td>
+                        </tr>
+                        <tr>
+                            <td><span class="blood-badge-inline">O-</span></td>
+                            <td>Universal Donor (All Blood Types)</td>
+                            <td>O- Only</td>
+                        </tr>
+                        <tr>
+                            <td><span class="blood-badge-inline">B-</span></td>
+                            <td>B+, B-, AB+, AB-</td>
+                            <td>B-, O-</td>
+                        </tr>
+                        <tr>
+                            <td><span class="blood-badge-inline">AB-</span></td>
+                            <td>AB+, AB-</td>
+                            <td>AB-, A-, B-, O-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Community Awareness & Volunteer Section -->
+{% include "awareness/benefits.html" %}
+{% include "awareness/myths_facts.html" %}
+{% include "awareness/community_impact.html" %}
+{% include "awareness/campaigns.html" %}
+{% include "awareness/events.html" %}
+{% include "awareness/success_stories.html" %}
+{% include "awareness/volunteer.html" %}
+
+<!-- Emergency Support Services -->
+{% include "public_services/emergency_support.html" %}
+{% include "public_services/help_center.html" %}
+{% include "public_services/feedback.html" %}
+
+<!-- About & Services Sections -->
+{% include "home/about.html" %}
+{% include "home/services.html" %}
+
+<!-- Emergency Blood Request Banner (Member 5 CTA) -->
+<section id="request-blood" class="section-padding" style="background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%); color: white;">
+    <div class="container text-center">
+        <span class="badge badge-danger" style="margin-bottom: 16px;">EMERGENCY SUPPORT</span>
+        <h2 style="color: white; font-size: 2.5rem; margin-bottom: 14px;">In Urgent Need of Blood?</h2>
+        <p style="color: #cbd5e1; max-width: 600px; margin: 0 auto 30px; font-size: 1.1rem;">
+            Submit an immediate emergency request to broadcast requirement to voluntary donors and blood banks in your city.
+        </p>
+        <button class="btn btn-primary btn-lg" onclick="showToast('Redirecting to Emergency Blood Request Form... (Member 5 Integration)', 'info')">
+            <span>🚨</span> Submit Emergency Blood Request
+        </button>
+    </div>
+</section>
+
+<!-- FAQ Accordion -->
+{% include "home/faq.html" %}
+
+<!-- Legal & Compliance Disclosures -->
+{% include "legal/privacy_policy.html" %}
+{% include "legal/terms.html" %}
+{% include "legal/accessibility.html" %}
+{% include "legal/safety_guidelines.html" %}
+
+<!-- Contact Section -->
+{% include "home/contact.html" %}
+{% endblock %}

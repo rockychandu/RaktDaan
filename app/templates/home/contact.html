@@ -1,0 +1,62 @@
+<section id="contact" class="section-padding bg-surface">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Get in Touch</span>
+            <h2 class="section-title">Emergency Contact & Support</h2>
+            <p class="section-subtitle">
+                Our support team and 24/7 blood helpline are ready to assist you. Reach out for voluntary donation camps or emergency support.
+            </p>
+        </div>
+
+        <div class="grid-2" style="margin-top: 40px;">
+            <div class="card">
+                <h3 style="margin-bottom: 20px;">Contact Information</h3>
+                
+                <div style="display: flex; flex-direction: column; gap: 16px;">
+                    <div style="display: flex; gap: 14px; align-items: center;">
+                        <div class="metric-icon-box">📍</div>
+                        <div>
+                            <strong>Headquarters</strong>
+                            <p style="font-size: 0.9rem;">RaktDaan Central Blood Repository Network, Medical Enclave, New Delhi - 110001</p>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 14px; align-items: center;">
+                        <div class="metric-icon-box">📞</div>
+                        <div>
+                            <strong>Emergency Toll-Free Helpline</strong>
+                            <p style="font-size: 0.9rem;">1800-RAKT-DAAN (1800-7258-3226)</p>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 14px; align-items: center;">
+                        <div class="metric-icon-box">✉️</div>
+                        <div>
+                            <strong>Official Email</strong>
+                            <p style="font-size: 0.9rem;">support@raktdaan.org / emergency@raktdaan.org</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 style="margin-bottom: 20px;">Send a Message</h3>
+                <form id="contact-form" onsubmit="event.preventDefault(); showToast('Message sent successfully! Our team will respond shortly.', 'success');">
+                    <div class="form-group">
+                        <label for="contact-name" class="form-label">Full Name</label>
+                        <input type="text" id="contact-name" class="form-control" required placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-email" class="form-label">Email Address</label>
+                        <input type="email" id="contact-email" class="form-control" required placeholder="john@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-message" class="form-label">Message</label>
+                        <textarea id="contact-message" class="form-control" rows="4" required placeholder="How can we assist you?"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

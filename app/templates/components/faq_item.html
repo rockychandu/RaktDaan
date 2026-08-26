@@ -1,0 +1,11 @@
+{% macro render_faq_item(question, answer, is_active=False) %}
+<div class="faq-item {% if is_active %}active{% endif %}">
+    <button class="faq-question">
+        <span>{{ question }}</span>
+        <span class="faq-icon">▼</span>
+    </button>
+    <div class="faq-answer">
+        {{ answer }}
+    </div>
+</div>
+{% endmacro %}

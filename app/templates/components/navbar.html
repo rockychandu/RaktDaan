@@ -1,0 +1,43 @@
+<header class="navbar" role="banner">
+    <div class="container navbar-container">
+        <!-- RaktDaan Brand with Small Unique Logo -->
+        <a href="{{ url_for('ui.index_page') }}" class="brand-link" aria-label="RaktDaan Home">
+            <div class="brand-icon-wrapper" style="display: flex; align-items: center; justify-content: center;">
+                <svg class="brand-logo-svg" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" width="32" height="32">
+                    <path d="M16 3C16 3 25 13.5 25 19.5C25 24.4706 20.9706 28.5 16 28.5C11.0294 28.5 7 24.4706 7 19.5C7 13.5 16 3 16 3Z" fill="url(#brandLogoGrad)" stroke="#BE123C" stroke-width="1.5"/>
+                    <path d="M11 20H13.5L15 17L17 22L18.5 19.5L19.5 20H21" stroke="white" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                    <defs>
+                        <linearGradient id="brandLogoGrad" x1="16" y1="3" x2="16" y2="28.5" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#E11D48"/>
+                            <stop offset="1" stop-color="#9F1239"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            <span class="brand-name" style="font-family: var(--font-heading); font-weight: 800; font-size: 1.5rem; color: var(--text-primary); letter-spacing: -0.02em; margin-left: 10px;">RaktDaan</span>
+        </a>
+
+        <!-- Navigation Menu Links -->
+        <nav class="nav-menu" role="navigation" aria-label="Main Navigation">
+            <a href="{{ url_for('ui.index_page') }}" class="nav-link">Home</a>
+            <a href="#about" class="nav-link">About</a>
+            <a href="#services" class="nav-link">Services</a>
+            <a href="#why-donate" class="nav-link">Donate Blood</a>
+            <a href="#blood-availability" class="nav-link">Blood Availability</a>
+            <a href="#request-blood" class="nav-link">Request Blood</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </nav>
+
+        <!-- Authentication CTAs -->
+        <div class="nav-actions">
+            <a href="{{ url_for('ui.donor_login_page') }}" class="btn-nav-login">Donor Login</a>
+            <a href="{{ url_for('ui.admin_login_page') }}" class="btn-nav-admin">Admin Portal</a>
+            <a href="{{ url_for('ui.register_page') }}" class="btn-nav-register">Register</a>
+        </div>
+
+        <!-- Mobile Drawer Menu Toggle -->
+        <button class="mobile-toggle" aria-label="Toggle Navigation Menu" aria-expanded="false">
+            ☰
+        </button>
+    </div>
+</header>

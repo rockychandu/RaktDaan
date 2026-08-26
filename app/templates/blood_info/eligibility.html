@@ -1,0 +1,35 @@
+<section id="eligibility-checker-section" class="section-padding bg-surface">
+    <div class="container container-narrow">
+        <div class="section-header">
+            <span class="section-tag">Interactive Eligibility Tool</span>
+            <h2 class="section-title">Check Your Donation Eligibility</h2>
+            <p class="section-subtitle">Use our quick interactive evaluation widget below to check if you qualify to donate today.</p>
+        </div>
+
+        <div class="card">
+            <form id="eligibility-quiz-form">
+                <div class="form-group">
+                    <label for="quiz-age" class="form-label">Your Age (Years)</label>
+                    <input type="number" id="quiz-age" class="form-control" required placeholder="e.g. 25" min="15" max="100">
+                </div>
+
+                <div class="form-group">
+                    <label for="quiz-weight" class="form-label">Body Weight (kg)</label>
+                    <input type="number" id="quiz-weight" class="form-control" required placeholder="e.g. 62" min="30" max="200">
+                </div>
+
+                <div class="form-group">
+                    <label for="quiz-health" class="form-label">Are you currently in good general health?</label>
+                    <select id="quiz-health" class="form-control" required>
+                        <option value="YES">Yes - Healthy with no acute fever or active infection</option>
+                        <option value="NO">No - Currently feeling unwell or taking antibiotics</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">Check Eligibility Now</button>
+            </form>
+
+            <div id="eligibility-quiz-result" class="alert-box" style="display: none; margin-top: 20px;"></div>
+        </div>
+    </div>
+</section>

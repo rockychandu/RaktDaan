@@ -1,0 +1,10 @@
+{% macro render_info_card(icon, title, text, link_text=None, link_url=None) %}
+<div class="card hover-lift">
+    <div class="info-icon-box">{{ icon }}</div>
+    <h3 style="margin-bottom: 12px; font-size: var(--font-size-lg);">{{ title }}</h3>
+    <p style="font-size: var(--font-size-sm); color: var(--text-secondary); line-height: 1.6;">{{ text }}</p>
+    {% if link_text and link_url %}
+    <a href="{{ link_url }}" class="btn btn-outline btn-sm" style="margin-top: 20px;">{{ link_text }} →</a>
+    {% endif %}
+</div>
+{% endmacro %}

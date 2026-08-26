@@ -1,0 +1,14 @@
+{% macro render_alert(message, category='info', icon=None) %}
+<div class="alert-box alert-{{ category }}" role="alert">
+    {% if icon %}
+        <span>{{ icon }}</span>
+    {% elif category == 'danger' %}
+        <span>⚠️</span>
+    {% elif category == 'success' %}
+        <span>✅</span>
+    {% else %}
+        <span>ℹ️</span>
+    {% endif %}
+    <div>{{ message }}</div>
+</div>
+{% endmacro %}

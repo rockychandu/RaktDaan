@@ -1,0 +1,7 @@
+{% macro render_service_card(title, description, icon='🩸') %}
+<div class="card hover-lift">
+    <div class="metric-icon-box" style="margin-bottom: 18px;">{{ icon }}</div>
+    <h3 style="font-size: var(--font-size-lg); margin-bottom: 10px;">{{ title }}</h3>
+    <p style="font-size: var(--font-size-sm); color: var(--text-muted); line-height: 1.6;">{{ description }}</p>
+</div>
+{% endmacro %}

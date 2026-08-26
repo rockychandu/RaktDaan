@@ -1,0 +1,8 @@
+{% macro render_inventory_card(blood_group, total_units, repository_name, status='Available') %}
+<div class="card text-center hover-lift">
+    <div class="blood-type-badge" style="margin: 0 auto 14px;">{{ blood_group }}</div>
+    <div class="font-heading" style="font-size: 2.25rem; font-weight: 800; color: var(--text-primary);">{{ total_units }}</div>
+    <div style="font-size: var(--font-size-xs); color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-bottom: 12px;">Units in {{ repository_name }}</div>
+    <span class="badge {% if status == 'Available' %}badge-success{% else %}badge-warning{% endif %}">{{ status }}</span>
+</div>
+{% endmacro %}

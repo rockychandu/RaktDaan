@@ -1,0 +1,11 @@
+{% macro render_blood_card(group, units, status='Available', badge_class='badge-success') %}
+<div class="blood-group-card">
+    <div class="blood-type-badge">{{ group }}</div>
+    <div class="blood-units-count">{{ units }}</div>
+    <div class="blood-units-label">Units Available</div>
+    <span class="badge {{ badge_class }}">{{ status }}</span>
+    <button class="btn btn-outline btn-sm" style="margin-top: 14px; width: 100%;" onclick="openBloodRequestModal('{{ group }}')">
+        Request {{ group }}
+    </button>
+</div>
+{% endmacro %}

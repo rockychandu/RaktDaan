@@ -1,0 +1,25 @@
+<div id="global-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-content">
+        <div class="flex-between" style="margin-bottom: 20px;">
+            <h3 id="modal-title" class="font-heading">Modal Dialog</h3>
+            <button class="btn btn-outline btn-sm" onclick="closeModal()" aria-label="Close modal">✕</button>
+        </div>
+        <div id="modal-body">
+            <!-- Modal Body Content -->
+        </div>
+        <div id="modal-footer" class="flex-between" style="margin-top: 24px;">
+            <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
+            <button id="modal-confirm-btn" class="btn btn-primary">Confirm</button>
+        </div>
+    </div>
+</div>
+
+<script>
+function closeModal() {
+    const modal = document.getElementById('global-modal');
+    if (modal) {
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
+    }
+}
+</script>

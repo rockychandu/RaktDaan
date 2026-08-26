@@ -1,0 +1,37 @@
+/* Footer Architecture */
+
+.footer {
+  background-color: var(--secondary-900);
+  color: #ffffff;
+  padding: 80px 0 32px;
+  border-top: 4px solid var(--primary);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr repeat(3, 1fr);
+  gap: 48px;
+  margin-bottom: 60px;
+}
+
+.footer-col-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 24px;
+}
+
+.footer-links { display: flex; flex-direction: column; gap: 12px; }
+.footer-link { color: var(--secondary-300); font-size: var(--font-size-sm); }
+.footer-link:hover { color: #ffffff; }
+
+.footer-bottom {
+  border-top: 1px solid var(--secondary-800);
+  padding-top: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--font-size-xs);
+  color: var(--secondary-400);
+}

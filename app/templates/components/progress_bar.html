@@ -1,0 +1,13 @@
+{% macro render_progress_bar(value=50, max=100, label='', color_class='stock-meter-high') %}
+<div style="width: 100%; margin-bottom: 12px;">
+    {% if label %}
+    <div class="flex-between" style="font-size: var(--font-size-xs); font-weight: 700; margin-bottom: 6px;">
+        <span>{{ label }}</span>
+        <span>{{ value }}/{{ max }}</span>
+    </div>
+    {% endif %}
+    <div class="stock-meter-wrapper">
+        <div class="stock-meter-bar {{ color_class }}" style="width: {{ (value / max * 100)|int }}%;"></div>
+    </div>
+</div>
+{% endmacro %}

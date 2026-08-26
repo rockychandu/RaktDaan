@@ -1,0 +1,13 @@
+{% macro render_stat_card(number, label, badge_text='Live DB Count') %}
+<div class="card text-center">
+    <div class="font-heading" style="font-size: 2.5rem; font-weight: 800; color: var(--primary); line-height: 1.1; margin-bottom: 4px;">
+        {{ number }}
+    </div>
+    <div style="font-size: 0.95rem; font-weight: 600; color: var(--text-muted);">
+        {{ label }}
+    </div>
+    <div class="badge badge-success" style="margin-top: 8px;">
+        {{ badge_text }}
+    </div>
+</div>
+{% endmacro %}

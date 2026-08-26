@@ -1,0 +1,45 @@
+<section class="section-padding bg-surface">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Live Directory</span>
+            <h2 class="section-title">Search Live Blood Stock & Repositories</h2>
+            <p class="section-subtitle">Real-time search tool to locate available blood units by city and blood group.</p>
+        </div>
+
+        <div class="template-content-wrapper" style="margin-top: 36px;">
+            
+        <div class="card hover-lift" id="find-blood-section" style="padding: 32px;">
+            <form id="public-find-blood-form" onsubmit="event.preventDefault(); showToast('Searching live blood availability across regional repositories...', 'info');">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="find-city" class="form-label">City Location</label>
+                        <select id="find-city" class="form-control">
+                            <option value="ALL">All Cities</option>
+                            <option value="Mumbai">Mumbai</option>
+                            <option value="New Delhi">New Delhi</option>
+                            <option value="Bengaluru">Bengaluru</option>
+                            <option value="Chennai">Chennai</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="find-blood-group" class="form-label">Blood Group Required</label>
+                        <select id="find-blood-group" class="form-control">
+                            <option value="ALL">All Groups</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" style="margin-top: 12px;">Search Available Stock</button>
+            </form>
+        </div>
+    
+        </div>
+    </div>
+</section>

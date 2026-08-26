@@ -1,0 +1,14 @@
+{% macro render_event_card(title, date, city, venue, attendees=50) %}
+<div class="card hover-lift" style="margin-bottom: 20px;">
+    <div class="flex-between" style="margin-bottom: 12px;">
+        <span class="badge badge-info">📅 Upcoming Drive</span>
+        <span style="font-size: var(--font-size-xs); color: var(--text-muted);">{{ city }}</span>
+    </div>
+    <h3 style="font-size: var(--font-size-lg); margin-bottom: 8px;">{{ title }}</h3>
+    <p style="font-size: var(--font-size-sm); color: var(--text-muted); margin-bottom: 14px;">📍 {{ venue }} • Date: {{ date }}</p>
+    <div class="flex-between">
+        <span style="font-size: var(--font-size-xs); font-weight: 700; color: var(--emerald-600);">👥 {{ attendees }}+ Registered Donors</span>
+        <button class="btn btn-primary btn-sm" onclick="showToast('Registered for {{ title }} drive!', 'success')">Join Drive</button>
+    </div>
+</div>
+{% endmacro %}

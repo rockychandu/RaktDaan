@@ -1,0 +1,8 @@
+{% macro render_search_box(input_id='search-input', placeholder='Search by city, hospital or blood group...') %}
+<div class="form-group" style="margin-bottom: 0;">
+    <div style="position: relative;">
+        <input type="text" id="{{ input_id }}" class="form-control" placeholder="{{ placeholder }}" style="padding-left: 44px;">
+        <span style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 1.1rem;">🔍</span>
+    </div>
+</div>
+{% endmacro %}

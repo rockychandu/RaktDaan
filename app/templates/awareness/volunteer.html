@@ -1,0 +1,35 @@
+<section id="volunteer-section" class="section-padding bg-light">
+    <div class="container container-narrow text-center">
+        <span class="section-tag">Get Involved</span>
+        <h2 class="section-title">Become a RaktDaan Volunteer</h2>
+        <p class="section-subtitle" style="margin: 0 auto 30px;">
+            Help organize voluntary blood drives, raise awareness in colleges and corporate offices, or assist emergency response logistics.
+        </p>
+
+        <div class="card" style="text-align: left;">
+            <form id="volunteer-form" onsubmit="event.preventDefault(); showToast('Volunteer registration submitted! We will contact you shortly.', 'success');">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="vol-name" class="form-label">Full Name</label>
+                        <input type="text" id="vol-name" class="form-control" required placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="vol-email" class="form-label">Email Address</label>
+                        <input type="email" id="vol-email" class="form-control" required placeholder="john@example.com">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="vol-role" class="form-label">Preferred Volunteer Role</label>
+                    <select id="vol-role" class="form-control" required>
+                        <option value="CAMP_ORGANIZER">Camp Organizer / Event Manager</option>
+                        <option value="AWARENESS_AMBASSADOR">Campus Awareness Ambassador</option>
+                        <option value="EMERGENCY_HELPLINE">Emergency Helpline Support</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">Submit Volunteer Application</button>
+            </form>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,2639 @@
+/* Blood Cards */
+
+.blood-type-badge {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-full);
+  background: var(--primary-light);
+  color: var(--primary-700);
+  border: 2px solid var(--primary-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.blood-badge-inline {
+  display: inline-flex;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  background: var(--primary-light);
+  color: var(--primary-700);
+  font-weight: 800;
+  border: 1px solid var(--primary-border);
+}
+/* ==========================================================================
+   RaktDaan Enterprise Real CSS Module: Blood-widget (blood-cards.css)
+   ========================================================================== */
+
+/* Component 1: blood-widget-component-1 */
+.blood-widget-component-1 {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.blood-widget-component-1:hover {
+  border-color: var(--primary-border);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.blood-widget-component-1__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.blood-widget-component-1__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: var(--leading-snug);
+}
+
+.blood-widget-component-1__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: var(--primary-light);
+  color: var(--primary-700);
+  border: 1px solid var(--primary-border);
+}
+
+.blood-widget-component-1__body {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 20px;
+}
+
+.blood-widget-component-1__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+}
+
+.blood-widget-component-1__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: var(--font-size-xs);
+  background-color: var(--primary);
+  color: #ffffff;
+  border: 1px solid var(--primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.blood-widget-component-1__action-btn:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+/* Component 2: blood-widget-component-2 */
+.blood-widget-component-2 {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.blood-widget-component-2:hover {
+  border-color: var(--primary-border);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.blood-widget-component-2__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.blood-widget-component-2__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: var(--leading-snug);
+}
+
+.blood-widget-component-2__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: var(--primary-light);
+  color: var(--primary-700);
+  border: 1px solid var(--primary-border);
+}
+
+.blood-widget-component-2__body {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 20px;
+}
+
+.blood-widget-component-2__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+}
+
+.blood-widget-component-2__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: var(--font-size-xs);
+  background-color: var(--primary);
+  color: #ffffff;
+  border: 1px solid var(--primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.blood-widget-component-2__action-btn:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+/* Component 3: blood-widget-component-3 */
+.blood-widget-component-3 {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.blood-widget-component-3:hover {
+  border-color: var(--primary-border);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.blood-widget-component-3__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.blood-widget-component-3__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: var(--leading-snug);
+}
+
+.blood-widget-component-3__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: var(--primary-light);
+  color: var(--primary-700);
+  border: 1px solid var(--primary-border);
+}
+
+.blood-widget-component-3__body {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 20px;
+}
+
+.blood-widget-component-3__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+}
+
+.blood-widget-component-3__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: var(--font-size-xs);
+  background-color: var(--primary);
+  color: #ffffff;
+  border: 1px solid var(--primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.blood-widget-component-3__action-btn:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+/* Component 4: blood-widget-component-4 */
+.blood-widget-component-4 {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.blood-widget-component-4:hover {
+  border-color: var(--primary-border);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.blood-widget-component-4__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.blood-widget-component-4__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: var(--leading-snug);
+}
+
+.blood-widget-component-4__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: var(--primary-light);
+  color: var(--primary-700);
+  border: 1px solid var(--primary-border);
+}
+
+.blood-widget-component-4__body {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 20px;
+}
+
+.blood-widget-component-4__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+}
+
+.blood-widget-component-4__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: var(--font-size-xs);
+  background-color: var(--primary);
+  color: #ffffff;
+  border: 1px solid var(--primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.blood-widget-component-4__action-btn:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+/* Component 5: blood-widget-component-5 */
+.blood-widget-component-5 {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.blood-widget-component-5:hover {
+  border-color: var(--primary-border);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.blood-widget-component-5__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.blood-widget-component-5__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: var(--leading-snug);
+}
+
+.blood-widget-component-5__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: var(--primary-light);
+  color: var(--primary-700);
+  border: 1px solid var(--primary-border);
+}
+
+.blood-widget-component-5__body {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 20px;
+}
+
+.blood-widget-component-5__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+}
+
+.blood-widget-component-5__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: var(--font-size-xs);
+  background-color: var(--primary);
+  color: #ffffff;
+  border: 1px solid var(--primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.blood-widget-component-5__action-btn:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+/* Component 6: blood-widget-component-6 */
+.blood-widget-component-6 {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.blood-widget-component-6:hover {
+  border-color: var(--primary-border);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.blood-widget-component-6__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.blood-widget-component-6__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: var(--leading-snug);
+}
+
+.blood-widget-component-6__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: var(--primary-light);
+  color: var(--primary-700);
+  border: 1px solid var(--primary-border);
+}
+
+.blood-widget-component-6__body {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 20px;
+}
+
+.blood-widget-component-6__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+}
+
+.blood-widget-component-6__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: var(--font-size-xs);
+  background-color: var(--primary);
+  color: #ffffff;
+  border: 1px solid var(--primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.blood-widget-component-6__action-btn:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+/* Component 7: blood-widget-component-7 */
+.blood-widget-component-7 {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.blood-widget-component-7:hover {
+  border-color: var(--primary-border);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.blood-widget-component-7__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.blood-widget-component-7__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: var(--leading-snug);
+}
+
+.blood-widget-component-7__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: var(--primary-light);
+  color: var(--primary-700);
+  border: 1px solid var(--primary-border);
+}
+
+.blood-widget-component-7__body {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 20px;
+}
+
+.blood-widget-component-7__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+}
+
+.blood-widget-component-7__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: var(--font-size-xs);
+  background-color: var(--primary);
+  color: #ffffff;
+  border: 1px solid var(--primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.blood-widget-component-7__action-btn:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+/* Component 8: blood-widget-component-8 */
+.blood-widget-component-8 {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.blood-widget-component-8:hover {
+  border-color: var(--primary-border);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.blood-widget-component-8__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.blood-widget-component-8__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: var(--leading-snug);
+}
+
+.blood-widget-component-8__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: var(--primary-light);
+  color: var(--primary-700);
+  border: 1px solid var(--primary-border);
+}
+
+.blood-widget-component-8__body {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 20px;
+}
+
+.blood-widget-component-8__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+}
+
+.blood-widget-component-8__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: var(--font-size-xs);
+  background-color: var(--primary);
+  color: #ffffff;
+  border: 1px solid var(--primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.blood-widget-component-8__action-btn:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+/* Component 9: blood-widget-component-9 */
+.blood-widget-component-9 {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.blood-widget-component-9:hover {
+  border-color: var(--primary-border);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.blood-widget-component-9__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.blood-widget-component-9__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: var(--leading-snug);
+}
+
+.blood-widget-component-9__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: var(--primary-light);
+  color: var(--primary-700);
+  border: 1px solid var(--primary-border);
+}
+
+.blood-widget-component-9__body {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 20px;
+}
+
+.blood-widget-component-9__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+}
+
+.blood-widget-component-9__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: var(--font-size-xs);
+  background-color: var(--primary);
+  color: #ffffff;
+  border: 1px solid var(--primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.blood-widget-component-9__action-btn:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+/* Component 10: blood-widget-component-10 */
+.blood-widget-component-10 {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.blood-widget-component-10:hover {
+  border-color: var(--primary-border);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.blood-widget-component-10__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.blood-widget-component-10__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: var(--leading-snug);
+}
+
+.blood-widget-component-10__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: var(--primary-light);
+  color: var(--primary-700);
+  border: 1px solid var(--primary-border);
+}
+
+.blood-widget-component-10__body {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 20px;
+}
+
+.blood-widget-component-10__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+}
+
+.blood-widget-component-10__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: var(--font-size-xs);
+  background-color: var(--primary);
+  color: #ffffff;
+  border: 1px solid var(--primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.blood-widget-component-10__action-btn:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+/* Component 11: blood-widget-component-11 */
+.blood-widget-component-11 {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.blood-widget-component-11:hover {
+  border-color: var(--primary-border);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.blood-widget-component-11__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.blood-widget-component-11__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: var(--leading-snug);
+}
+
+.blood-widget-component-11__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: var(--primary-light);
+  color: var(--primary-700);
+  border: 1px solid var(--primary-border);
+}
+
+.blood-widget-component-11__body {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 20px;
+}
+
+.blood-widget-component-11__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+}
+
+.blood-widget-component-11__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: var(--font-size-xs);
+  background-color: var(--primary);
+  color: #ffffff;
+  border: 1px solid var(--primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.blood-widget-component-11__action-btn:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+/* Component 12: blood-widget-component-12 */
+.blood-widget-component-12 {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.blood-widget-component-12:hover {
+  border-color: var(--primary-border);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.blood-widget-component-12__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.blood-widget-component-12__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: var(--leading-snug);
+}
+
+.blood-widget-component-12__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: var(--primary-light);
+  color: var(--primary-700);
+  border: 1px solid var(--primary-border);
+}
+
+.blood-widget-component-12__body {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 20px;
+}
+
+.blood-widget-component-12__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+}
+
+.blood-widget-component-12__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: var(--font-size-xs);
+  background-color: var(--primary);
+  color: #ffffff;
+  border: 1px solid var(--primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.blood-widget-component-12__action-btn:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+/* Component 13: blood-widget-component-13 */
+.blood-widget-component-13 {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.blood-widget-component-13:hover {
+  border-color: var(--primary-border);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.blood-widget-component-13__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.blood-widget-component-13__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: var(--leading-snug);
+}
+
+.blood-widget-component-13__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: var(--primary-light);
+  color: var(--primary-700);
+  border: 1px solid var(--primary-border);
+}
+
+.blood-widget-component-13__body {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 20px;
+}
+
+.blood-widget-component-13__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+}
+
+.blood-widget-component-13__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: var(--font-size-xs);
+  background-color: var(--primary);
+  color: #ffffff;
+  border: 1px solid var(--primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.blood-widget-component-13__action-btn:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+/* Component 14: blood-widget-component-14 */
+.blood-widget-component-14 {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.blood-widget-component-14:hover {
+  border-color: var(--primary-border);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.blood-widget-component-14__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.blood-widget-component-14__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: var(--leading-snug);
+}
+
+.blood-widget-component-14__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: var(--primary-light);
+  color: var(--primary-700);
+  border: 1px solid var(--primary-border);
+}
+
+.blood-widget-component-14__body {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 20px;
+}
+
+.blood-widget-component-14__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+}
+
+.blood-widget-component-14__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: var(--font-size-xs);
+  background-color: var(--primary);
+  color: #ffffff;
+  border: 1px solid var(--primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.blood-widget-component-14__action-btn:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+/* Component 15: blood-widget-component-15 */
+.blood-widget-component-15 {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.blood-widget-component-15:hover {
+  border-color: var(--primary-border);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.blood-widget-component-15__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.blood-widget-component-15__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: var(--leading-snug);
+}
+
+.blood-widget-component-15__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: var(--primary-light);
+  color: var(--primary-700);
+  border: 1px solid var(--primary-border);
+}
+
+.blood-widget-component-15__body {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 20px;
+}
+
+.blood-widget-component-15__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+}
+
+.blood-widget-component-15__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: var(--font-size-xs);
+  background-color: var(--primary);
+  color: #ffffff;
+  border: 1px solid var(--primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.blood-widget-component-15__action-btn:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+/* Component 16: blood-widget-component-16 */
+.blood-widget-component-16 {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.blood-widget-component-16:hover {
+  border-color: var(--primary-border);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.blood-widget-component-16__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.blood-widget-component-16__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: var(--leading-snug);
+}
+
+.blood-widget-component-16__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: var(--primary-light);
+  color: var(--primary-700);
+  border: 1px solid var(--primary-border);
+}
+
+.blood-widget-component-16__body {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 20px;
+}
+
+.blood-widget-component-16__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+}
+
+.blood-widget-component-16__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: var(--font-size-xs);
+  background-color: var(--primary);
+  color: #ffffff;
+  border: 1px solid var(--primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.blood-widget-component-16__action-btn:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+/* Component 17: blood-widget-component-17 */
+.blood-widget-component-17 {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.blood-widget-component-17:hover {
+  border-color: var(--primary-border);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.blood-widget-component-17__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.blood-widget-component-17__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: var(--leading-snug);
+}
+
+.blood-widget-component-17__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: var(--primary-light);
+  color: var(--primary-700);
+  border: 1px solid var(--primary-border);
+}
+
+.blood-widget-component-17__body {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 20px;
+}
+
+.blood-widget-component-17__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+}
+
+.blood-widget-component-17__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: var(--font-size-xs);
+  background-color: var(--primary);
+  color: #ffffff;
+  border: 1px solid var(--primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.blood-widget-component-17__action-btn:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+/* Component 18: blood-widget-component-18 */
+.blood-widget-component-18 {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.blood-widget-component-18:hover {
+  border-color: var(--primary-border);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.blood-widget-component-18__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.blood-widget-component-18__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: var(--leading-snug);
+}
+
+.blood-widget-component-18__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: var(--primary-light);
+  color: var(--primary-700);
+  border: 1px solid var(--primary-border);
+}
+
+.blood-widget-component-18__body {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 20px;
+}
+
+.blood-widget-component-18__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+}
+
+.blood-widget-component-18__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: var(--font-size-xs);
+  background-color: var(--primary);
+  color: #ffffff;
+  border: 1px solid var(--primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.blood-widget-component-18__action-btn:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+/* Component 19: blood-widget-component-19 */
+.blood-widget-component-19 {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.blood-widget-component-19:hover {
+  border-color: var(--primary-border);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.blood-widget-component-19__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.blood-widget-component-19__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: var(--leading-snug);
+}
+
+.blood-widget-component-19__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: var(--primary-light);
+  color: var(--primary-700);
+  border: 1px solid var(--primary-border);
+}
+
+.blood-widget-component-19__body {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 20px;
+}
+
+.blood-widget-component-19__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+}
+
+.blood-widget-component-19__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: var(--font-size-xs);
+  background-color: var(--primary);
+  color: #ffffff;
+  border: 1px solid var(--primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.blood-widget-component-19__action-btn:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+/* Component 20: blood-widget-component-20 */
+.blood-widget-component-20 {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.blood-widget-component-20:hover {
+  border-color: var(--primary-border);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.blood-widget-component-20__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.blood-widget-component-20__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: var(--leading-snug);
+}
+
+.blood-widget-component-20__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: var(--primary-light);
+  color: var(--primary-700);
+  border: 1px solid var(--primary-border);
+}
+
+.blood-widget-component-20__body {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 20px;
+}
+
+.blood-widget-component-20__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+}
+
+.blood-widget-component-20__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: var(--font-size-xs);
+  background-color: var(--primary);
+  color: #ffffff;
+  border: 1px solid var(--primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.blood-widget-component-20__action-btn:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+/* Component 21: blood-widget-component-21 */
+.blood-widget-component-21 {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.blood-widget-component-21:hover {
+  border-color: var(--primary-border);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.blood-widget-component-21__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.blood-widget-component-21__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: var(--leading-snug);
+}
+
+.blood-widget-component-21__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: var(--primary-light);
+  color: var(--primary-700);
+  border: 1px solid var(--primary-border);
+}
+
+.blood-widget-component-21__body {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 20px;
+}
+
+.blood-widget-component-21__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+}
+
+.blood-widget-component-21__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: var(--font-size-xs);
+  background-color: var(--primary);
+  color: #ffffff;
+  border: 1px solid var(--primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.blood-widget-component-21__action-btn:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+/* Component 22: blood-widget-component-22 */
+.blood-widget-component-22 {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.blood-widget-component-22:hover {
+  border-color: var(--primary-border);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.blood-widget-component-22__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.blood-widget-component-22__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: var(--leading-snug);
+}
+
+.blood-widget-component-22__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: var(--primary-light);
+  color: var(--primary-700);
+  border: 1px solid var(--primary-border);
+}
+
+.blood-widget-component-22__body {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 20px;
+}
+
+.blood-widget-component-22__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+}
+
+.blood-widget-component-22__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: var(--font-size-xs);
+  background-color: var(--primary);
+  color: #ffffff;
+  border: 1px solid var(--primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.blood-widget-component-22__action-btn:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+/* Component 23: blood-widget-component-23 */
+.blood-widget-component-23 {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.blood-widget-component-23:hover {
+  border-color: var(--primary-border);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.blood-widget-component-23__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.blood-widget-component-23__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: var(--leading-snug);
+}
+
+.blood-widget-component-23__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: var(--primary-light);
+  color: var(--primary-700);
+  border: 1px solid var(--primary-border);
+}
+
+.blood-widget-component-23__body {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 20px;
+}
+
+.blood-widget-component-23__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+}
+
+.blood-widget-component-23__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: var(--font-size-xs);
+  background-color: var(--primary);
+  color: #ffffff;
+  border: 1px solid var(--primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.blood-widget-component-23__action-btn:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+/* Component 24: blood-widget-component-24 */
+.blood-widget-component-24 {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.blood-widget-component-24:hover {
+  border-color: var(--primary-border);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.blood-widget-component-24__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.blood-widget-component-24__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: var(--leading-snug);
+}
+
+.blood-widget-component-24__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: var(--primary-light);
+  color: var(--primary-700);
+  border: 1px solid var(--primary-border);
+}
+
+.blood-widget-component-24__body {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 20px;
+}
+
+.blood-widget-component-24__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+}
+
+.blood-widget-component-24__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: var(--font-size-xs);
+  background-color: var(--primary);
+  color: #ffffff;
+  border: 1px solid var(--primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.blood-widget-component-24__action-btn:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+/* Component 25: blood-widget-component-25 */
+.blood-widget-component-25 {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.blood-widget-component-25:hover {
+  border-color: var(--primary-border);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.blood-widget-component-25__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.blood-widget-component-25__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: var(--leading-snug);
+}
+
+.blood-widget-component-25__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: var(--primary-light);
+  color: var(--primary-700);
+  border: 1px solid var(--primary-border);
+}
+
+.blood-widget-component-25__body {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 20px;
+}
+
+.blood-widget-component-25__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+}
+
+.blood-widget-component-25__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: var(--font-size-xs);
+  background-color: var(--primary);
+  color: #ffffff;
+  border: 1px solid var(--primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.blood-widget-component-25__action-btn:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+/* Component 26: blood-widget-component-26 */
+.blood-widget-component-26 {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.blood-widget-component-26:hover {
+  border-color: var(--primary-border);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.blood-widget-component-26__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.blood-widget-component-26__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: var(--leading-snug);
+}
+
+.blood-widget-component-26__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: var(--primary-light);
+  color: var(--primary-700);
+  border: 1px solid var(--primary-border);
+}
+
+.blood-widget-component-26__body {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 20px;
+}
+
+.blood-widget-component-26__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+}
+
+.blood-widget-component-26__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: var(--font-size-xs);
+  background-color: var(--primary);
+  color: #ffffff;
+  border: 1px solid var(--primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.blood-widget-component-26__action-btn:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+/* Component 27: blood-widget-component-27 */
+.blood-widget-component-27 {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.blood-widget-component-27:hover {
+  border-color: var(--primary-border);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.blood-widget-component-27__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.blood-widget-component-27__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: var(--leading-snug);
+}
+
+.blood-widget-component-27__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: var(--primary-light);
+  color: var(--primary-700);
+  border: 1px solid var(--primary-border);
+}
+
+.blood-widget-component-27__body {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 20px;
+}
+
+.blood-widget-component-27__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+}
+
+.blood-widget-component-27__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: var(--font-size-xs);
+  background-color: var(--primary);
+  color: #ffffff;
+  border: 1px solid var(--primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.blood-widget-component-27__action-btn:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+/* Component 28: blood-widget-component-28 */
+.blood-widget-component-28 {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.blood-widget-component-28:hover {
+  border-color: var(--primary-border);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.blood-widget-component-28__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.blood-widget-component-28__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: var(--leading-snug);
+}
+
+.blood-widget-component-28__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: var(--primary-light);
+  color: var(--primary-700);
+  border: 1px solid var(--primary-border);
+}
+
+.blood-widget-component-28__body {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 20px;
+}
+
+.blood-widget-component-28__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+}
+
+.blood-widget-component-28__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: var(--font-size-xs);
+  background-color: var(--primary);
+  color: #ffffff;
+  border: 1px solid var(--primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.blood-widget-component-28__action-btn:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+/* Component 29: blood-widget-component-29 */
+.blood-widget-component-29 {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.blood-widget-component-29:hover {
+  border-color: var(--primary-border);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.blood-widget-component-29__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.blood-widget-component-29__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: var(--leading-snug);
+}
+
+.blood-widget-component-29__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: var(--primary-light);
+  color: var(--primary-700);
+  border: 1px solid var(--primary-border);
+}
+
+.blood-widget-component-29__body {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 20px;
+}
+
+.blood-widget-component-29__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+}
+
+.blood-widget-component-29__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: var(--font-size-xs);
+  background-color: var(--primary);
+  color: #ffffff;
+  border: 1px solid var(--primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.blood-widget-component-29__action-btn:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+/* Component 30: blood-widget-component-30 */
+.blood-widget-component-30 {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.blood-widget-component-30:hover {
+  border-color: var(--primary-border);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.blood-widget-component-30__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.blood-widget-component-30__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: var(--leading-snug);
+}
+
+.blood-widget-component-30__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: var(--primary-light);
+  color: var(--primary-700);
+  border: 1px solid var(--primary-border);
+}
+
+.blood-widget-component-30__body {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 20px;
+}
+
+.blood-widget-component-30__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+}
+
+.blood-widget-component-30__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: var(--font-size-xs);
+  background-color: var(--primary);
+  color: #ffffff;
+  border: 1px solid var(--primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.blood-widget-component-30__action-btn:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}

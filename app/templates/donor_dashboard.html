@@ -1,207 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Donor Dashboard - RaktDaan</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #dc2626;
-            --primary-hover: #b91c1c;
-            --primary-light: #fff1f2;
-            --primary-border: #fecdd3;
-            --bg-main: #f8fafc;
-            --card-bg: #ffffff;
-            --text-dark: #0f172a;
-            --text-muted: #64748b;
-            --border-light: #e2e8f0;
-        }
+{% extends "base.html" %}
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-        
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-dark);
-            min-height: 100vh;
-            padding: 30px 20px;
-        }
+{% block title %}Donor Dashboard - RaktDaan{% endblock %}
 
-        .nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1000px;
-            margin: 0 auto 30px;
-            background: var(--card-bg);
-            padding: 16px 30px;
-            border-radius: 16px;
-            border: 2px solid var(--border-light);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-        }
+{% block content %}
+{% include "dashboard/donor_dashboard_ui.html" %}
+{% endblock %}
 
-        .nav h1 {
-            color: var(--primary);
-            font-size: 1.6rem;
-            font-weight: 800;
-        }
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+<script>
+    const token = localStorage.getItem('auth_token');
+    if (!token) {
+        window.location.href = '/donor/login';
+    }
 
-        .btn-logout {
-            background: var(--primary-light);
-            color: var(--primary);
-            border: 1px solid var(--primary-border);
-            padding: 10px 18px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 700;
-            transition: all 0.2s;
-        }
+    async function loadProfile() {
+        try {
+            const res = await fetch('/api/v1/auth/me', {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
 
-        .btn-logout:hover {
-            background: #ffe4e6;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border: 2px solid var(--border-light);
-            border-radius: 20px;
-            padding: 35px;
-            margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-        }
-
-        .card h2 {
-            color: var(--text-dark);
-            margin-bottom: 12px;
-            font-size: 1.4rem;
-            font-weight: 700;
-        }
-
-        .profile-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 18px;
-            margin-top: 25px;
-        }
-
-        .info-item {
-            background: var(--bg-main);
-            padding: 18px;
-            border-radius: 12px;
-            border: 1px solid var(--border-light);
-        }
-
-        .info-label {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 6px;
-            text-transform: uppercase;
-        }
-
-        .info-val {
-            color: var(--text-dark);
-            font-weight: 700;
-            font-size: 1.1rem;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            background: #ecfdf5;
-            color: #047857;
-            border: 1px solid #a7f3d0;
-        }
-    </style>
-</head>
-<body>
-    <div class="nav">
-        <h1>🩸 Donor Dashboard</h1>
-        <button class="btn-logout" onclick="logout()">Logout</button>
-    </div>
-
-    <div class="container">
-        <div class="card">
-            <h2>Welcome Back, <span id="user-name" style="color: var(--primary);">Donor</span>! <span class="badge">ELIGIBLE</span></h2>
-            <p style="color: var(--text-muted);">Your authenticated donor session is active. Account details retrieved from backend API:</p>
-
-            <div class="profile-grid">
-                <div class="info-item">
-                    <div class="info-label">Full Name</div>
-                    <div class="info-val" id="val-name">Loading...</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">Email Address</div>
-                    <div class="info-val" id="val-email">Loading...</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">Blood Group</div>
-                    <div class="info-val" id="val-blood" style="color: var(--primary);">Loading...</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">City</div>
-                    <div class="info-val" id="val-city">Loading...</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">Emergency Contact</div>
-                    <div class="info-val" id="val-emergency">Loading...</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        const token = localStorage.getItem('auth_token');
-        if (!token) {
-            window.location.href = '/donor/login';
-        }
-
-        async function loadProfile() {
-            try {
-                const res = await fetch('/api/v1/auth/me', {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-
-                if (!res.ok) {
-                    logout();
-                    return;
-                }
-
-                const data = await res.json();
-                document.getElementById('user-name').innerText = data.name;
-                document.getElementById('val-name').innerText = data.name;
-                document.getElementById('val-email').innerText = data.email;
-
-                if (data.donor_profile) {
-                    document.getElementById('val-blood').innerText = data.donor_profile.blood_group;
-                    document.getElementById('val-city').innerText = data.donor_profile.city;
-                    document.getElementById('val-emergency').innerText = data.donor_profile.emergency_contact;
-                }
-            } catch (err) {
-                console.error(err);
+            if (!res.ok) {
+                logout();
+                return;
             }
-        }
 
-        async function logout() {
-            try {
-                await fetch('/api/v1/auth/logout', {
-                    method: 'POST',
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-            } catch (e) {}
-            localStorage.clear();
-            window.location.href = '/donor/login';
-        }
+            const data = await res.json();
+            
+            // Bind profile fields across UI
+            if (document.getElementById('dash-greeting-name')) document.getElementById('dash-greeting-name').innerText = data.name;
+            if (document.getElementById('db-user-name')) document.getElementById('db-user-name').innerText = data.name;
+            if (document.getElementById('prof-name')) document.getElementById('prof-name').innerText = data.name;
+            if (document.getElementById('prof-email')) document.getElementById('prof-email').innerText = data.email;
 
-        loadProfile();
-    </script>
-</body>
-</html>
+            if (data.donor_profile) {
+                if (document.getElementById('dash-blood-group')) document.getElementById('dash-blood-group').innerText = data.donor_profile.blood_group;
+                if (document.getElementById('prof-blood')) document.getElementById('prof-blood').innerText = data.donor_profile.blood_group;
+                if (document.getElementById('prof-city')) document.getElementById('prof-city').innerText = data.donor_profile.city;
+                if (document.getElementById('prof-emergency')) document.getElementById('prof-emergency').innerText = data.donor_profile.emergency_contact;
+            }
+        } catch (err) {
+            console.error('Error loading donor profile:', err);
+        }
+    }
+
+    async function logout() {
+        try {
+            await fetch('/api/v1/auth/logout', {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+        } catch (e) {}
+        localStorage.clear();
+        window.location.href = '/donor/login';
+    }
+
+    loadProfile();
+
+    // Render dashboard blood availability preview
+    document.addEventListener('DOMContentLoaded', () => {
+        const dbUI = new BloodAvailabilityUI('dashboard-inventory-preview');
+        dbUI.render();
+    });
+</script>
+{% endblock %}

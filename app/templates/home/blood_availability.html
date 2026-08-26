@@ -1,0 +1,29 @@
+<section id="blood-availability" class="section-padding bg-surface">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Live Inventory Preview</span>
+            <h2 class="section-title">Blood Group Availability Status</h2>
+            <p class="section-subtitle">
+                Real-time voluntary blood repository inventory level tracker across major blood groups (A+, A-, B+, B-, AB+, AB-, O+, O-).
+            </p>
+        </div>
+
+        <!-- Group Filter Tabs -->
+        <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 36px;">
+            <button class="btn btn-outline btn-sm blood-filter-btn active" data-group="ALL">All Groups</button>
+            <button class="btn btn-outline btn-sm blood-filter-btn" data-group="A+">A+</button>
+            <button class="btn btn-outline btn-sm blood-filter-btn" data-group="A-">A-</button>
+            <button class="btn btn-outline btn-sm blood-filter-btn" data-group="B+">B+</button>
+            <button class="btn btn-outline btn-sm blood-filter-btn" data-group="B-">B-</button>
+            <button class="btn btn-outline btn-sm blood-filter-btn" data-group="AB+">AB+</button>
+            <button class="btn btn-outline btn-sm blood-filter-btn" data-group="AB-">AB-</button>
+            <button class="btn btn-outline btn-sm blood-filter-btn" data-group="O+">O+</button>
+            <button class="btn btn-outline btn-sm blood-filter-btn" data-group="O-">O-</button>
+        </div>
+
+        <!-- Dynamic Grid Container rendered by JS -->
+        <div id="blood-availability-grid" class="grid-4">
+            {% include "components/loading.html" %}
+        </div>
+    </div>
+</section>

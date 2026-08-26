@@ -1,0 +1,13 @@
+{% macro render_campaign_card(title, date, location, description) %}
+<div class="campaign-card">
+    <div class="campaign-banner">
+        <span>🩸 RaktDaan Camp</span>
+    </div>
+    <div class="campaign-body">
+        <span class="campaign-date">📅 {{ date }} • 📍 {{ location }}</span>
+        <h3 class="campaign-title">{{ title }}</h3>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">{{ description }}</p>
+        <button class="btn btn-primary btn-sm" style="margin-top: auto;" onclick="showToast('Registered for {{ title }} voluntary drive!', 'success')">Register for Drive</button>
+    </div>
+</div>
+{% endmacro %}

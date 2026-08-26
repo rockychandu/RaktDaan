@@ -1,0 +1,12 @@
+{% macro render_donation_card(donation_id, date, repository, units='1 Unit', status='Completed') %}
+<div class="card" style="margin-bottom: 16px;">
+    <div class="flex-between">
+        <div>
+            <div style="font-size: 0.8rem; font-weight: 800; color: var(--primary);">{{ donation_id }}</div>
+            <h4 style="margin: 4px 0;">{{ repository }}</h4>
+            <div style="font-size: 0.85rem; color: var(--text-muted);">{{ date }} • {{ units }}</div>
+        </div>
+        <span class="badge badge-success">{{ status }}</span>
+    </div>
+</div>
+{% endmacro %}
