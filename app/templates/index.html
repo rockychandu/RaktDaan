@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RaktDaan - Enterprise Blood Bank Network</title>
+    <title>RaktDaan - Blood Bank & Donor Network</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -23,7 +23,7 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-        h1, h2, h3, h4, .brand-name { font-family: 'Outfit', sans-serif; }
+        h1, h2, h3, h4, .brand-name, .quote-text { font-family: 'Outfit', sans-serif; }
 
         body {
             background-color: var(--bg-main);
@@ -118,7 +118,7 @@
 
         /* Hero Section */
         .hero {
-            padding: 80px 24px 60px;
+            padding: 70px 24px 50px;
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
@@ -198,74 +198,44 @@
             transform: translateY(-2px);
         }
 
-        .btn-lg-secondary {
-            background: white;
-            color: var(--text-dark);
-            border: 2px solid var(--border-light);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .btn-lg-secondary:hover {
-            border-color: var(--primary-border);
-            color: var(--primary);
-            transform: translateY(-2px);
-        }
-
-        /* Blood Compatibility Guide Box */
-        .compatibility-card {
+        /* Quotations Featured Card */
+        .quote-hero-card {
             background: white;
             border-radius: 24px;
-            padding: 35px;
+            padding: 40px;
             border: 2px solid var(--primary-border);
             box-shadow: var(--shadow-lg);
+            position: relative;
+            background-image: radial-gradient(var(--primary-light) 1px, transparent 1px);
+            background-size: 20px 20px;
         }
 
-        .comp-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: var(--text-dark);
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .quote-mark {
+            font-size: 3.5rem;
+            color: var(--primary-border);
+            line-height: 1;
+            font-family: serif;
+            margin-bottom: 10px;
         }
 
-        .comp-desc {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 20px;
-        }
-
-        .comp-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.9rem;
-        }
-
-        .comp-table th {
-            background: var(--primary-light);
+        .quote-text {
+            font-size: 1.4rem;
+            font-weight: 600;
             color: var(--primary-dark);
-            text-align: left;
-            padding: 10px 12px;
-            font-weight: 700;
-            border-radius: 6px;
+            line-height: 1.4;
+            margin-bottom: 15px;
+            font-style: italic;
         }
 
-        .comp-table td {
-            padding: 12px;
-            border-bottom: 1px solid var(--border-light);
+        .quote-author {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .bg-badge {
-            background: var(--primary);
-            color: white;
-            font-weight: 700;
-            padding: 3px 8px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-        }
-
-        /* Stats Section */
+        /* Live Database Statistics Bar */
         .stats-bar {
             background: white;
             border-y: 1px solid var(--border-light);
@@ -286,17 +256,113 @@
             .stats-container { grid-template-columns: repeat(2, 1fr); }
         }
 
+        .stat-card {
+            background: var(--bg-main);
+            border: 1.5px solid var(--border-light);
+            border-radius: 16px;
+            padding: 24px 16px;
+            transition: all 0.2s;
+        }
+
+        .stat-card:hover {
+            border-color: var(--primary-border);
+            transform: translateY(-2px);
+        }
+
         .stat-num {
-            font-size: 2.5rem;
+            font-size: 2.6rem;
             font-weight: 800;
             color: var(--primary);
             margin-bottom: 4px;
+            font-family: 'Outfit', sans-serif;
         }
 
         .stat-label {
             font-size: 0.95rem;
             color: var(--text-muted);
-            font-weight: 500;
+            font-weight: 600;
+        }
+
+        .stat-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #047857;
+            background: #ecfdf5;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-top: 6px;
+            display: inline-block;
+        }
+
+        /* Quotations Grid Section */
+        .quotes-section {
+            max-width: 1200px;
+            margin: 60px auto 80px;
+            padding: 0 24px;
+        }
+
+        .section-title-box {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        .section-desc {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .quotes-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        @media (max-width: 900px) {
+            .quotes-grid { grid-template-columns: 1fr; }
+        }
+
+        .quote-box {
+            background: white;
+            border: 1.5px solid var(--border-light);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .quote-box:hover {
+            border-color: var(--primary-border);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-4px);
+        }
+
+        .quote-box-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            line-height: 1.5;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .quote-box-footer {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.9rem;
         }
 
         /* Footer */
@@ -333,81 +399,93 @@
         <section class="hero">
             <div class="hero-content">
                 <div class="hero-badge">
-                    <span>❤️</span> Voluntary Blood Donation System
+                    <span>❤️</span> Life-Saving Voluntary Donation
                 </div>
                 <h1 class="hero-title">Connecting Donors with <span>Life-Saving</span> Need</h1>
                 <p class="hero-text">
-                    RaktDaan is a secure Blood Bank Management system connecting voluntary blood donors, blood banks, and hospital emergency requests.
+                    RaktDaan is a secure Blood Bank Management platform connecting voluntary donors, blood banks, and hospital emergency requests seamlessly.
                 </p>
                 <div class="hero-cta">
                     <a href="/register" class="btn-lg btn-lg-primary">
                         <span>🩸</span> Register as Donor
                     </a>
-                    <a href="/donor/login" class="btn-lg btn-lg-secondary">
-                        Donor Sign In →
-                    </a>
                 </div>
             </div>
 
-            <!-- Blood Compatibility Reference Guide Card -->
-            <div class="compatibility-card">
-                <div class="comp-title">
-                    <span>🔬</span> Blood Group Compatibility Guide
+            <!-- Featured Quotation Card -->
+            <div class="quote-hero-card">
+                <div class="quote-mark">“</div>
+                <div class="quote-text">
+                    “Tears of a mother cannot save her child, but your blood can. Be a hero, donate blood.”
                 </div>
-                <p class="comp-desc">Reference guide for donor and recipient blood group matching:</p>
-
-                <table class="comp-table">
-                    <thead>
-                        <tr>
-                            <th>Blood Group</th>
-                            <th>Can Donate To</th>
-                            <th>Can Receive From</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><span class="bg-badge">O-</span></td>
-                            <td>All Blood Groups (Universal Donor)</td>
-                            <td>O-</td>
-                        </tr>
-                        <tr>
-                            <td><span class="bg-badge">O+</span></td>
-                            <td>O+, A+, B+, AB+</td>
-                            <td>O+, O-</td>
-                        </tr>
-                        <tr>
-                            <td><span class="bg-badge">A+</span></td>
-                            <td>A+, AB+</td>
-                            <td>A+, A-, O+, O-</td>
-                        </tr>
-                        <tr>
-                            <td><span class="bg-badge">AB+</span></td>
-                            <td>AB+ Only</td>
-                            <td>Everyone (Universal Recipient)</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="quote-author">
+                    — Blood Donation Motto
+                </div>
             </div>
         </section>
 
-        <!-- Stats Bar -->
+        <!-- Live Database Statistics Bar -->
         <section class="stats-bar">
             <div class="stats-container">
-                <div>
-                    <div class="stat-num">10,000+</div>
-                    <div class="stat-label">Units Donated</div>
+                <div class="stat-card">
+                    <div class="stat-num">{{ total_donors }}</div>
+                    <div class="stat-label">Registered Donors</div>
+                    <div class="stat-badge">Live DB Count</div>
                 </div>
-                <div>
-                    <div class="stat-num">1,200+</div>
-                    <div class="stat-label">Active Donors</div>
+
+                <div class="stat-card">
+                    <div class="stat-num">{{ total_units }}</div>
+                    <div class="stat-label">Units Available</div>
+                    <div class="stat-badge">Live Inventory</div>
                 </div>
-                <div>
-                    <div class="stat-num">50+</div>
-                    <div class="stat-label">Cities Covered</div>
+
+                <div class="stat-card">
+                    <div class="stat-num">{{ total_cities }}</div>
+                    <div class="stat-label">Active Cities</div>
+                    <div class="stat-badge">Network Coverage</div>
                 </div>
-                <div>
-                    <div class="stat-num">100%</div>
-                    <div class="stat-label">Local & Private (No API Keys)</div>
+
+                <div class="stat-card">
+                    <div class="stat-num">{{ total_users }}</div>
+                    <div class="stat-label">System Accounts</div>
+                    <div class="stat-badge">Verified Records</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blood Donation Quotations Grid Section -->
+        <section class="quotes-section">
+            <div class="section-title-box">
+                <h2 class="section-title">Inspirational Quotations</h2>
+                <p class="section-desc">Words that inspire thousands of voluntary donors across our network every day.</p>
+            </div>
+
+            <div class="quotes-grid">
+                <div class="quote-box">
+                    <div class="quote-box-text">
+                        “A single drop of blood can create an ocean of hope for a patient in emergency.”
+                    </div>
+                    <div class="quote-box-footer">
+                        <span>❤️</span> Gift of Life
+                    </div>
+                </div>
+
+                <div class="quote-box">
+                    <div class="quote-box-text">
+                        “Donate your blood today so that someone can celebrate another tomorrow.”
+                    </div>
+                    <div class="quote-box-footer">
+                        <span>🩸</span> Save Lives
+                    </div>
+                </div>
+
+                <div class="quote-box">
+                    <div class="quote-box-text">
+                        “You don't need an extra power to be a superhero. Just donate blood!”
+                    </div>
+                    <div class="quote-box-footer">
+                        <span>🛡️</span> Everyday Heroes
+                    </div>
                 </div>
             </div>
         </section>
