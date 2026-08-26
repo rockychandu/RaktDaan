@@ -1,40 +1,44 @@
-from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
-from app.database.connection import get_db
-from app.database.models import User
+from flask import Blueprint, request, jsonify
 from app.users.models import UserRole
 from app.utils.security import create_access_token
-from app.auth.validators import (
-    DonorRegisterRequest,
-    LoginRequest,
-    TokenResponse,
-    UserResponse
-)
+from app.auth.validators import validate_donor_registration, validate_login_request, ValidationError
 from app.auth.services import register_donor_service, authenticate_user_service
-from app.auth.dependencies import get_current_user, require_login, require_donor, require_admin
+from app.auth.dependencies import require_login, require_donor, require_admin, get_current_user
 
-router = APIRouter(prefix="/api/v1/auth", tags=["Authentication & Authorization"])
+auth_bp = Blueprint("auth", __name__, url_prefix="/api/v1/auth")
 
 
-@router.post("/register", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
-def register_donor(req: DonorRegisterRequest, db: Session = Depends(get_db)):
+@auth_bp.route("/register", methods=["POST"])
+def register_donor():
     """
     Public Donor Registration Endpoint.
-    Validates input fields, checks email uniqueness, hashes password, and creates donor profile.
+    Validates input fields, checks email uniqueness, hashes password, creates donor profile.
     """
-    user = register_donor_service(db, req)
-    return user
+    data = request.get_json(silent=True) or {}
+    try:
+        cleaned_data = validate_donor_registration(data)
+        user = register_donor_service(cleaned_data)
+        return jsonify(user.to_dict()), 201
+    except ValidationError as ve:
+        return jsonify({"detail": ve.errors}), 422
 
 
-@router.post("/donor/login", response_model=TokenResponse)
-def donor_login(req: LoginRequest, db: Session = Depends(get_db)):
+@auth_bp.route("/donor/login", methods=["POST"])
+def donor_login():
     """
     Donor Login Endpoint.
     Verifies credentials and ensures account has DONOR role before generating token.
     """
-    user = authenticate_user_service(db, req, expected_role=UserRole.DONOR.value)
-    
-    # Create JWT token with user id, role, and email
+    data = request.get_json(silent=True) or {}
+    try:
+        email, password = validate_login_request(data)
+    except ValidationError as ve:
+        return jsonify({"detail": ve.errors}), 422
+
+    user, error_msg, status_code = authenticate_user_service(email, password, expected_role=UserRole.DONOR.value)
+    if error_msg:
+        return jsonify({"detail": error_msg}), status_code
+
     token_data = {
         "sub": str(user.id),
         "role": user.role,
@@ -42,22 +46,30 @@ def donor_login(req: LoginRequest, db: Session = Depends(get_db)):
     }
     access_token = create_access_token(data=token_data)
 
-    return TokenResponse(
-        access_token=access_token,
-        token_type="bearer",
-        role=user.role,
-        user=user
-    )
+    return jsonify({
+        "access_token": access_token,
+        "token_type": "bearer",
+        "role": user.role,
+        "user": user.to_dict()
+    }), 200
 
 
-@router.post("/admin/login", response_model=TokenResponse)
-def admin_login(req: LoginRequest, db: Session = Depends(get_db)):
+@auth_bp.route("/admin/login", methods=["POST"])
+def admin_login():
     """
     Admin Login Endpoint.
     Verifies credentials and ensures account has ADMIN role.
     Rejects normal donor accounts attempting admin login.
     """
-    user = authenticate_user_service(db, req, expected_role=UserRole.ADMIN.value)
+    data = request.get_json(silent=True) or {}
+    try:
+        email, password = validate_login_request(data)
+    except ValidationError as ve:
+        return jsonify({"detail": ve.errors}), 422
+
+    user, error_msg, status_code = authenticate_user_service(email, password, expected_role=UserRole.ADMIN.value)
+    if error_msg:
+        return jsonify({"detail": error_msg}), status_code
 
     token_data = {
         "sub": str(user.id),
@@ -66,55 +78,61 @@ def admin_login(req: LoginRequest, db: Session = Depends(get_db)):
     }
     access_token = create_access_token(data=token_data)
 
-    return TokenResponse(
-        access_token=access_token,
-        token_type="bearer",
-        role=user.role,
-        user=user
-    )
+    return jsonify({
+        "access_token": access_token,
+        "token_type": "bearer",
+        "role": user.role,
+        "user": user.to_dict()
+    }), 200
 
 
-@router.post("/logout")
-def logout(current_user: User = Depends(require_login)):
+@auth_bp.route("/logout", methods=["POST"])
+@require_login
+def logout():
     """
     Logout Endpoint.
     Informs client to discard session/token.
     """
-    return {
+    user = get_current_user()
+    return jsonify({
         "success": True,
-        "message": f"Successfully logged out user {current_user.email}."
-    }
+        "message": f"Successfully logged out user {user.email}."
+    }), 200
 
 
-@router.get("/me", response_model=UserResponse)
-def get_current_user_profile(current_user: User = Depends(require_login)):
+@auth_bp.route("/me", methods=["GET"])
+@require_login
+def get_current_user_profile():
     """
     Get current logged in user profile (Donor or Admin).
     Requires valid authentication token. Excludes sensitive password_hash.
     """
-    return current_user
+    user = get_current_user()
+    return jsonify(user.to_dict()), 200
 
 
-# Sample Protected Test Routes for Team Integration & Verification
-
-@router.get("/donor/dashboard-data")
-def donor_dashboard_sample(current_user: User = Depends(require_donor)):
+@auth_bp.route("/donor/dashboard-data", methods=["GET"])
+@require_donor
+def donor_dashboard_sample():
     """
     Protected Donor-only route test. Returns donor details.
     """
-    return {
-        "message": f"Welcome to Donor Dashboard, {current_user.name}!",
-        "donor_id": current_user.donor_profile.id if current_user.donor_profile else None,
-        "blood_group": current_user.donor_profile.blood_group if current_user.donor_profile else None
-    }
+    user = get_current_user()
+    return jsonify({
+        "message": f"Welcome to Donor Dashboard, {user.name}!",
+        "donor_id": user.donor_profile.id if user.donor_profile else None,
+        "blood_group": user.donor_profile.blood_group if user.donor_profile else None
+    }), 200
 
 
-@router.get("/admin/dashboard-data")
-def admin_dashboard_sample(current_user: User = Depends(require_admin)):
+@auth_bp.route("/admin/dashboard-data", methods=["GET"])
+@require_admin
+def admin_dashboard_sample():
     """
     Protected Admin-only route test. Returns admin details.
     """
-    return {
-        "message": f"Welcome to Admin Dashboard, {current_user.name}!",
-        "admin_email": current_user.email
-    }
+    user = get_current_user()
+    return jsonify({
+        "message": f"Welcome to Admin Dashboard, {user.name}!",
+        "admin_email": user.email
+    }), 200

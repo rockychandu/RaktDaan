@@ -1,56 +1,42 @@
-from contextlib import asynccontextmanager
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from app.config import settings
-from app.database.connection import init_db, SessionLocal
+from flask import Flask, jsonify
+from flask_cors import CORS
+from app.config import Config
+from app.database.connection import db, init_db
 from app.database.seed import seed_initial_admin
-from app.auth.routes import router as auth_router
+from app.auth.routes import auth_bp
 
-
-@asynccontextmanager
-async def lifespan(app: FastAPI):
+def create_app(config_class=Config):
     """
-    Application startup and shutdown events lifecycle manager.
-    Initializes database tables and seeds default admin user on application launch.
+    Application Factory for RaktDaan Flask app.
+    Initializes extensions, routes, CORS, and seeds default admin account.
     """
-    # Startup actions
-    init_db()
-    db = SessionLocal()
-    try:
-        seed_initial_admin(db)
-    finally:
-        db.close()
-    
-    yield
+    app = Flask(__name__)
+    app.config.from_object(config_class)
 
-    # Shutdown actions (if any)
+    # Enable CORS for Frontend integration (Member 2)
+    CORS(app)
 
+    # Initialize Database
+    init_db(app)
 
-app = FastAPI(
-    title=settings.PROJECT_NAME,
-    description="Blood Bank Management System - Authentication, Authorization & Database Foundation API",
-    version="1.0.0",
-    lifespan=lifespan
-)
+    # Register Blueprints
+    app.register_blueprint(auth_bp)
 
-# Configure CORS for Frontend Integration (Member 2)
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # Adjust in production
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+    # Seed Admin on startup
+    with app.app_context():
+        seed_initial_admin()
 
-# Include Auth Router
-app.include_router(auth_router)
+    @app.route("/")
+    def root():
+        return jsonify({
+            "status": "online",
+            "app": app.config.get("PROJECT_NAME"),
+            "version": "1.0.0"
+        })
 
+    return app
 
-@app.get("/", tags=["Health Check"])
-def root():
-    return {
-        "status": "online",
-        "app": settings.PROJECT_NAME,
-        "version": "1.0.0",
-        "docs_url": "/docs"
-    }
+app = create_app()
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True)

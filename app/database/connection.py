@@ -1,33 +1,11 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, declarative_base
-from app.config import settings
+from flask_sqlalchemy import SQLAlchemy
 
-# SQLite configuration requires check_same_thread=False for multithreaded web servers
-connect_args = {"check_same_thread": False} if settings.DATABASE_URL.startswith("sqlite") else {}
+db = SQLAlchemy()
 
-engine = create_engine(
-    settings.DATABASE_URL,
-    connect_args=connect_args,
-    echo=False
-)
-
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-Base = declarative_base()
-
-def get_db():
+def init_db(app):
     """
-    Dependency generator for database sessions.
-    Yields a SQLAlchemy session and ensures session closure upon request completion.
+    Initialize SQLAlchemy database extension with Flask application.
     """
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
-def init_db():
-    """
-    Initializes database tables defined using Base metadata.
-    """
-    Base.metadata.create_all(bind=engine)
+    db.init_app(app)
+    with app.app_context():
+        db.create_all()

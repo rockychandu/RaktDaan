@@ -1,87 +1,75 @@
-from typing import Optional
-from fastapi import Depends, HTTPException, status
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from sqlalchemy.orm import Session
-from app.database.connection import get_db
+from functools import wraps
+from flask import request, jsonify
+from app.database.connection import db
 from app.database.models import User
 from app.users.models import UserRole
 from app.utils.security import decode_access_token
 
-security_scheme = HTTPBearer(auto_error=False)
-
-def get_current_user(
-    credentials: Optional[HTTPAuthorizationCredentials] = Depends(security_scheme),
-    db: Session = Depends(get_db)
-) -> User:
+def get_current_user() -> User:
     """
-    Extracts Bearer token, validates signature/expiration, and fetches User from DB.
-    Raises 401 Unauthorized if invalid or missing token.
+    Extracts Bearer token from Authorization header, decodes JWT, and returns User model from DB.
+    Returns None if missing or invalid.
     """
-    if not credentials or not credentials.credentials:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Authentication token required.",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
+    auth_header = request.headers.get("Authorization")
+    if not auth_header:
+        return None
 
-    payload = decode_access_token(credentials.credentials)
+    parts = auth_header.split()
+    if len(parts) != 2 or parts[0].lower() != "bearer":
+        return None
+
+    token = parts[1]
+    payload = decode_access_token(token)
     if not payload:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid or expired authentication token.",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
+        return None
 
     user_id = payload.get("sub")
     if not user_id:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Malformed token payload.",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
+        return None
 
-    user = db.query(User).filter(User.id == int(user_id)).first()
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="User associated with token no longer exists.",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
-
-    if user.status != "ACTIVE":
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="User account is inactive."
-        )
+    # Use db.session.get for SQLAlchemy 2.0 compatibility
+    user = db.session.get(User, int(user_id))
+    if not user or user.status != "ACTIVE":
+        return None
 
     return user
 
-def require_login(current_user: User = Depends(get_current_user)) -> User:
+def require_login(f):
     """
-    Dependency ensuring that the request is made by an authenticated user.
+    Decorator requiring an authenticated user.
     """
-    return current_user
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        user = get_current_user()
+        if not user:
+            return jsonify({"detail": "Authentication token required or invalid."}), 401
+        return f(*args, **kwargs)
+    return decorated_function
 
-def require_donor(current_user: User = Depends(get_current_user)) -> User:
+def require_donor(f):
     """
-    Dependency enforcing that the authenticated user has the DONOR role.
-    Raises 403 Forbidden if an admin or other role attempts access.
+    Decorator enforcing that logged in user has DONOR role.
     """
-    if current_user.role != UserRole.DONOR.value:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Access restricted to registered Donors only."
-        )
-    return current_user
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        user = get_current_user()
+        if not user:
+            return jsonify({"detail": "Authentication token required."}), 401
+        if user.role != UserRole.DONOR.value:
+            return jsonify({"detail": "Access restricted to registered Donors only."}), 403
+        return f(*args, **kwargs)
+    return decorated_function
 
-def require_admin(current_user: User = Depends(get_current_user)) -> User:
+def require_admin(f):
     """
-    Dependency enforcing that the authenticated user has the ADMIN role.
-    Raises 403 Forbidden if a donor or other non-admin attempts access.
+    Decorator enforcing that logged in user has ADMIN role.
     """
-    if current_user.role != UserRole.ADMIN.value:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Access restricted to System Administrators only."
-        )
-    return current_user
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        user = get_current_user()
+        if not user:
+            return jsonify({"detail": "Authentication token required."}), 401
+        if user.role != UserRole.ADMIN.value:
+            return jsonify({"detail": "Access restricted to System Administrators only."}), 403
+        return f(*args, **kwargs)
+    return decorated_function

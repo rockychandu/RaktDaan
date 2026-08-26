@@ -1,7 +1,7 @@
 """
 Database package providing models, connection session management, and seed utilities.
 """
-from app.database.connection import Base, engine, get_db, SessionLocal
-from app.database.models import User, DonorProfile
+from app.database.connection import db, init_db
+from app.database.models import User, DonorProfile, Base
 
-__all__ = ["Base", "engine", "get_db", "SessionLocal", "User", "DonorProfile"]
+__all__ = ["db", "init_db", "User", "DonorProfile", "Base"]

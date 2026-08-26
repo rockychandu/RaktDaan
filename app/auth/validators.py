@@ -1,144 +1,139 @@
 import re
-from datetime import date
-from typing import Optional
-from pydantic import BaseModel, EmailStr, Field, field_validator, model_validator
-from app.users.models import BloodGroup, UserRole
+from datetime import datetime, date
+from app.users.models import BloodGroup
 
-class DonorRegisterRequest(BaseModel):
-    name: str = Field(..., min_length=2, max_length=100, description="Full Name")
-    email: str = Field(..., description="Valid Email Address")
-    phone: str = Field(..., description="Phone Number")
-    password: str = Field(..., min_length=8, description="Password")
-    confirm_password: str = Field(..., description="Password Confirmation")
-    date_of_birth: date = Field(..., description="Date of Birth (YYYY-MM-DD)")
-    gender: str = Field(..., description="Gender (Male/Female/Other)")
-    blood_group: str = Field(..., description="Blood Group e.g. A+, O-")
-    address: str = Field(..., min_length=3, max_length=255, description="Street Address")
-    city: str = Field(..., min_length=2, max_length=100, description="City")
-    state: str = Field(..., min_length=2, max_length=100, description="State")
-    emergency_contact: str = Field(..., description="Emergency Contact Phone Number")
+class ValidationError(Exception):
+    def __init__(self, errors):
+        self.errors = errors
+        super().__init__(str(errors))
 
-    @field_validator("name", "address", "city", "state")
-    @classmethod
-    def validate_non_empty_strings(cls, v: str, info) -> str:
-        cleaned = v.strip()
-        if not cleaned:
-            raise ValueError(f"{info.field_name} cannot be empty or whitespace only.")
-        return cleaned
+def validate_donor_registration(data: dict) -> dict:
+    """
+    Validates donor registration input data according to all requirements.
+    Raises ValidationError if invalid.
+    Returns cleaned data if valid.
+    """
+    if not isinstance(data, dict):
+        raise ValidationError({"message": "Invalid payload format. Expected JSON object."})
 
-    @field_validator("email")
-    @classmethod
-    def validate_email_format(cls, v: str) -> str:
-        v_clean = v.strip().lower()
-        pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
-        if not re.match(pattern, v_clean):
-            raise ValueError("Invalid email format.")
-        return v_clean
+    required_fields = [
+        "name", "email", "phone", "password", "confirm_password",
+        "date_of_birth", "gender", "blood_group", "address", "city",
+        "state", "emergency_contact"
+    ]
 
-    @field_validator("phone", "emergency_contact")
-    @classmethod
-    def validate_phone_number(cls, v: str, info) -> str:
-        v_clean = v.strip()
-        # Accept optional + prefix and 10 to 15 digits
-        pattern = r"^\+?[0-9]{10,15}$"
-        if not re.match(pattern, v_clean):
-            raise ValueError(f"Invalid {info.field_name}. Must contain 10-15 digits.")
-        return v_clean
+    errors = {}
 
-    @field_validator("password")
-    @classmethod
-    def validate_password_strength(cls, v: str) -> str:
-        if len(v) < 8:
-            raise ValueError("Password must be at least 8 characters long.")
-        if not re.search(r"[A-Z]", v):
-            raise ValueError("Password must contain at least one uppercase letter.")
-        if not re.search(r"[a-z]", v):
-            raise ValueError("Password must contain at least one lowercase letter.")
-        if not re.search(r"[0-9]", v):
-            raise ValueError("Password must contain at least one number.")
-        if not re.search(r"[!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]", v):
-            raise ValueError("Password must contain at least one special character.")
-        return v
+    # 1. Check required fields
+    for field in required_fields:
+        val = data.get(field)
+        if val is None or (isinstance(val, str) and not val.strip()):
+            errors[field] = f"Field '{field}' is required and cannot be empty."
 
-    @field_validator("date_of_birth")
-    @classmethod
-    def validate_age(cls, v: date) -> date:
+    if errors:
+        raise ValidationError(errors)
+
+    # Clean string inputs
+    name = str(data["name"]).strip()
+    email = str(data["email"]).strip().lower()
+    phone = str(data["phone"]).strip()
+    password = str(data["password"])
+    confirm_password = str(data["confirm_password"])
+    date_of_birth_raw = str(data["date_of_birth"]).strip()
+    gender = str(data["gender"]).strip().capitalize()
+    blood_group = str(data["blood_group"]).strip().upper()
+    address = str(data["address"]).strip()
+    city = str(data["city"]).strip()
+    state = str(data["state"]).strip()
+    emergency_contact = str(data["emergency_contact"]).strip()
+
+    # 2. Email format
+    email_pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+    if not re.match(email_pattern, email):
+        errors["email"] = "Invalid email format."
+
+    # 3. Phone & Emergency Contact format
+    phone_pattern = r"^\+?[0-9]{10,15}$"
+    if not re.match(phone_pattern, phone):
+        errors["phone"] = "Invalid phone number. Must contain 10 to 15 digits."
+    if not re.match(phone_pattern, emergency_contact):
+        errors["emergency_contact"] = "Invalid emergency contact. Must contain 10 to 15 digits."
+
+    # 4. Password Strength
+    if len(password) < 8:
+        errors["password"] = "Password must be at least 8 characters long."
+    elif not re.search(r"[A-Z]", password):
+        errors["password"] = "Password must contain at least one uppercase letter."
+    elif not re.search(r"[a-z]", password):
+        errors["password"] = "Password must contain at least one lowercase letter."
+    elif not re.search(r"[0-9]", password):
+        errors["password"] = "Password must contain at least one digit."
+    elif not re.search(r"[!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]", password):
+        errors["password"] = "Password must contain at least one special character."
+
+    # 5. Password Match
+    if password != confirm_password:
+        errors["confirm_password"] = "Password and confirm password do not match."
+
+    # 6. Date of Birth & Age
+    try:
+        dob = datetime.strptime(date_of_birth_raw, "%Y-%m-%d").date()
         today = date.today()
-        if v >= today:
-            raise ValueError("Date of birth must be in the past.")
-        
-        # Calculate age
-        age = today.year - v.year - ((today.month, today.day) < (v.month, v.day))
-        if age < 18:
-            raise ValueError("Donor must be at least 18 years old.")
-        if age > 100:
-            raise ValueError("Invalid date of birth.")
-        return v
+        if dob >= today:
+            errors["date_of_birth"] = "Date of birth must be in the past."
+        else:
+            age = today.year - dob.year - ((today.month, today.day) < (dob.month, dob.day))
+            if age < 18:
+                errors["date_of_birth"] = "Donor must be at least 18 years old."
+            elif age > 100:
+                errors["date_of_birth"] = "Invalid date of birth."
+    except ValueError:
+        errors["date_of_birth"] = "Date of birth must be in YYYY-MM-DD format."
+        dob = None
 
-    @field_validator("gender")
-    @classmethod
-    def validate_gender(cls, v: str) -> str:
-        v_clean = v.strip().capitalize()
-        allowed = ["Male", "Female", "Other"]
-        if v_clean not in allowed:
-            raise ValueError(f"Gender must be one of: {', '.join(allowed)}")
-        return v_clean
+    # 7. Gender
+    if gender not in ["Male", "Female", "Other"]:
+        errors["gender"] = "Gender must be one of: Male, Female, Other."
 
-    @field_validator("blood_group")
-    @classmethod
-    def validate_blood_group(cls, v: str) -> str:
-        v_clean = v.strip().upper()
-        allowed_groups = BloodGroup.list_values()
-        if v_clean not in allowed_groups:
-            raise ValueError(f"Invalid blood group. Must be one of: {', '.join(allowed_groups)}")
-        return v_clean
+    # 8. Blood Group
+    allowed_groups = BloodGroup.list_values()
+    if blood_group not in allowed_groups:
+        errors["blood_group"] = f"Invalid blood group. Must be one of: {', '.join(allowed_groups)}"
 
-    @model_validator(mode="after")
-    def validate_password_match(self):
-        if self.password != self.confirm_password:
-            raise ValueError("Password and Confirm Password do not match.")
-        return self
+    if errors:
+        raise ValidationError(errors)
 
+    return {
+        "name": name,
+        "email": email,
+        "phone": phone,
+        "password": password,
+        "date_of_birth": dob,
+        "gender": gender,
+        "blood_group": blood_group,
+        "address": address,
+        "city": city,
+        "state": state,
+        "emergency_contact": emergency_contact
+    }
 
-class DonorProfileResponse(BaseModel):
-    id: int
-    date_of_birth: date
-    gender: str
-    blood_group: str
-    address: str
-    city: str
-    state: str
-    emergency_contact: str
+def validate_login_request(data: dict) -> tuple:
+    """
+    Validates login input data. Returns (email, password).
+    """
+    if not isinstance(data, dict):
+        raise ValidationError({"message": "Invalid payload format. Expected JSON object."})
 
-    class Config:
-        from_attributes = True
+    email = data.get("email")
+    password = data.get("password")
 
+    errors = {}
+    if not email or not str(email).strip():
+        errors["email"] = "Email is required."
+    if not password:
+        errors["password"] = "Password is required."
 
-class UserResponse(BaseModel):
-    id: int
-    name: str
-    email: str
-    phone: str
-    role: str
-    status: str
-    donor_profile: Optional[DonorProfileResponse] = None
+    if errors:
+        raise ValidationError(errors)
 
-    class Config:
-        from_attributes = True
-
-
-class LoginRequest(BaseModel):
-    email: str = Field(..., description="User Email")
-    password: str = Field(..., description="Password")
-
-    @field_validator("email")
-    @classmethod
-    def clean_email(cls, v: str) -> str:
-        return v.strip().lower()
-
-
-class TokenResponse(BaseModel):
-    access_token: str
-    token_type: str = "bearer"
-    role: str
-    user: UserResponse
+    return str(email).strip().lower(), str(password)

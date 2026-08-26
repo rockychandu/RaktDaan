@@ -1,21 +1,20 @@
 import os
-from pydantic_settings import BaseSettings
+from dotenv import load_dotenv
 
-class Settings(BaseSettings):
-    PROJECT_NAME: str = "RaktDaan Blood Bank Management System"
-    SECRET_KEY: str = "raktdaan_super_secret_jwt_key_2026_secure"
-    ALGORITHM: str = "HS256"
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
-    DATABASE_URL: str = "sqlite:///./raktdaan.db"
+load_dotenv()
 
-    ADMIN_NAME: str = "System Admin"
-    ADMIN_EMAIL: str = "admin@raktdaan.org"
-    ADMIN_PASSWORD: str = "Admin@RaktDaan123"
-    ADMIN_PHONE: str = "9876543210"
+class Config:
+    PROJECT_NAME = os.getenv("PROJECT_NAME", "RaktDaan Blood Bank Management System")
+    SECRET_KEY = os.getenv("SECRET_KEY", "raktdaan_super_secret_jwt_key_2026_secure")
+    ALGORITHM = os.getenv("ALGORITHM", "HS256")
+    ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "60"))
+    
+    # Database
+    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL", "sqlite:///./raktdaan.db")
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
-        extra = "ignore"
-
-settings = Settings()
+    # Seed Admin Config
+    ADMIN_NAME = os.getenv("ADMIN_NAME", "System Admin")
+    ADMIN_EMAIL = os.getenv("ADMIN_EMAIL", "admin@raktdaan.org")
+    ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD", "Admin@RaktDaan123")
+    ADMIN_PHONE = os.getenv("ADMIN_PHONE", "9876543210")

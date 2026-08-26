@@ -1,29 +1,24 @@
-from datetime import datetime, timedelta, timezone
-from typing import Optional, Dict, Any
 import jwt
-from passlib.context import CryptContext
-from app.config import settings
-
-# Password Hashing Context
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+from datetime import datetime, timedelta, timezone
+from werkzeug.security import generate_password_hash, check_password_hash
+from app.config import Config
 
 def hash_password(password: str) -> str:
     """
-    Hashes a plain text password using bcrypt algorithm.
+    Hashes a plain text password securely using scrypt/pbkdf2.
     Never store plain-text passwords in database.
     """
-    return pwd_context.hash(password)
+    return generate_password_hash(password)
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     """
-    Verifies a plain text password against a stored bcrypt hash.
+    Verifies a plain text password against a stored secure password hash.
     """
-    try:
-        return pwd_context.verify(plain_password, hashed_password)
-    except Exception:
+    if not plain_password or not hashed_password:
         return False
+    return check_password_hash(hashed_password, plain_password)
 
-def create_access_token(data: Dict[str, Any], expires_delta: Optional[timedelta] = None) -> str:
+def create_access_token(data: dict, expires_delta: timedelta = None) -> str:
     """
     Generates a secure JWT access token with payload data (sub, role, email) and expiration.
     """
@@ -32,22 +27,22 @@ def create_access_token(data: Dict[str, Any], expires_delta: Optional[timedelta]
     if expires_delta:
         expire = now + expires_delta
     else:
-        expire = now + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
+        expire = now + timedelta(minutes=Config.ACCESS_TOKEN_EXPIRE_MINUTES)
     
     to_encode.update({
         "exp": expire,
         "iat": now
     })
-    encoded_jwt = jwt.encode(to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
+    encoded_jwt = jwt.encode(to_encode, Config.SECRET_KEY, algorithm=Config.ALGORITHM)
     return encoded_jwt
 
-def decode_access_token(token: str) -> Optional[Dict[str, Any]]:
+def decode_access_token(token: str) -> dict:
     """
     Decodes and validates a JWT access token signature and expiration.
     Returns payload dictionary or None if invalid.
     """
     try:
-        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+        payload = jwt.decode(token, Config.SECRET_KEY, algorithms=[Config.ALGORITHM])
         return payload
     except (jwt.PyJWTError, Exception):
         return None
