@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - RaktDaan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background: #090d16; color: #f8fafc; min-height: 100vh; padding: 30px 20px; }
+        .nav { display: flex; justify-content: space-between; align-items: center; max-width: 1000px; margin: 0 auto 30px; background: #111827; padding: 15px 25px; border-radius: 12px; border: 1px solid #1f2937; }
+        .nav h1 { color: #ef4444; font-size: 1.5rem; }
+        .btn-logout { background: #1f2937; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 600; }
+        .btn-logout:hover { background: #374151; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        .card { background: #111827; border: 1px solid #1f2937; border-radius: 16px; padding: 30px; margin-bottom: 25px; }
+        .card h2 { color: #f8fafc; margin-bottom: 15px; font-size: 1.3rem; }
+        .badge-admin { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid #ef4444; }
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px; }
+        .info-item { background: #1f2937; padding: 15px; border-radius: 8px; border: 1px solid #374151; }
+        .info-label { color: #9ca3af; font-size: 0.85rem; margin-bottom: 5px; }
+        .info-val { color: #f8fafc; font-weight: 600; font-size: 1.05rem; }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <h1>🛡️ System Admin Dashboard</h1>
+        <button class="btn-logout" onclick="logout()">Logout</button>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <h2>System Administrator: <span id="admin-email">Loading...</span> <span class="badge-admin">ADMINISTRATOR</span></h2>
+            <p style="color: #9ca3af;">Authenticated as Administrator via backend role authorization module (`@require_admin`).</p>
+
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">Role</div>
+                    <div class="info-val" style="color: #ef4444;">ADMIN</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">System Status</div>
+                    <div class="info-val" style="color: #10b981;">OPERATIONAL</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">Backend API URL</div>
+                    <div class="info-val">/api/v1/auth</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const token = localStorage.getItem('auth_token');
+        if (!token) {
+            window.location.href = '/admin/login';
+        }
+
+        async function loadAdmin() {
+            try {
+                const res = await fetch('/api/v1/auth/me', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (!res.ok) {
+                    logout();
+                    return;
+                }
+
+                const data = await res.json();
+                if (data.role !== 'ADMIN') {
+                    alert('Access Restricted. Account is not an Admin.');
+                    logout();
+                    return;
+                }
+
+                document.getElementById('admin-email').innerText = data.email;
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        async function logout() {
+            try {
+                await fetch('/api/v1/auth/logout', {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+            } catch (e) {}
+            localStorage.clear();
+            window.location.href = '/admin/login';
+        }
+
+        loadAdmin();
+    </script>
+</body>
+</html>

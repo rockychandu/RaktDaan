@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - RaktDaan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background: #090d16; color: #f8fafc; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .login-card { background: #111827; border: 1px solid #1f2937; border-radius: 16px; width: 100%; max-width: 420px; padding: 35px; box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
+        .title { text-align: center; margin-bottom: 25px; }
+        .title h1 { color: #ef4444; font-size: 1.8rem; margin-bottom: 5px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .title p { color: #9ca3af; font-size: 0.95rem; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-size: 0.9rem; color: #d1d5db; font-weight: 500; }
+        input { width: 100%; padding: 12px 14px; background: #1f2937; border: 1px solid #374151; border-radius: 8px; color: white; font-size: 0.95rem; transition: border-color 0.2s; }
+        input:focus { outline: none; border-color: #ef4444; }
+        .btn { width: 100%; padding: 14px; background: #ef4444; color: white; border: none; border-radius: 8px; font-weight: 600; font-size: 1rem; cursor: pointer; transition: background 0.2s; margin-top: 10px; }
+        .btn:hover { background: #dc2626; }
+        .alert { padding: 12px; border-radius: 8px; margin-bottom: 20px; font-size: 0.9rem; display: none; }
+        .alert-danger { background: rgba(239, 68, 68, 0.15); border: 1px solid #ef4444; color: #fca5a5; }
+        .alert-success { background: rgba(16, 185, 129, 0.15); border: 1px solid #10b981; color: #6ee7b7; }
+        .footer-links { text-align: center; margin-top: 20px; font-size: 0.9rem; color: #9ca3af; }
+        .footer-links a { color: #ef4444; text-decoration: none; font-weight: 500; }
+        .footer-links a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <div class="title">
+            <h1>🛡️ Admin Login</h1>
+            <p>System Administrator Authentication Portal</p>
+        </div>
+
+        <div id="alert-box" class="alert"></div>
+
+        <form id="admin-login-form">
+            <div class="form-group">
+                <label for="email">Admin Email Address</label>
+                <input type="email" id="email" required placeholder="admin@raktdaan.org">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" required placeholder="••••••••">
+            </div>
+
+            <button type="submit" class="btn" id="submit-btn">Login as Administrator</button>
+        </form>
+
+        <div class="footer-links">
+            Default Seed Admin: <code>admin@raktdaan.org</code>
+            <br><br>
+            <a href="/">← Back to Portal Select</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('admin-login-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const alertBox = document.getElementById('alert-box');
+            const submitBtn = document.getElementById('submit-btn');
+            
+            alertBox.style.display = 'none';
+            submitBtn.disabled = true;
+            submitBtn.innerText = 'Verifying admin credentials...';
+
+            const payload = {
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value
+            };
+
+            try {
+                const response = await fetch('/api/v1/auth/admin/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    localStorage.setItem('auth_token', data.access_token);
+                    localStorage.setItem('user_data', JSON.stringify(data.user));
+
+                    alertBox.className = 'alert alert-success';
+                    alertBox.innerText = 'Admin Login successful! Redirecting to Admin Dashboard...';
+                    alertBox.style.display = 'block';
+
+                    setTimeout(() => {
+                        window.location.href = '/admin/dashboard';
+                    }, 1000);
+                } else {
+                    alertBox.className = 'alert alert-danger';
+                    alertBox.innerText = data.detail || 'Invalid admin credentials or role mismatch.';
+                    alertBox.style.display = 'block';
+                }
+            } catch (err) {
+                alertBox.className = 'alert alert-danger';
+                alertBox.innerText = 'Network error connecting to backend API.';
+                alertBox.style.display = 'block';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = 'Login as Administrator';
+            }
+        });
+    </script>
+</body>
+</html>

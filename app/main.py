@@ -1,16 +1,18 @@
+import os
 from flask import Flask, jsonify
 from flask_cors import CORS
-from app.config import Config, DevelopmentConfig
+from app.config import Config
 from app.database.connection import init_db
 from app.database.seed import seed_all
-from app.auth.routes import donor_bp, admin_bp, health_bp
+from app.auth.routes import donor_bp, admin_bp, health_bp, ui_bp
 from app.users.exceptions import DomainException
 
 def create_app(config_class=Config):
     """
     Application Factory for RaktDaan Enterprise Backend.
     """
-    app = Flask(__name__)
+    template_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "templates")
+    app = Flask(__name__, template_folder=template_dir)
     app.config.from_object(config_class)
 
     # Configure CORS
@@ -20,6 +22,7 @@ def create_app(config_class=Config):
     init_db(app)
 
     # Register Blueprints
+    app.register_blueprint(ui_bp)
     app.register_blueprint(donor_bp)
     app.register_blueprint(admin_bp)
     app.register_blueprint(health_bp)
@@ -38,18 +41,10 @@ def create_app(config_class=Config):
         }
         return jsonify(response), error.status_code
 
-    @app.route("/")
-    def root():
-        return jsonify({
-            "status": "online",
-            "app": app.config.get("PROJECT_NAME"),
-            "version": app.config.get("VERSION", "2.0.0"),
-            "docs": "/api/v1/auth/health"
-        })
-
     return app
 
 app = create_app()
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    port = int(os.getenv("PORT", "5050"))
+    app.run(host="0.0.0.0", port=port, debug=True)
