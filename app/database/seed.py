@@ -5,6 +5,8 @@ from app.database.models.user import User
 from app.database.models.blood_bank import BloodInventory, BloodCompatibilityMatrix
 from app.users.models import UserRole, UserStatus, BloodGroup
 from app.security.password_policy import PasswordPolicyEngine
+from app.database.seed_extended import seed_extended_data
+from app.database.seed_enterprise_modules import seed_enterprise_modules_data
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -22,27 +24,30 @@ COMPATIBILITY_MAP = [
 
 def seed_initial_admin() -> User:
     """
-    Seeds initial system admin account if none exists.
+    Seeds initial system admin accounts if none exist.
     """
-    admin_email = Config.ADMIN_EMAIL.lower().strip()
-    existing_admin = User.query.filter_by(email=admin_email).first()
+    admin_emails = [Config.ADMIN_EMAIL.lower().strip(), "admin@raktdaan.com"]
     
-    if existing_admin:
-        logger.info(f"Admin user already exists: {admin_email}")
-        return existing_admin
-
-    admin_user = User(
-        name=Config.ADMIN_NAME,
-        email=admin_email,
-        password_hash=PasswordPolicyEngine.hash_password(Config.ADMIN_PASSWORD),
-        role=UserRole.ADMIN.value,
-        phone=Config.ADMIN_PHONE,
-        status=UserStatus.ACTIVE.value
-    )
-    db.session.add(admin_user)
+    for email in admin_emails:
+        existing_admin = User.query.filter_by(email=email).first()
+        if not existing_admin:
+            admin_user = User(
+                name=Config.ADMIN_NAME,
+                email=email,
+                password_hash=PasswordPolicyEngine.hash_password(Config.ADMIN_PASSWORD),
+                role=UserRole.ADMIN.value,
+                phone=Config.ADMIN_PHONE,
+                status=UserStatus.ACTIVE.value
+            )
+            db.session.add(admin_user)
+            logger.info(f"Successfully created initial Admin account: {email}")
+        else:
+            existing_admin.password_hash = PasswordPolicyEngine.hash_password(Config.ADMIN_PASSWORD)
+    
     db.session.commit()
-    logger.info(f"Successfully created initial Admin account: {admin_email}")
-    return admin_user
+    return User.query.filter_by(email="admin@raktdaan.com").first()
+
+
 
 
 def seed_blood_inventory():
@@ -80,3 +85,5 @@ def seed_all():
     seed_initial_admin()
     seed_blood_inventory()
     seed_compatibility_matrix()
+    seed_extended_data()
+    seed_enterprise_modules_data()
