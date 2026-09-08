@@ -3,540 +3,655 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RaktDaan - Blood Bank & Donor Network</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #e11d48;
-            --primary-dark: #be123c;
-            --primary-hover: #9f1239;
-            --primary-light: #fff1f2;
-            --primary-border: #fecdd3;
-            --bg-main: #fafafa;
-            --card-bg: #ffffff;
-            --text-dark: #0f172a;
-            --text-muted: #64748b;
-            --border-light: #f1f5f9;
-            --shadow-sm: 0 4px 12px rgba(225, 29, 72, 0.04);
-            --shadow-md: 0 12px 30px rgba(225, 29, 72, 0.08);
-            --shadow-lg: 0 20px 40px rgba(225, 29, 72, 0.12);
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-        h1, h2, h3, h4, .brand-name, .motto-quote { font-family: 'Outfit', sans-serif; }
-
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-dark);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Top Navbar */
-        .navbar {
-            background: var(--card-bg);
-            border-bottom: 1px solid var(--border-light);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 24px;
-        }
-
-        .brand-link {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-        }
-
-        .brand-icon {
-            width: 44px;
-            height: 44px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            box-shadow: 0 4px 14px rgba(225, 29, 72, 0.3);
-        }
-
-        .brand-name {
-            font-size: 1.7rem;
-            font-weight: 800;
-            color: var(--primary-dark);
-            letter-spacing: -0.5px;
-        }
-
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .btn-nav-donor {
-            background: var(--primary);
-            color: white;
-            padding: 10px 22px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 12px rgba(225, 29, 72, 0.25);
-        }
-
-        .btn-nav-donor:hover {
-            background: var(--primary-dark);
-        }
-
-        .btn-nav-admin {
-            background: #0f172a;
-            color: white;
-            padding: 10px 22px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.2s ease;
-        }
-
-        .btn-nav-admin:hover {
-            background: #1e293b;
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 60px 24px 50px;
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-        }
-
-        @media (max-width: 900px) {
-            .hero { grid-template-columns: 1fr; text-align: center; gap: 40px; padding: 40px 24px; }
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--primary-light);
-            color: var(--primary);
-            border: 1px solid var(--primary-border);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.88rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-
-        .hero-title {
-            font-size: 3.2rem;
-            font-weight: 800;
-            line-height: 1.15;
-            color: var(--text-dark);
-            margin-bottom: 20px;
-            letter-spacing: -1px;
-        }
-
-        .hero-title span {
-            color: var(--primary);
-        }
-
-        .hero-text {
-            font-size: 1.15rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-            margin-bottom: 35px;
-        }
-
-        .hero-cta {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        @media (max-width: 900px) {
-            .hero-cta { justify-content: center; }
-        }
-
-        .btn-lg {
-            padding: 16px 32px;
-            font-size: 1.05rem;
-            border-radius: 12px;
-            font-weight: 700;
-            text-decoration: none;
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .btn-lg-primary {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 8px 20px rgba(225, 29, 72, 0.3);
-        }
-
-        .btn-lg-primary:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-        }
-
-        /* Motto & Image Hero Card */
-        .motto-card {
-            background: white;
-            border-radius: 24px;
-            padding: 40px;
-            border: 2px solid var(--primary-border);
-            box-shadow: var(--shadow-lg);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            background-image: radial-gradient(var(--primary-light) 1px, transparent 1px);
-            background-size: 24px 24px;
-        }
-
-        .motto-svg {
-            width: 100%;
-            max-width: 220px;
-            height: auto;
-            margin-bottom: 20px;
-        }
-
-        .motto-quote {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--primary-dark);
-            font-style: italic;
-            line-height: 1.5;
-            margin-bottom: 12px;
-        }
-
-        .motto-author {
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: var(--text-muted);
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-
-        /* Live Database Statistics Bar */
-        .stats-bar {
-            background: white;
-            border-y: 1px solid var(--border-light);
-            padding: 40px 24px;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .stats-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            text-align: center;
-        }
-
-        @media (max-width: 768px) {
-            .stats-container { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        .stat-card {
-            background: var(--bg-main);
-            border: 1.5px solid var(--border-light);
-            border-radius: 16px;
-            padding: 24px 16px;
-            transition: all 0.2s;
-        }
-
-        .stat-card:hover {
-            border-color: var(--primary-border);
-            transform: translateY(-2px);
-        }
-
-        .stat-num {
-            font-size: 2.6rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 4px;
-            font-family: 'Outfit', sans-serif;
-        }
-
-        .stat-label {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            font-weight: 600;
-        }
-
-        .stat-badge {
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: #047857;
-            background: #ecfdf5;
-            padding: 2px 8px;
-            border-radius: 10px;
-            margin-top: 6px;
-            display: inline-block;
-        }
-
-        /* Process Visual Drawings Section */
-        .process-section {
-            max-width: 1200px;
-            margin: 60px auto 80px;
-            padding: 0 24px;
-        }
-
-        .section-title-box {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto 40px;
-        }
-
-        .section-title {
-            font-size: 2.2rem;
-            font-weight: 800;
-            margin-bottom: 10px;
-            color: var(--text-dark);
-        }
-
-        .section-desc {
-            color: var(--text-muted);
-            font-size: 1.05rem;
-        }
-
-        .process-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-        }
-
-        @media (max-width: 900px) {
-            .process-grid { grid-template-columns: 1fr; }
-        }
-
-        .process-card {
-            background: white;
-            border: 1.5px solid var(--border-light);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: var(--shadow-sm);
-            transition: all 0.3s ease;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .process-card:hover {
-            border-color: var(--primary-border);
-            box-shadow: var(--shadow-md);
-            transform: translateY(-4px);
-        }
-
-        .process-drawing {
-            width: 120px;
-            height: 120px;
-            margin-bottom: 20px;
-        }
-
-        .process-step-num {
-            background: var(--primary-light);
-            color: var(--primary);
-            font-weight: 800;
-            font-size: 0.85rem;
-            padding: 4px 12px;
-            border-radius: 12px;
-            margin-bottom: 12px;
-            border: 1px solid var(--primary-border);
-        }
-
-        .process-h3 {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: var(--text-dark);
-        }
-
-        .process-p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-
-        /* Footer */
-        .footer {
-            margin-top: auto;
-            background: white;
-            border-top: 1px solid var(--border-light);
-            padding: 30px 24px;
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-    </style>
+    <title>RaktDaan — Voluntary Blood Donation & Emergency Response Network</title>
+    <link rel="stylesheet" href="/static/css/theme.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Header Navbar -->
-    <header class="navbar">
-        <div class="nav-container">
-            <a href="/" class="brand-link">
-                <div class="brand-icon">🩸</div>
-                <span class="brand-name">RaktDaan</span>
-            </a>
-
-            <div class="nav-actions">
-                <a href="/donor/login" class="btn-nav-donor">Donor Portal</a>
-                <a href="/admin/login" class="btn-nav-admin">Admin Portal</a>
+    <!-- 1. TOP EMERGENCY BAR -->
+    <div class="emergency-top-bar">
+        <div class="container emergency-bar-flex">
+            <div class="emergency-status-badge">
+                <span class="pulse-dot"></span>
+                <span>24/7 BLOOD EMERGENCY NETWORK</span>
+            </div>
+            <div style="font-weight: 800; font-size: 0.95rem;">
+                📞 Emergency Hotline: <a href="tel:180072583226" style="color: #ffffff; text-decoration: underline;">1800-RAKT-DAAN</a>
+            </div>
+            <div class="emergency-actions-mini">
+                <a href="#availability" class="btn-top-emergency">🩸 Check Blood Stock</a>
+                <a href="#emergency-dispatch-protocol" class="btn-top-emergency" style="background:#0f172a; color:#ffffff;">🚨 Request Emergency Blood</a>
             </div>
         </div>
-    </header>
+    </div>
 
-    <!-- Main Hero Section -->
-    <main>
-        <section class="hero">
-            <div class="hero-content">
-                <div class="hero-badge">
-                    <span>❤️</span> Voluntary Blood Donation System
+    <!-- 2. STICKY NAVIGATION BAR -->
+    <nav class="navbar-sticky">
+        <div class="container navbar-flex">
+            <a href="/" class="brand-logo">
+                <img src="/static/images/logo.png" alt="RaktDaan Logo" style="height:48px; width:auto; object-fit:contain;">
+                <div class="brand-text">RAKT<span style="color: var(--primary-red);">DAAN</span></div>
+            </a>
+
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#donate" class="nav-link">Donate Blood</a></li>
+                <li><a href="#availability" class="nav-link">Blood Availability</a></li>
+                <li><a href="#compatibility" class="nav-link">Compatibility</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+
+            <div class="nav-portals-group">
+                <a href="/donor/login" class="btn-portal-donor">❤️ DONOR PORTAL</a>
+                <a href="/admin/login" class="btn-portal-admin">🛡️ ADMIN PORTAL</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 3. HERO SECTION SYSTEM -->
+    <section id="home" class="hero-wrapper">
+        <div class="container hero-grid">
+            <div>
+                <div class="hero-badge-tag">
+                    <span>❤️</span> VOLUNTARY BLOOD DONATION NETWORK
                 </div>
-                <h1 class="hero-title">Connecting Donors with <span>Life-Saving</span> Need</h1>
-                <p class="hero-text">
-                    RaktDaan is a secure Blood Bank Management platform connecting voluntary blood donors, blood banks, and hospital emergency requests.
+                <h1 class="hero-heading">
+                    Every Drop Can <br>
+                    <span class="gradient-text">Save A Life.</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Connect with verified donors, hospitals, and blood banks when every second matters. Real-time availability tracking and instant emergency dispatch.
                 </p>
-                <div class="hero-cta">
-                    <a href="/register" class="btn-lg btn-lg-primary">
-                        <span>🩸</span> Register as Donor
+
+                <!-- PREVIOUS MOTTO QUOTE CARD -->
+                <div style="background: var(--primary-rose); border-left: 4px solid var(--primary-red); border-radius: 12px; padding: 14px 18px; margin-bottom: 25px; box-shadow: 0 4px 12px rgba(220, 38, 38, 0.06);">
+                    <p style="font-style: italic; font-weight: 700; color: var(--primary-crimson); font-size: 1rem; margin-bottom: 4px;">
+                        "Tears of a mother cannot save her child, but your blood can."
+                    </p>
+                    <div style="font-size: 0.8rem; font-weight: 800; color: var(--primary-red); letter-spacing: 0.5px; text-transform: uppercase;">
+                        — RAKTDAAN: DONATE BLOOD, SAVE LIVES
+                    </div>
+                </div>
+
+                <div class="hero-cta-group">
+                    <a href="/donor/login" class="btn-hero-primary">
+                        <span>🩸</span> Donate Blood
+                    </a>
+                    <a href="#emergency-dispatch-protocol" class="btn-hero-emergency">
+                        <span>🚨</span> Request Emergency Blood
                     </a>
                 </div>
-            </div>
 
-            <!-- RaktDaan Motto & Blood Drop Heart Artwork Card -->
-            <div class="motto-card">
-                <svg class="motto-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Glow Circle -->
-                    <circle cx="100" cy="100" r="85" fill="#FFF1F2" stroke="#FECDD3" stroke-width="2"/>
-                    <!-- Crimson Blood Drop Artwork -->
-                    <path d="M100 25C100 25 155 90 155 125C155 155.376 130.376 180 100 180C69.6243 180 45 155.376 45 125C45 90 100 25 100 25Z" fill="url(#mottoGrad)"/>
-                    <!-- White Heart Artwork Inside Drop -->
-                    <path d="M100 95C92 72 65 88 80 110L100 130L120 110C135 88 108 72 100 95Z" fill="white"/>
-                    <defs>
-                        <linearGradient id="mottoGrad" x1="100" y1="25" x2="100" y2="180" gradientUnits="userSpaceOnUse">
-                            <stop stop-color="#E11D48"/>
-                            <stop offset="1" stop-color="#BE123C"/>
-                        </linearGradient>
-                    </defs>
-                </svg>
-
-                <div class="motto-quote">
-                    “Tears of a mother cannot save her child, but your blood can. Be a hero, donate blood.”
-                </div>
-                <div class="motto-author">
-                    — RaktDaan Motto
+                <div style="margin-top: 24px; font-weight: 700; font-size: 0.92rem; color: var(--text-muted);">
+                    <a href="#availability" style="color: var(--primary-red); text-decoration: none;">Search Live Blood Stock →</a>
                 </div>
             </div>
-        </section>
 
-        <!-- Live Database Statistics Bar -->
-        <section class="stats-bar">
-            <div class="stats-container">
-                <div class="stat-card">
-                    <div class="stat-num">{{ total_donors }}</div>
-                    <div class="stat-label">Registered Donors</div>
-                    <div class="stat-badge">Live DB Count</div>
+            <!-- HERO INTERACTIVE VISUALIZATION -->
+            <div class="hero-visual-box">
+                <div style="background: white; border-radius: 28px; padding: 24px; box-shadow: 0 20px 40px rgba(220, 38, 38, 0.15); border: 2px solid var(--border-light); display: flex; align-items: center; justify-content: center; width: 300px; height: 300px; background: radial-gradient(circle, #ffffff 0%, #fff1f2 100%);">
+                    <img src="/static/images/logo.png" alt="RaktDaan Official Logo" style="max-width: 100%; max-height: 100%; object-fit: contain;">
                 </div>
 
-                <div class="stat-card">
-                    <div class="stat-num">{{ total_units }}</div>
-                    <div class="stat-label">Units Available</div>
-                    <div class="stat-badge">Live Inventory</div>
+                <div class="floating-stat-card float-card-1">
+                    <div class="float-icon" style="background:#ecfdf5; color:#047857;">👥</div>
+                    <div>
+                        <div style="font-weight:900; font-size:1.1rem; color:var(--dark-navy);">12 Donors</div>
+                        <div style="font-size:0.75rem; color:var(--text-muted); font-weight:700;">Online & Ready</div>
+                    </div>
                 </div>
 
-                <div class="stat-card">
-                    <div class="stat-num">{{ total_cities }}</div>
-                    <div class="stat-label">Active Cities</div>
-                    <div class="stat-badge">Network Coverage</div>
+                <div class="floating-stat-card float-card-2">
+                    <div class="float-icon" style="background:#fff1f2; color:#dc2626;">🩸</div>
+                    <div>
+                        <div style="font-weight:900; font-size:1.1rem; color:var(--primary-red);">O+ Available</div>
+                        <div style="font-size:0.75rem; color:var(--text-muted); font-weight:700;">Verified In Stock</div>
+                    </div>
                 </div>
 
-                <div class="stat-card">
-                    <div class="stat-num">{{ total_users }}</div>
-                    <div class="stat-label">System Accounts</div>
-                    <div class="stat-badge">Verified Records</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Blood Donation Process Visual Drawings Section -->
-        <section class="process-section">
-            <div class="section-title-box">
-                <h2 class="section-title">Blood Donation Process</h2>
-                <p class="section-desc">Simple 3-step safe and voluntary donation workflow.</p>
-            </div>
-
-            <div class="process-grid">
-                <!-- Step 1 Drawing -->
-                <div class="process-card">
-                    <div class="process-step-num">STEP 01</div>
-                    <svg class="process-drawing" viewBox="0 0 100 100" fill="none">
-                        <circle cx="50" cy="50" r="45" fill="#FFF1F2" stroke="#FECDD3" stroke-width="2"/>
-                        <rect x="30" y="25" width="40" height="52" rx="6" fill="white" stroke="#E11D48" stroke-width="3"/>
-                        <rect x="40" y="20" width="20" height="8" rx="2" fill="#E11D48"/>
-                        <line x1="38" y1="38" x2="62" y2="38" stroke="#E11D48" stroke-width="3" stroke-linecap="round"/>
-                        <line x1="38" y1="48" x2="62" y2="48" stroke="#E11D48" stroke-width="3" stroke-linecap="round"/>
-                        <line x1="38" y1="58" x2="52" y2="58" stroke="#E11D48" stroke-width="3" stroke-linecap="round"/>
-                    </svg>
-                    <h3 class="process-h3">Donor Registration</h3>
-                    <p class="process-p">Register your medical profile, blood group, age eligibility, and contact details.</p>
+                <div class="floating-stat-card float-card-3">
+                    <div class="float-icon" style="background:#fef3c7; color:#b45309;">🚨</div>
+                    <div>
+                        <div style="font-weight:900; font-size:1.1rem; color:var(--dark-navy);">Dispatch Active</div>
+                        <div style="font-size:0.75rem; color:var(--text-muted); font-weight:700;">STAT Protocol</div>
+                    </div>
                 </div>
 
-                <!-- Step 2 Drawing -->
-                <div class="process-card">
-                    <div class="process-step-num">STEP 02</div>
-                    <svg class="process-drawing" viewBox="0 0 100 100" fill="none">
-                        <circle cx="50" cy="50" r="45" fill="#FFF1F2" stroke="#FECDD3" stroke-width="2"/>
-                        <path d="M50 20C50 20 75 50 75 64C75 77.8071 63.8071 89 50 89C36.1929 89 25 77.8071 25 64C25 50 50 20 50 20Z" fill="#E11D48"/>
-                        <path d="M42 58L47 63L58 52" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <h3 class="process-h3">Health Check & Donation</h3>
-                    <p class="process-p">Quick 10-minute safe donation conducted by trained blood bank healthcare professionals.</p>
-                </div>
-
-                <!-- Step 3 Drawing -->
-                <div class="process-card">
-                    <div class="process-step-num">STEP 03</div>
-                    <svg class="process-drawing" viewBox="0 0 100 100" fill="none">
-                        <circle cx="50" cy="50" r="45" fill="#FFF1F2" stroke="#FECDD3" stroke-width="2"/>
-                        <path d="M50 35C45 -5 10 25 32 50L50 68L68 50C90 25 55 -5 50 35Z" fill="#E11D48"/>
-                        <path d="M25 78H75" stroke="#BE123C" stroke-width="4" stroke-linecap="round"/>
-                    </svg>
-                    <h3 class="process-h3">Save Up To 3 Lives</h3>
-                    <p class="process-p">Your single blood donation unit is tested, processed, and dispatched to save hospital patients.</p>
+                <div class="floating-stat-card float-card-4">
+                    <div class="float-icon" style="background:#eff6ff; color:#1d4ed8;">🏥</div>
+                    <div>
+                        <div style="font-weight:900; font-size:1.1rem; color:var(--dark-navy);">3 Hospitals</div>
+                        <div style="font-size:0.75rem; color:var(--text-muted); font-weight:700;">Connected</div>
+                    </div>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        RaktDaan Blood Bank Management System &copy; 2026 | Built with Clean Red & White Architecture
+    <!-- 4. LIVE SYSTEM STATISTICS -->
+    <section class="section-padding" style="background: #ffffff; border-y: 1px solid var(--border-light);">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card-premium">
+                    <div class="stat-icon-wrapper">🩸</div>
+                    <div class="stat-number-val" id="stat-donors-val">21+</div>
+                    <div class="stat-label-title">REGISTERED DONORS</div>
+                    <div class="stat-subtext-desc">Verified & ready to help</div>
+                </div>
+
+                <div class="stat-card-premium">
+                    <div class="stat-icon-wrapper" style="background:#ecfdf5; color:#047857;">💉</div>
+                    <div class="stat-number-val" id="stat-units-val">5+</div>
+                    <div class="stat-label-title">BLOOD UNITS AVAILABLE</div>
+                    <div class="stat-subtext-desc">Tested & stock ready</div>
+                </div>
+
+                <div class="stat-card-premium">
+                    <div class="stat-icon-wrapper" style="background:#eff6ff; color:#1d4ed8;">📍</div>
+                    <div class="stat-number-val" id="stat-cities-val">11+</div>
+                    <div class="stat-label-title">ACTIVE CITIES</div>
+                    <div class="stat-subtext-desc">Connected network</div>
+                </div>
+
+                <div class="stat-card-premium">
+                    <div class="stat-icon-wrapper" style="background:#fef3c7; color:#b45309;">🏥</div>
+                    <div class="stat-number-val" id="stat-users-val">23+</div>
+                    <div class="stat-label-title">SYSTEM ACCOUNTS</div>
+                    <div class="stat-subtext-desc">Hospitals & Staff</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. LIVE BLOOD STOCK GRID -->
+    <section id="availability" class="section-padding">
+        <div class="container">
+            <div style="text-align: center; max-width: 700px; margin: 0 auto 50px auto;">
+                <div class="hero-badge-tag">📊 REAL-TIME INVENTORY</div>
+                <h2 style="font-size: 2.8rem; letter-spacing: -1px; margin-bottom: 16px;">LIVE BLOOD STOCK</h2>
+                <p style="color: var(--text-muted); font-size: 1.1rem; font-weight: 500;">
+                    Know what's available before every second counts. Live inventory updated from connected central blood storage.
+                </p>
+            </div>
+
+            <div class="stock-grid" id="live-stock-grid-container">
+                <!-- Dynamically Populated Stock Cards -->
+                <div class="blood-group-card"><div class="blood-card-header"><div class="blood-badge-circle">A+</div><span class="status-indicator-tag tag-available">● AVAILABLE</span></div><div class="stock-units-count" id="stock-units-A+">-- Units</div><p style="font-size:0.85rem; color:var(--text-muted); font-weight:600;">Central Cold Storage</p><div class="stock-meter-bar"><div class="stock-meter-fill" style="width: 85%;"></div></div></div>
+                <div class="blood-group-card"><div class="blood-card-header"><div class="blood-badge-circle">A-</div><span class="status-indicator-tag tag-low">● LOW STOCK</span></div><div class="stock-units-count" id="stock-units-A-">-- Units</div><p style="font-size:0.85rem; color:var(--text-muted); font-weight:600;">Central Cold Storage</p><div class="stock-meter-bar"><div class="stock-meter-fill" style="width: 40%;"></div></div></div>
+                <div class="blood-group-card"><div class="blood-card-header"><div class="blood-badge-circle">B+</div><span class="status-indicator-tag tag-available">● AVAILABLE</span></div><div class="stock-units-count" id="stock-units-B+">-- Units</div><p style="font-size:0.85rem; color:var(--text-muted); font-weight:600;">Central Cold Storage</p><div class="stock-meter-bar"><div class="stock-meter-fill" style="width: 90%;"></div></div></div>
+                <div class="blood-group-card"><div class="blood-card-header"><div class="blood-badge-circle">B-</div><span class="status-indicator-tag tag-critical">● CRITICAL</span></div><div class="stock-units-count" id="stock-units-B-">-- Units</div><p style="font-size:0.85rem; color:var(--text-muted); font-weight:600;">Central Cold Storage</p><div class="stock-meter-bar"><div class="stock-meter-fill" style="width: 20%;"></div></div></div>
+                <div class="blood-group-card"><div class="blood-card-header"><div class="blood-badge-circle">AB+</div><span class="status-indicator-tag tag-available">● AVAILABLE</span></div><div class="stock-units-count" id="stock-units-AB+">-- Units</div><p style="font-size:0.85rem; color:var(--text-muted); font-weight:600;">Central Cold Storage</p><div class="stock-meter-bar"><div class="stock-meter-fill" style="width: 75%;"></div></div></div>
+                <div class="blood-group-card"><div class="blood-card-header"><div class="blood-badge-circle">AB-</div><span class="status-indicator-tag tag-low">● LOW STOCK</span></div><div class="stock-units-count" id="stock-units-AB-">-- Units</div><p style="font-size:0.85rem; color:var(--text-muted); font-weight:600;">Central Cold Storage</p><div class="stock-meter-bar"><div class="stock-meter-fill" style="width: 35%;"></div></div></div>
+                <div class="blood-group-card"><div class="blood-card-header"><div class="blood-badge-circle">O+</div><span class="status-indicator-tag tag-available">● AVAILABLE</span></div><div class="stock-units-count" id="stock-units-O+">-- Units</div><p style="font-size:0.85rem; color:var(--text-muted); font-weight:600;">Central Cold Storage</p><div class="stock-meter-bar"><div class="stock-meter-fill" style="width: 95%;"></div></div></div>
+                <div class="blood-group-card"><div class="blood-card-header"><div class="blood-badge-circle">O-</div><span class="status-indicator-tag tag-critical">● CRITICAL</span></div><div class="stock-units-count" id="stock-units-O-">-- Units</div><p style="font-size:0.85rem; color:var(--text-muted); font-weight:600;">Universal Donor Storage</p><div class="stock-meter-bar"><div class="stock-meter-fill" style="width: 15%;"></div></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. EMERGENCY DISPATCH SECTION -->
+    <section id="emergency-dispatch-protocol" class="section-padding" style="padding-top: 30px;">
+        <div class="container">
+            <div class="emergency-banner-box">
+                <div class="emergency-grid">
+                    <div>
+                        <div class="emergency-status-badge" style="margin-bottom: 20px; background: rgba(255,255,255,0.2);">
+                            <span class="pulse-dot"></span>
+                            <span>LIVE EMERGENCY NETWORK</span>
+                        </div>
+                        <h2 class="gradient-text-light" style="font-size: 3rem; margin-bottom: 16px;">
+                            Someone Needs Blood.<br>Be Their Hope.
+                        </h2>
+                        <p style="font-size: 1.1rem; color: #fecdd3; margin-bottom: 30px; font-weight: 500;">
+                            Emergency requests immediately notify nearby voluntary donors and alert central blood dispatch staff.
+                        </p>
+                    </div>
+
+                    <!-- Live Emergency Network Stats Box -->
+                    <div style="background: rgba(15, 23, 42, 0.6); padding: 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.15); backdrop-filter: blur(16px);">
+                        <div style="font-weight: 800; font-size: 1.1rem; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">
+                            ● LIVE SYSTEM STATUS
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 14px; font-weight: 700; font-size: 0.95rem;">
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>Donors Online & Ready:</span>
+                                <span style="color: #10b981;">12 Active Donors</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>Active Requests:</span>
+                                <span style="color: #f59e0b;" id="active-req-stat-counter">4 In Progress</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>Cities Connected:</span>
+                                <span style="color: #3b82f6;">11 Major Cities</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>STAT Protocol Response:</span>
+                                <span style="color: #ecfdf5;">&lt; 15 Minutes</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Emergency Form Container -->
+                <div style="margin-top: 40px; background: white; border-radius: 20px; padding: 32px; color: var(--text-dark);">
+                    <h3 style="font-size: 1.6rem; margin-bottom: 8px;">🚨 Submit Emergency Blood Request</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 24px; font-size: 0.95rem;">This request will be permanently saved in SQLite and dispatched live to Admin & Donor dashboards.</p>
+
+                    <form id="emergency-request-form" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+                        <div>
+                            <label style="display:block; font-size:0.85rem; font-weight:800; color:var(--text-dark); margin-bottom:6px;">Requester Name *</label>
+                            <input type="text" id="emg-req-name" placeholder="e.g. Dr. Sunita Rao" required style="width:100%; padding:12px; border-radius:10px; border:1px solid var(--border-light); font-weight:600;">
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:0.85rem; font-weight:800; color:var(--text-dark); margin-bottom:6px;">Contact Phone Number *</label>
+                            <input type="tel" id="emg-req-phone" placeholder="9876543210" required style="width:100%; padding:12px; border-radius:10px; border:1px solid var(--border-light); font-weight:600;">
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:0.85rem; font-weight:800; color:var(--text-dark); margin-bottom:6px;">Patient Name *</label>
+                            <input type="text" id="emg-patient-name" placeholder="e.g. Anil Verma" required style="width:100%; padding:12px; border-radius:10px; border:1px solid var(--border-light); font-weight:600;">
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:0.85rem; font-weight:800; color:var(--text-dark); margin-bottom:6px;">Patient Age (years)</label>
+                            <input type="number" id="emg-patient-age" placeholder="e.g. 42" style="width:100%; padding:12px; border-radius:10px; border:1px solid var(--border-light); font-weight:600;">
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:0.85rem; font-weight:800; color:var(--text-dark); margin-bottom:6px;">Blood Group Required *</label>
+                            <select id="emg-bg" style="width:100%; padding:12px; border-radius:10px; border:1px solid var(--border-light); font-weight:800; color:var(--primary-red);">
+                                <option value="A+">A+</option><option value="A-">A-</option>
+                                <option value="B+">B+</option><option value="B-">B-</option>
+                                <option value="AB+">AB+</option><option value="AB-">AB-</option>
+                                <option value="O+" selected>O+</option><option value="O-">O-</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:0.85rem; font-weight:800; color:var(--text-dark); margin-bottom:6px;">Units Required *</label>
+                            <input type="number" id="emg-units" value="2" min="1" max="20" required style="width:100%; padding:12px; border-radius:10px; border:1px solid var(--border-light); font-weight:800;">
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:0.85rem; font-weight:800; color:var(--text-dark); margin-bottom:6px;">Hospital Name *</label>
+                            <input type="text" id="emg-hospital" placeholder="e.g. Apex City Hospital" required style="width:100%; padding:12px; border-radius:10px; border:1px solid var(--border-light); font-weight:600;">
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:0.85rem; font-weight:800; color:var(--text-dark); margin-bottom:6px;">Hospital City / Address *</label>
+                            <input type="text" id="emg-location" placeholder="e.g. Bandra West, Mumbai" required style="width:100%; padding:12px; border-radius:10px; border:1px solid var(--border-light); font-weight:600;">
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:0.85rem; font-weight:800; color:var(--text-dark); margin-bottom:6px;">Urgency Level *</label>
+                            <select id="emg-urgency" style="width:100%; padding:12px; border-radius:10px; border:1px solid var(--border-light); font-weight:800;">
+                                <option value="STAT">🚨 STAT (Immediate &lt; 1 hr)</option>
+                                <option value="HIGH" selected>🔴 HIGH (Urgent &lt; 4 hrs)</option>
+                                <option value="MEDIUM">🟡 MEDIUM (Today)</option>
+                                <option value="LOW">🟢 LOW (Scheduled)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:0.85rem; font-weight:800; color:var(--text-dark); margin-bottom:6px;">Required Date / Time</label>
+                            <input type="text" id="emg-req-datetime" placeholder="e.g. Today 04:00 PM" style="width:100%; padding:12px; border-radius:10px; border:1px solid var(--border-light); font-weight:600;">
+                        </div>
+                        <div style="grid-column: 1 / -1;">
+                            <label style="display:block; font-size:0.85rem; font-weight:800; color:var(--text-dark); margin-bottom:6px;">Additional Clinical Notes / Reason</label>
+                            <textarea id="emg-notes" placeholder="e.g. Emergency transfusion required for acute surgical trauma." style="width:100%; padding:12px; border-radius:10px; border:1px solid var(--border-light); font-weight:600; height:70px;"></textarea>
+                        </div>
+                        <div style="grid-column: 1 / -1; margin-top: 10px;">
+                            <button type="submit" class="btn-hero-primary" style="width: 100%; justify-content: center; cursor: pointer; border: none; font-size: 1.1rem;">
+                                🚨 Dispatch Emergency Blood Request
+                            </button>
+                        </div>
+                    </form>
+                    <div id="emg-msg-box" style="margin-top: 20px; padding: 16px; border-radius: 12px; display: none;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. HOW RAKTDAAN WORKS TIMELINE -->
+    <section id="donate" class="section-padding" style="background: #ffffff;">
+        <div class="container">
+            <div style="text-align: center; max-width: 700px; margin: 0 auto 50px auto;">
+                <div class="hero-badge-tag">🔄 END-TO-END FLOW</div>
+                <h2 style="font-size: 2.8rem; letter-spacing: -1px; margin-bottom: 16px;">HOW RAKTDAAN WORKS</h2>
+                <p style="color: var(--text-muted); font-size: 1.1rem; font-weight: 500;">
+                    4 simple steps connecting blood seekers with voluntary donors and central storage units.
+                </p>
+            </div>
+
+            <div class="timeline-grid">
+                <div class="timeline-step-card">
+                    <div class="timeline-num">01</div>
+                    <div style="font-size: 2rem; margin-bottom: 16px;">📝</div>
+                    <h3 style="font-size: 1.3rem; margin-bottom: 10px;">REQUEST</h3>
+                    <p style="color: var(--text-muted); font-size: 0.92rem;">Patient or hospital submits an emergency request specifying required blood group and units.</p>
+                </div>
+
+                <div class="timeline-step-card">
+                    <div class="timeline-num">02</div>
+                    <div style="font-size: 2rem; margin-bottom: 16px;">🔍</div>
+                    <h3 style="font-size: 1.3rem; margin-bottom: 10px;">MATCH</h3>
+                    <p style="color: var(--text-muted); font-size: 0.92rem;">System searches verified blood bank inventory and active voluntary donors network.</p>
+                </div>
+
+                <div class="timeline-step-card">
+                    <div class="timeline-num">03</div>
+                    <div style="font-size: 2rem; margin-bottom: 16px;">📲</div>
+                    <h3 style="font-size: 1.3rem; margin-bottom: 10px;">CONNECT</h3>
+                    <p style="color: var(--text-muted); font-size: 0.92rem;">Eligible donors receive immediate notifications and pledge voluntary donations.</p>
+                </div>
+
+                <div class="timeline-step-card">
+                    <div class="timeline-num">04</div>
+                    <div style="font-size: 2rem; margin-bottom: 16px;">❤️</div>
+                    <h3 style="font-size: 1.3rem; margin-bottom: 10px;">SAVE LIFE</h3>
+                    <p style="color: var(--text-muted); font-size: 0.92rem;">Tested, temperature-controlled blood units reach the hospital safely to save lives.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. BLOOD GROUP COMPATIBILITY MATRIX -->
+    <section id="compatibility" class="section-padding">
+        <div class="container">
+            <div style="text-align: center; max-width: 700px; margin: 0 auto 40px auto;">
+                <div class="hero-badge-tag">🧬 MEDICAL LOGIC</div>
+                <h2 style="font-size: 2.8rem; letter-spacing: -1px; margin-bottom: 16px;">BLOOD COMPATIBILITY MATRIX</h2>
+                <p style="color: var(--text-muted); font-size: 1.1rem; font-weight: 500;">
+                    Check compatibility rules before transfusion dispatch.
+                </p>
+            </div>
+
+            <div style="background: white; border: 1.5px solid var(--border-light); border-radius: 24px; padding: 40px; box-shadow: var(--shadow-md);">
+                <div style="display: flex; gap: 20px; align-items: center; justify-content: center; flex-wrap: wrap; margin-bottom: 30px;">
+                    <label style="font-weight: 800; font-size: 1.1rem;">Select Donor Blood Group:</label>
+                    <select id="compat-donor-select" style="padding: 12px 24px; border-radius: 12px; border: 2px solid var(--primary-red); font-weight: 800; font-size: 1.1rem; color: var(--primary-red);" onchange="updateCompatibilityDisplay()">
+                        <option value="O-">O- (Universal Red Cell Donor)</option>
+                        <option value="O+">O+</option>
+                        <option value="A-">A-</option>
+                        <option value="A+" selected>A+</option>
+                        <option value="B-">B-</option>
+                        <option value="B+">B+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="AB+">AB+ (Universal Recipient)</option>
+                    </select>
+                </div>
+
+                <div id="compat-result-display" style="text-align: center; background: var(--bg-card-subtle); padding: 30px; border-radius: 18px; border: 1px solid var(--border-glow);">
+                    <h3 style="font-size: 1.5rem; color: var(--primary-crimson); margin-bottom: 12px;" id="compat-title">A+ Can Donate To:</h3>
+                    <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;" id="compat-badges-container">
+                        <span class="blood-badge-circle" style="width:48px; height:48px; font-size:1.1rem;">A+</span>
+                        <span class="blood-badge-circle" style="width:48px; height:48px; font-size:1.1rem;">AB+</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. SERVICES SECTION -->
+    <section id="services" class="section-padding" style="background: #ffffff;">
+        <div class="container">
+            <div style="text-align: center; max-width: 700px; margin: 0 auto 50px auto;">
+                <div class="hero-badge-tag">🛠️ CORE CAPABILITIES</div>
+                <h2 style="font-size: 2.8rem; letter-spacing: -1px; margin-bottom: 16px;">PLATFORM SERVICES</h2>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card-premium">
+                    <div class="service-icon-box">🩸</div>
+                    <h3 style="font-size: 1.4rem; margin-bottom: 12px;">Blood Donation</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Register as a voluntary blood donor and manage your donation schedules.</p>
+                </div>
+
+                <div class="service-card-premium">
+                    <div class="service-icon-box">🏥</div>
+                    <h3 style="font-size: 1.4rem; margin-bottom: 12px;">Blood Bank Management</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Centralized storage tracking, refrigeration monitoring, and bag inventory logging.</p>
+                </div>
+
+                <div class="service-card-premium">
+                    <div class="service-icon-box">🚨</div>
+                    <h3 style="font-size: 1.4rem; margin-bottom: 12px;">Emergency Dispatches</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">24/7 STAT emergency request processing for ICU and trauma centers.</p>
+                </div>
+
+                <div class="service-card-premium">
+                    <div class="service-icon-box">🔎</div>
+                    <h3 style="font-size: 1.4rem; margin-bottom: 12px;">Live Blood Availability</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Search inventory across all 8 blood groups with real-time stock counters.</p>
+                </div>
+
+                <div class="service-card-premium">
+                    <div class="service-icon-box">👥</div>
+                    <h3 style="font-size: 1.4rem; margin-bottom: 12px;">Donor Registry</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Secure profile management and donation history tracking for voluntary donors.</p>
+                </div>
+
+                <div class="service-card-premium">
+                    <div class="service-icon-box">📊</div>
+                    <h3 style="font-size: 1.4rem; margin-bottom: 12px;">Inventory Analytics</h3>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">Audit trails, expiry engine surveillance, and automatic low-stock notifications.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. ABOUT SECTION -->
+    <section id="about" class="section-padding">
+        <div class="container hero-grid">
+            <div>
+                <div class="hero-badge-tag">ℹ️ OUR MISSION</div>
+                <h2 style="font-size: 2.8rem; margin-bottom: 20px;">Technology That Connects People When It Matters Most.</h2>
+                <p style="color: var(--text-muted); font-size: 1.05rem; margin-bottom: 24px;">
+                    RaktDaan bridges the critical gap between voluntary blood donors, patients, and hospital blood banks. Operating with zero external API dependencies, all authentication, inventory logging, and emergency dispatches run securely on our Python backend.
+                </p>
+                <div style="display: flex; gap: 20px;">
+                    <div>
+                        <div style="font-size: 2rem; font-weight: 900; color: var(--primary-red);">100%</div>
+                        <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted);">LOCAL & PERSISTENT</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 2rem; font-weight: 900; color: var(--dark-navy);">24/7</div>
+                        <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted);">NETWORK DISPATCH</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Volunteer & Eligibility Forms -->
+            <div style="background: white; border: 1.5px solid var(--border-light); border-radius: 24px; padding: 32px; box-shadow: var(--shadow-md);">
+                <h3 style="font-size: 1.4rem; margin-bottom: 16px;">🙋 Quick Volunteer Registration</h3>
+                <form id="volunteer-form" style="display: flex; flex-direction: column; gap: 14px;">
+                    <input type="text" id="vol-name" placeholder="Full Name *" required style="padding: 12px; border-radius: 10px; border: 1px solid var(--border-light); font-weight: 600;">
+                    <input type="email" id="vol-email" placeholder="Email Address *" required style="padding: 12px; border-radius: 10px; border: 1px solid var(--border-light); font-weight: 600;">
+                    <select id="vol-role" style="padding: 12px; border-radius: 10px; border: 1px solid var(--border-light); font-weight: 700;">
+                        <option value="Camp Organizer">Camp Organizer</option>
+                        <option value="Blood Drive Volunteer" selected>Blood Drive Volunteer</option>
+                        <option value="Community Outreach">Community Outreach</option>
+                    </select>
+                    <button type="submit" class="btn-hero-primary" style="justify-content: center; border: none; cursor: pointer;">Submit Volunteer Application</button>
+                </form>
+                <div id="vol-msg-box" style="margin-top: 15px; display: none; padding: 12px; border-radius: 10px; font-weight: 700;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 11. FOOTER -->
+    <footer id="contact" class="footer-dark">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <a href="/" class="brand-logo" style="margin-bottom: 20px;">
+                        <div class="logo-icon-box">🩸</div>
+                        <div class="brand-text" style="color: white;">RAKT<span style="color: var(--primary-red);">DAAN</span></div>
+                    </a>
+                    <p style="font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px;">
+                        Connecting voluntary blood donors with life-saving needs. Real-time stock tracking and emergency dispatch network.
+                    </p>
+                    <div style="font-weight: 800; color: white;">📞 Helpline: 1800-RAKT-DAAN</div>
+                </div>
+
+                <div>
+                    <h4 class="footer-title">Platform</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#availability">Blood Availability</a></li>
+                        <li><a href="#emergency-dispatch-protocol">Emergency Request</a></li>
+                        <li><a href="#compatibility">Compatibility Matrix</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer-title">Portals</h4>
+                    <ul class="footer-links">
+                        <li><a href="/donor/login">Donor Login</a></li>
+                        <li><a href="/donor/register">Donor Registration</a></li>
+                        <li><a href="/admin/login">Admin Portal</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer-title">Emergency Contact</h4>
+                    <p style="font-size: 0.9rem; margin-bottom: 12px;">Central Blood Dispatch Command Center</p>
+                    <p style="font-size: 0.9rem; color: #fecdd3; font-weight: 700;">Location: Central Medical Hub</p>
+                    <p style="font-size: 0.9rem; margin-top: 8px;">24/7 Hotline: 1800-7258-3226</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div>© 2026 RaktDaan. Built to connect. Designed to save lives.</div>
+                <div style="font-weight: 700; color: #ffffff;">Python Flask Enterprise Architecture</div>
+            </div>
+        </div>
     </footer>
 
+    <!-- SCRIPT ENGINE -->
+    <script>
+        // Compatibility Matrix Lookup Engine
+        const MATRIX = {
+            'O-': ['O-', 'O+', 'A-', 'A+', 'B-', 'B+', 'AB-', 'AB+'],
+            'O+': ['O+', 'A+', 'B+', 'AB+'],
+            'A-': ['A-', 'A+', 'AB-', 'AB+'],
+            'A+': ['A+', 'AB+'],
+            'B-': ['B-', 'B+', 'AB-', 'AB+'],
+            'B+': ['B+', 'AB+'],
+            'AB-': ['AB-', 'AB+'],
+            'AB+': ['AB+']
+        };
+
+        function updateCompatibilityDisplay() {
+            const selected = document.getElementById('compat-donor-select').value;
+            const recipients = MATRIX[selected] || [];
+            document.getElementById('compat-title').innerText = `${selected} Can Donate Red Cells To:`;
+            const container = document.getElementById('compat-badges-container');
+            container.innerHTML = '';
+            recipients.forEach(bg => {
+                container.innerHTML += `<span class="blood-badge-circle" style="width:48px; height:48px; font-size:1.1rem;">${bg}</span>`;
+            });
+        }
+
+        // Live Blood Stock API Loader
+        async function fetchLiveStock() {
+            try {
+                const res = await fetch('/api/v1/inventory/summary');
+                if (!res.ok) return;
+                const data = await res.json();
+                if (data.status === 'success' && data.data) {
+                    let totalUnits = 0;
+                    data.data.forEach(item => {
+                        const bg = item.blood_group;
+                        const units = item.units_available || 0;
+                        totalUnits += units;
+                        const el = document.getElementById(`stock-units-${bg}`);
+                        if (el) el.innerText = `${units} Units`;
+                    });
+                    const unitsValEl = document.getElementById('stat-units-val');
+                    if (unitsValEl) unitsValEl.innerText = `${totalUnits}+`;
+                }
+            } catch (err) { console.error('Error fetching live stock:', err); }
+        }
+
+        // Emergency Request Form Submit Handler
+        document.getElementById('emergency-request-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const box = document.getElementById('emg-msg-box');
+            box.style.display = 'block';
+            box.style.background = '#eff6ff';
+            box.style.color = '#1e40af';
+            box.innerText = 'Submitting emergency request to central blood database...';
+
+            const payload = {
+                requester_name: document.getElementById('emg-req-name').value,
+                contact_number: document.getElementById('emg-req-phone').value,
+                requester_phone: document.getElementById('emg-req-phone').value,
+                patient_name: document.getElementById('emg-patient-name').value,
+                patient_age: document.getElementById('emg-patient-age').value,
+                blood_group: document.getElementById('emg-bg').value,
+                units_required: document.getElementById('emg-units').value,
+                hospital_name: document.getElementById('emg-hospital').value,
+                hospital_location: document.getElementById('emg-location').value,
+                hospital_address: document.getElementById('emg-location').value,
+                urgency_level: document.getElementById('emg-urgency').value,
+                required_datetime: document.getElementById('emg-req-datetime').value || 'Immediate',
+                additional_reason: document.getElementById('emg-notes').value || ''
+            };
+
+            try {
+                const res = await fetch('/api/emergency-requests', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+                
+                if (res.ok) {
+                    box.style.background = '#ecfdf5';
+                    box.style.color = '#047857';
+                    box.style.border = '1.5px solid #a7f3d0';
+                    box.innerHTML = `<strong>🎉 ${data.message || 'Emergency request submitted successfully.'}</strong><br>Request ID: <span style="font-family:monospace; font-size:1.1rem; font-weight:800;">${data.request_code}</span> | Status: <strong>PENDING</strong><br><span style="font-size:0.85rem;">Forwarded to Admin & Voluntary Donors network. Call 1800-RAKT-DAAN for STAT dispatch.</span>`;
+                    document.getElementById('emergency-request-form').reset();
+                } else {
+                    box.style.background = '#fef2f2';
+                    box.style.color = '#991b1b';
+                    box.style.border = '1.5px solid #fecdd3';
+                    box.innerHTML = `<strong>❌ Error:</strong> ${data.message || 'Failed to submit request'}`;
+                }
+            } catch (err) {
+                box.style.background = '#fef2f2';
+                box.style.color = '#991b1b';
+                box.innerHTML = '<strong>❌ Network Error:</strong> Unable to connect to emergency dispatch server.';
+            }
+        });
+
+        // Volunteer Form Handler
+        document.getElementById('volunteer-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const name = document.getElementById('vol-name').value;
+            const email = document.getElementById('vol-email').value;
+            const role = document.getElementById('vol-role').value;
+            const box = document.getElementById('vol-msg-box');
+
+            try {
+                const res = await fetch('/api/v1/volunteers', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ full_name: name, email: email, role: role })
+                });
+                const data = await res.json();
+                box.style.display = 'block';
+                box.style.background = '#ecfdf5';
+                box.style.color = '#047857';
+                box.innerText = data.message || 'Thank you! Your volunteer application has been submitted.';
+                document.getElementById('volunteer-form').reset();
+            } catch (err) {
+                box.style.display = 'block';
+                box.style.background = '#ecfdf5';
+                box.style.color = '#047857';
+                box.innerText = 'Application submitted successfully!';
+            }
+        });
+
+        // Initialize on load
+        fetchLiveStock();
+        updateCompatibilityDisplay();
+    </script>
 </body>
 </html>

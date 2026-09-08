@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Donor Dashboard - RaktDaan</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/theme.css">
     <style>
         :root {
             --primary: #dc2626;
@@ -19,6 +20,7 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .brand-title { font-family: 'Outfit', sans-serif; }
         
         body {
             background-color: var(--bg-main);
@@ -31,7 +33,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto 30px;
             background: var(--card-bg);
             padding: 16px 30px;
@@ -44,6 +46,27 @@
             color: var(--primary);
             font-size: 1.6rem;
             font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-donate-now {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 800;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 14px rgba(220, 38, 38, 0.3);
+            transition: all 0.2s;
+            margin-right: 12px;
+        }
+
+        .btn-donate-now:hover {
+            background: var(--primary-hover);
         }
 
         .btn-logout {
@@ -62,7 +85,7 @@
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
         }
 
@@ -80,6 +103,9 @@
             margin-bottom: 12px;
             font-size: 1.4rem;
             font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         .profile-grid {
@@ -120,18 +146,123 @@
             color: #047857;
             border: 1px solid #a7f3d0;
         }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1.5px solid var(--border-light);
+            border-radius: 10px;
+            font-size: 0.92rem;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .btn-submit-checkup {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(220, 38, 38, 0.3);
+            margin-top: 15px;
+        }
+
+        .alert-box {
+            padding: 22px;
+            border-radius: 14px;
+            margin-top: 20px;
+            display: none;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .alert-success {
+            background: #ecfdf5;
+            border: 2px solid #a7f3d0;
+            color: #065f46;
+        }
+
+        .alert-danger {
+            background: #fef2f2;
+            border: 2px solid #fecdd3;
+            color: #991b1b;
+        }
+
+        /* Timeline Item */
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 20px;
+            border-left: 3px solid var(--primary-border);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -8px;
+            top: 2px;
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            background: var(--primary);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-light);
+            font-size: 0.95rem;
+        }
+
+        th {
+            background: var(--bg-main);
+            color: var(--text-muted);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
     </style>
 </head>
 <body>
     <div class="nav">
-        <h1>🩸 Donor Dashboard</h1>
-        <button class="btn-logout" onclick="logout()">Logout</button>
+        <h1>🩸 Donor Portal</h1>
+        <div>
+            <button class="btn-donate-now" onclick="scrollToDonate()">DONATE</button>
+            <button class="btn-logout" onclick="logout()">Logout</button>
+        </div>
     </div>
 
     <div class="container">
+        <!-- Personal Donor Profile Card -->
         <div class="card">
-            <h2>Welcome Back, <span id="user-name" style="color: var(--primary);">Donor</span>! <span class="badge">ELIGIBLE</span></h2>
-            <p style="color: var(--text-muted);">Your authenticated donor session is active. Account details retrieved from backend API:</p>
+            <h2>Welcome Back, <span id="user-name" style="color: var(--primary);">Donor</span>! <span class="badge" id="val-status-badge">ELIGIBLE</span></h2>
+            <p style="color: var(--text-muted);">Your voluntary donor account is active. Verified records from Member 3 Donor Management Engine:</p>
 
             <div class="profile-grid">
                 <div class="info-item">
@@ -154,6 +285,130 @@
                     <div class="info-label">Emergency Contact</div>
                     <div class="info-val" id="val-emergency">Loading...</div>
                 </div>
+                <div class="info-item">
+                    <div class="info-label">Last Donation Date</div>
+                    <div class="info-val" id="val-last-date">None Recorded</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NEW "DONATE" OPTION & HEALTH CHECKUP QUESTIONNAIRE -->
+        <div class="card" id="donate-section" style="border: 2.5px solid var(--primary-border);">
+            <h2>🩸 Voluntary Blood Donation — Health Checkup</h2>
+            <p style="color: var(--text-muted);">Complete the preliminary health-checkup screening questionnaire below:</p>
+
+            <form id="health-checkup-form">
+                <div class="form-grid">
+                    <div>
+                        <label for="weight_kg">Body Weight (kg) *</label>
+                        <input type="number" step="0.5" id="weight_kg" placeholder="e.g. 65.0" required>
+                    </div>
+
+                    <div>
+                        <label for="hemoglobin_level">Hemoglobin Level (g/dL) *</label>
+                        <input type="number" step="0.1" id="hemoglobin_level" placeholder="e.g. 14.2" required>
+                    </div>
+
+                    <div>
+                        <label for="blood_pressure_sys">Systolic Blood Pressure (mmHg) *</label>
+                        <input type="number" id="blood_pressure_sys" placeholder="e.g. 120" required>
+                    </div>
+
+                    <div>
+                        <label for="blood_pressure_dia">Diastolic Blood Pressure (mmHg) *</label>
+                        <input type="number" id="blood_pressure_dia" placeholder="e.g. 80" required>
+                    </div>
+
+                    <div>
+                        <label for="pulse_rate">Resting Pulse Rate (bpm) *</label>
+                        <input type="number" id="pulse_rate" placeholder="e.g. 72" required>
+                    </div>
+
+                    <div>
+                        <label for="temp_celsius">Body Temperature (°C) *</label>
+                        <input type="number" step="0.1" id="temp_celsius" value="36.6" required>
+                    </div>
+
+                    <div>
+                        <label for="has_chronic_illness">Fever / Illness in last 14 days?</label>
+                        <select id="has_chronic_illness">
+                            <option value="false">No (Healthy)</option>
+                            <option value="true">Yes (Had Fever / Infection)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="is_on_medication">Currently on Prescription Meds?</label>
+                        <select id="is_on_medication">
+                            <option value="false">No</option>
+                            <option value="true">Yes</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="has_recent_hospitalization">Hospitalization (last 6 months)?</label>
+                        <select id="has_recent_hospitalization">
+                            <option value="false">No</option>
+                            <option value="true">Yes</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="has_recent_surgery">Surgery / Dental Procedure?</label>
+                        <select id="has_recent_surgery">
+                            <option value="false">No</option>
+                            <option value="true">Yes</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="has_recent_vaccination">Vaccination in last 28 days?</label>
+                        <select id="has_recent_vaccination">
+                            <option value="false">No</option>
+                            <option value="true">Yes</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="is_currently_pregnant">Pregnancy / Lactation (Female)?</label>
+                        <select id="is_currently_pregnant">
+                            <option value="false">No / N/A</option>
+                            <option value="true">Yes</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="margin-top: 20px;">
+                    <button type="submit" class="btn-submit-checkup" id="btn-checkup">Submit Health Checkup & Donate</button>
+                </div>
+            </form>
+
+            <div id="checkup-result-box" class="alert-box"></div>
+        </div>
+
+        <!-- 🚨 ACTIVE EMERGENCY BLOOD REQUESTS SECTION FOR DONORS -->
+        <div class="card" style="border: 2.5px solid var(--primary-border); background: linear-gradient(180deg, #ffffff, #fff1f2);">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
+                <div>
+                    <h2 style="color:var(--primary-dark);">🚨 Active Emergency Blood Requests</h2>
+                    <p style="color: var(--text-muted);">Urgent blood requests submitted by patients & hospitals awaiting voluntary donor pledges:</p>
+                </div>
+                <button onclick="loadDonorEmergencyRequests()" style="background:var(--primary); color:white; border:none; padding:8px 16px; border-radius:8px; font-weight:700; cursor:pointer;">🔄 Refresh Requests</button>
+            </div>
+
+            <div id="donor-emergency-requests-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:20px; margin-top:20px;">
+                <p style="color: var(--text-muted);">Loading active emergency requests...</p>
+            </div>
+        </div>
+
+
+        <!-- Personal Chronological Donor History Timeline -->
+        <div class="card">
+            <h2>📜 Donor History & Event Timeline</h2>
+            <p style="color: var(--text-muted);">Complete chronological history of health checkups, eligibility statuses, and donation records:</p>
+
+            <div id="donor-timeline-container" style="margin-top: 20px;">
+                <p style="color: var(--text-muted);">Loading donor history timeline...</p>
             </div>
         </div>
     </div>
@@ -164,16 +419,17 @@
             window.location.href = '/donor/login';
         }
 
+        function scrollToDonate() {
+            document.getElementById('donate-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
         async function loadProfile() {
             try {
                 const res = await fetch('/api/v1/auth/me', {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
 
-                if (!res.ok) {
-                    logout();
-                    return;
-                }
+                if (!res.ok) { logout(); return; }
 
                 const data = await res.json();
                 document.getElementById('user-name').innerText = data.name;
@@ -181,13 +437,206 @@
                 document.getElementById('val-email').innerText = data.email;
 
                 if (data.donor_profile) {
-                    document.getElementById('val-blood').innerText = data.donor_profile.blood_group;
-                    document.getElementById('val-city').innerText = data.donor_profile.city;
-                    document.getElementById('val-emergency').innerText = data.donor_profile.emergency_contact;
+                    const dp = data.donor_profile;
+                    document.getElementById('val-blood').innerText = dp.blood_group;
+                    document.getElementById('val-city').innerText = dp.city;
+                    document.getElementById('val-emergency').innerText = dp.emergency_contact;
+                    document.getElementById('val-last-date').innerText = dp.last_donation_date || "First-time Donor";
+                    document.getElementById('val-status-badge').innerText = dp.eligibility_status || "ELIGIBLE";
                 }
+            } catch (err) { console.error(err); }
+        }
+
+        async function loadTimelineHistory() {
+            try {
+                const res = await fetch('/api/v1/donor-history/me', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                const data = await res.json();
+                const container = document.getElementById('donor-timeline-container');
+                container.innerHTML = '';
+
+                if (!data.data || data.data.length === 0) {
+                    container.innerHTML = '<p style="color: var(--text-muted);">No history events recorded yet.</p>';
+                    return;
+                }
+
+                data.data.forEach(item => {
+                    const dateStr = item.event_date ? item.event_date.substring(0, 10) : '';
+                    const resultBadge = item.health_checkup_result === 'PASSED' ? 
+                        '<span class="badge" style="background:#ecfdf5; color:#047857;">PASSED</span>' : 
+                        '<span class="badge" style="background:#fef2f2; color:#991b1b;">FAILED</span>';
+
+                    container.innerHTML += `
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div style="display:flex; justify-content:space-between; align-items:center;">
+                                <h3 style="font-size:1.05rem;">${dateStr} — ${item.event_type.replace('_',' ')} ${resultBadge}</h3>
+                                <span style="font-size:0.85rem; color:var(--text-muted); font-weight:700;">Status: ${item.donation_status}</span>
+                            </div>
+                            <p style="margin-top:6px; color:var(--text-dark); font-weight:600;">${item.reasons_summary || item.remarks || ''}</p>
+                            ${item.blood_bag_code ? `<p style="margin-top:4px; color:var(--primary); font-weight:700;">Blood Bag Created: ${item.blood_bag_code}</p>` : ''}
+                        </div>
+                    `;
+                });
+            } catch (e) { console.error(e); }
+        }
+
+        document.getElementById('health-checkup-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const box = document.getElementById('checkup-result-box');
+            const btn = document.getElementById('btn-checkup');
+
+            box.style.display = 'none';
+            btn.disabled = true;
+            btn.innerText = 'Evaluating health checkup...';
+
+            const payload = {
+                weight_kg: parseFloat(document.getElementById('weight_kg').value),
+                hemoglobin_level: parseFloat(document.getElementById('hemoglobin_level').value),
+                blood_pressure_sys: parseInt(document.getElementById('blood_pressure_sys').value),
+                blood_pressure_dia: parseInt(document.getElementById('blood_pressure_dia').value),
+                pulse_rate: parseInt(document.getElementById('pulse_rate').value),
+                temp_celsius: parseFloat(document.getElementById('temp_celsius').value),
+                has_chronic_illness: document.getElementById('has_chronic_illness').value === 'true',
+                is_on_medication: document.getElementById('is_on_medication').value === 'true',
+                has_recent_hospitalization: document.getElementById('has_recent_hospitalization').value === 'true',
+                has_recent_surgery: document.getElementById('has_recent_surgery').value === 'true',
+                has_recent_vaccination: document.getElementById('has_recent_vaccination').value === 'true',
+                is_currently_pregnant: document.getElementById('is_currently_pregnant').value === 'true'
+            };
+
+            try {
+                const response = await fetch('/api/v1/clinical-screening/evaluate', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                const resData = await response.json();
+
+                if (response.ok && resData.is_passed) {
+                    box.className = 'alert-box alert-success';
+                    box.innerHTML = `
+                        <h3 style="margin-bottom:8px;">🎉 Health checkup passed. You can proceed to the donation process.</h3>
+                        <p style="margin-top:6px; font-weight:700;">Screening Status: PASSED | Eligibility: ELIGIBLE</p>
+                        <p style="margin-top:4px;">Donation Code: <b>${resData.donation_code}</b></p>
+                    `;
+                    box.style.display = 'block';
+                    document.getElementById('health-checkup-form').reset();
+                } else {
+                    const reasonsList = (resData.reasons || []).map(r => `<li>${r}</li>`).join('');
+                    box.className = 'alert-box alert-danger';
+                    box.innerHTML = `
+                        <h3 style="margin-bottom:8px;">❌ Sorry, you cannot donate blood at this time.</h3>
+                        <p style="font-weight:700;">Screening Status: ${resData.screening_status || 'FAILED'} | Eligibility: ${resData.eligibility_status || 'TEMPORARILY_DEFERRED'}</p>
+                        <p style="margin-top:4px;">Screening Date: <b>${resData.screening_date}</b> | Next Eligible Date: <b>${resData.next_eligible_date}</b></p>
+                        ${reasonsList ? `<ul style="margin-top:10px; margin-left:20px;">${reasonsList}</ul>` : ''}
+                    `;
+                    box.style.display = 'block';
+                }
+                loadTimelineHistory();
             } catch (err) {
-                console.error(err);
+                box.className = 'alert-box alert-danger';
+                box.innerHTML = '❌ Connection error while evaluating health checkup.';
+                box.style.display = 'block';
+            } finally {
+                btn.disabled = false;
+                btn.innerText = 'Submit Health Checkup & Donate';
             }
+        });
+
+        async function loadDonorEmergencyRequests() {
+            const grid = document.getElementById('donor-emergency-requests-grid');
+            if (!grid) return;
+
+            try {
+                const res = await fetch('/api/donor/emergency-requests');
+                const data = await res.json();
+                grid.innerHTML = '';
+
+                if (!data.data || data.data.length === 0) {
+                    grid.innerHTML = '<p style="color: var(--text-muted); grid-column:1/-1;">No active emergency blood requests at this time.</p>';
+                    return;
+                }
+
+                data.data.forEach(r => {
+                    const userBlood = document.getElementById('val-blood').innerText || '';
+                    const isMatched = userBlood && userBlood.includes(r.blood_group);
+                    const isResponded = r.donor_responses && r.donor_responses.some(resp => resp.donor_name === document.getElementById('val-name').innerText);
+
+                    const respondBtnHtml = isResponded ?
+                        `<button style="background:#047857; color:white; border:none; padding:10px 16px; border-radius:8px; font-weight:800; width:100%; font-size:0.9rem;" disabled>✅ YOU RESPONDED</button>` :
+                        `<button style="background:var(--primary); color:white; border:none; padding:10px 16px; border-radius:8px; font-weight:800; cursor:pointer; width:100%; font-size:0.9rem;" onclick="respondToEmergencyRequest('${r.request_code}')">🩸 I CAN DONATE</button>`;
+
+                    grid.innerHTML += `
+                        <div style="background:white; border:1.5px solid var(--primary-border); border-radius:16px; padding:20px; box-shadow:0 6px 18px rgba(220,38,38,0.06); display:flex; flex-direction:column; justify-space-between;">
+                            <div>
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                                    <span style="background:var(--primary-light); color:var(--primary); font-weight:800; padding:4px 10px; border-radius:10px; font-size:0.78rem;">🚨 EMERGENCY BLOOD REQUEST</span>
+                                    <span style="background:#eff6ff; color:#1e40af; font-weight:800; padding:4px 10px; border-radius:10px; font-size:0.78rem;">${r.status}</span>
+                                </div>
+
+                                <div style="font-size:1.4rem; font-weight:800; color:var(--primary); margin-bottom:10px;">
+                                    ${r.blood_group} <span style="font-size:1rem; color:var(--text-dark);">(${r.units_required} Units Required)</span>
+                                </div>
+
+                                <p style="font-size:0.88rem; line-height:1.6; color:var(--text-dark); margin-bottom:12px;">
+                                    <strong>Requested By:</strong> ${r.requester_name}<br>
+                                    <span style="font-size:0.8rem; color:var(--text-muted);">User ID: ${r.requester_id} | 📞 ${r.requester_phone}</span><br><br>
+                                    <strong>Patient:</strong> ${r.patient_name} (${r.patient_age} yrs)<br>
+                                    <strong>Hospital:</strong> ${r.hospital_name}<br>
+                                    <strong>Location:</strong> ${r.hospital_city || r.hospital_address || 'Central'}<br>
+                                    <strong>Required By:</strong> ${r.required_datetime}<br>
+                                    <strong>Urgency Level:</strong> <span style="color:var(--primary); font-weight:800;">${r.urgency_level}</span>
+                                </p>
+                            </div>
+
+                            <div style="display:flex; flex-direction:column; gap:8px; margin-top:15px; border-top:1px solid var(--border-light); padding-top:12px;">
+                                ${respondBtnHtml}
+                                <div style="display:flex; gap:8px;">
+                                    <button style="background:var(--bg-main); border:1px solid var(--border-light); padding:8px 12px; border-radius:8px; font-weight:700; font-size:0.82rem; flex:1; cursor:pointer;" onclick="alert('Emergency Request ${r.request_code}\\n\\nPatient: ${r.patient_name}\\nHospital: ${r.hospital_name}\\nAddress: ${r.hospital_address}\\nNotes: ${r.additional_reason || 'Urgent transfusion needed.'}')">👁️ VIEW DETAILS</button>
+                                    <a href="tel:${r.requester_phone}" style="background:var(--bg-main); border:1px solid var(--border-light); padding:8px 12px; border-radius:8px; font-weight:700; font-size:0.82rem; flex:1; text-align:center; text-decoration:none; color:var(--text-dark);">📞 CONTACT</a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            } catch (err) { console.error('Error loading donor emergency requests:', err); }
+        }
+
+        async function respondToEmergencyRequest(reqCode) {
+            const donorName = document.getElementById('val-name').innerText || 'Voluntary Donor';
+            const donorBlood = document.getElementById('val-blood').innerText || 'O+';
+            const donorPhone = document.getElementById('val-emergency').innerText || '9876543210';
+
+            if (!confirm(`Confirm pledging your voluntary donation response for Request ${reqCode}?`)) {
+                return;
+            }
+
+            try {
+                const res = await fetch(`/api/emergency-requests/${reqCode}/respond`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        donor_name: donorName,
+                        donor_phone: donorPhone,
+                        donor_blood_group: donorBlood,
+                        notes: 'Pledged donation from Donor Portal.'
+                    })
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    alert(data.message || 'Thank you! Your donation response has been recorded and forwarded to the dispatch team.');
+                    loadDonorEmergencyRequests();
+                } else {
+                    alert('Error: ' + (data.message || 'Response failed'));
+                }
+            } catch (err) { alert('Network error recording response.'); }
         }
 
         async function logout() {
@@ -202,6 +651,9 @@
         }
 
         loadProfile();
+        loadTimelineHistory();
+        loadDonorEmergencyRequests();
     </script>
 </body>
 </html>
+
