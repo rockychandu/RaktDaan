@@ -33,6 +33,7 @@ from app.routes.donor_history_routes import donor_history_api_bp
 from app.routes.clinical_screening_routes import clinical_screening_api_bp
 from app.routes.volunteer_routes import volunteer_api_bp
 from app.routes.emergency_request_routes import emergency_request_api_bp
+from app.routes.blood_request_routes import blood_request_api_bp
 
 # Import Background Scheduler
 from app.services.background_scheduler import BackgroundJobScheduler
@@ -81,6 +82,7 @@ def create_app(config_class=Config):
     app.register_blueprint(clinical_screening_api_bp)
     app.register_blueprint(volunteer_api_bp)
     app.register_blueprint(emergency_request_api_bp)
+    app.register_blueprint(blood_request_api_bp)
 
 
 

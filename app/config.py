@@ -42,7 +42,7 @@ class Config:
     # Initial Default System Admin Setup
     ADMIN_NAME: str = os.getenv("ADMIN_NAME", "System Admin")
     ADMIN_EMAIL: str = os.getenv("ADMIN_EMAIL", "admin@raktdaan.org")
-    ADMIN_PASSWORD: str = os.getenv("ADMIN_PASSWORD", "Admin@RaktDaan123")
+    ADMIN_PASSWORD: str = os.getenv("ADMIN_PASSWORD", "RaktDaan@123")
     ADMIN_PHONE: str = os.getenv("ADMIN_PHONE", "9876543210")
 
     # Rate Limiting Configuration

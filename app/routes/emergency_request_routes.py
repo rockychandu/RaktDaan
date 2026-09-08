@@ -10,6 +10,8 @@ from app.services.emergency_request_service import EmergencyRequestService
 emergency_request_api_bp = Blueprint("emergency_request_api", __name__)
 
 
+from flask import session
+
 # 1. CREATE EMERGENCY REQUEST (Home Page / Portals)
 @emergency_request_api_bp.route("/api/emergency-requests", methods=["POST"])
 @emergency_request_api_bp.route("/api/v1/emergency-requests", methods=["POST"])
@@ -28,10 +30,18 @@ def create_emergency_request():
     if not blood_group or not hospital_name:
         return jsonify({"status": "error", "message": "Blood group and hospital name are required."}), 400
 
-    user_id = getattr(g, "current_user_id", None)
+    user_id = getattr(g, "current_user_id", None) or session.get("user_id")
     
     try:
         req = EmergencyRequestService.create_request(data, user_id=user_id)
+        if req and req.request_code:
+            session_codes = session.get("created_request_codes", [])
+            if req.request_code not in session_codes:
+                session_codes.append(req.request_code)
+            session["created_request_codes"] = session_codes
+            if data.get("requester_phone"):
+                session["requester_phone"] = data.get("requester_phone")
+
         return jsonify({
             "status": "success",
             "message": f"Emergency request submitted successfully. Request ID: {req.request_code}",

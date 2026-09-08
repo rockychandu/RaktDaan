@@ -21,26 +21,18 @@ wheels/
 .installed.cfg
 *.egg
 
-# Virtual environments
-venv/
-ENV/
-env/
-.venv/
-
-# Environment variables
-.env
-
 # Database
 *.db
 *.sqlite3
 
-# Testing & Coverage
-.pytest_cache/
-.coverage
-htmlcov/
+# Environment & Secrets Safety
+.env
+.env.*
+*.env
+!.example.env
+!example.env
 
-# IDE & Editors
-.vscode/
-.idea/
-*.swp
-*.swo
+# Antigravity Scratch & Temporary files
+scratch/
+reinit_db.py
+test_endpoints.py

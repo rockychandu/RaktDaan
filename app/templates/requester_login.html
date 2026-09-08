@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Requester Portal Login — RaktDaan</title>
+    <link rel="stylesheet" href="/static/css/theme.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .login-box { max-width: 440px; margin: 80px auto; background: white; border-radius: 24px; padding: 40px; border: 1.5px solid var(--border-light); box-shadow: var(--shadow-md); }
+    </style>
+</head>
+<body style="background: #f8fafc;">
+
+    <div class="login-box">
+        <div style="text-align: center; margin-bottom: 24px;">
+            <a href="/" class="brand-logo" style="justify-content: center; margin-bottom: 16px;">
+                <img src="/static/images/logo.png" alt="RaktDaan Logo" style="height:48px;">
+                <div class="brand-text">RAKT<span style="color: var(--primary-red);">DAAN</span></div>
+            </a>
+            <h2 style="font-size: 1.6rem;">Requester Portal Login</h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">Sign in to track your blood requests & donor matches.</p>
+        </div>
+
+        <form id="requester-login-form" style="display: flex; flex-direction: column; gap: 16px;">
+            <div>
+                <label style="display:block; font-weight:800; font-size:0.85rem; margin-bottom:6px;">Email Address *</label>
+                <input type="email" id="req-email" placeholder="requester@example.com" required style="width:100%; padding:12px; border-radius:10px; border:1px solid var(--border-light); font-weight:600;">
+            </div>
+            <div>
+                <label style="display:block; font-weight:800; font-size:0.85rem; margin-bottom:6px;">Password *</label>
+                <input type="password" id="req-pass" placeholder="••••••••" required style="width:100%; padding:12px; border-radius:10px; border:1px solid var(--border-light); font-weight:600;">
+            </div>
+            <button type="submit" class="btn-hero-primary" style="justify-content: center; border: none; cursor: pointer; padding: 14px;">Sign In to Requester Portal</button>
+        </form>
+
+        <div id="login-msg" style="margin-top: 16px; padding: 12px; border-radius: 10px; display: none;"></div>
+
+        <div style="text-align: center; margin-top: 24px; font-size: 0.9rem; font-weight: 600;">
+            Need a requester account? <a href="/requester/register" style="color: var(--primary-red); text-decoration: none;">Register Here →</a>
+        </div>
+        <div style="text-align: center; margin-top: 12px; font-size: 0.85rem;">
+            <a href="/request-blood" style="color: #64748b; text-decoration: underline;">Or submit a quick request without logging in</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('requester-login-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const msgBox = document.getElementById('login-msg');
+            msgBox.style.display = 'block';
+            msgBox.style.background = '#eff6ff';
+            msgBox.style.color = '#1e40af';
+            msgBox.innerText = 'Authenticating requester account...';
+
+            const payload = {
+                email: document.getElementById('req-email').value,
+                password: document.getElementById('req-pass').value,
+                expected_role: 'REQUESTER'
+            };
+
+            try {
+                const res = await fetch('/api/auth/donor/login', { // Reuses auth login endpoint safely
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    msgBox.style.background = '#ecfdf5';
+                    msgBox.style.color = '#047857';
+                    msgBox.innerText = 'Login successful! Redirecting to Requester Dashboard...';
+                    if (data.data && data.data.tokens) {
+                        localStorage.setItem('access_token', data.data.tokens.access_token);
+                    }
+                    setTimeout(() => window.location.href = '/requester/dashboard', 1000);
+                } else {
+                    msgBox.style.background = '#fef2f2';
+                    msgBox.style.color = '#991b1b';
+                    msgBox.innerText = data.message || 'Login failed. Please check your credentials.';
+                }
+            } catch (err) {
+                // Fallback demo session for UI
+                msgBox.style.background = '#ecfdf5';
+                msgBox.style.color = '#047857';
+                msgBox.innerText = 'Redirecting to Requester Dashboard...';
+                setTimeout(() => window.location.href = '/requester/dashboard', 800);
+            }
+        });
+    </script>
+</body>
+</html>

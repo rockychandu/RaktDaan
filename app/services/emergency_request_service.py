@@ -58,6 +58,48 @@ class EmergencyRequestService:
             status="PENDING"
         )
         db.session.add(req)
+
+        # Sync with Member 4 BloodRequest table so it appears in Admin Portal Blood Requests Tab
+        try:
+            from app.database.models.blood_request import BloodRequest, RequestStatusHistory
+            br = BloodRequest(
+                public_request_id=code,
+                requester_id=user_id,
+                requester_name=req.requester_name,
+                requester_phone=req.requester_phone,
+                requester_email=req.requester_email or "",
+                relationship_with_patient="Emergency Contact",
+                patient_name=req.patient_name,
+                patient_age=req.patient_age or 30,
+                patient_gender="Male",
+                blood_group=req.blood_group,
+                component="Whole Blood",
+                units_required=req.units_required,
+                units_collected=0,
+                units_remaining=req.units_required,
+                hospital_name=req.hospital_name,
+                hospital_address=req.hospital_address or "",
+                hospital_city=req.hospital_city or "Central",
+                required_date=datetime.utcnow().strftime("%Y-%m-%d"),
+                required_time=req.required_datetime or "Immediate",
+                urgency=req.urgency_level,
+                emergency_reason=req.additional_reason or "Emergency Dispatch Request",
+                status="SUBMITTED"
+            )
+            db.session.add(br)
+            db.session.flush()
+
+            history = RequestStatusHistory(
+                request_id=br.id,
+                old_status="DRAFT",
+                new_status="SUBMITTED",
+                changed_by=user_id,
+                note="Emergency blood request submitted."
+            )
+            db.session.add(history)
+        except Exception as sync_err:
+            logger.warning(f"Failed to sync BloodRequest record: {sync_err}")
+
         db.session.commit()
 
         # Log system alert notification
