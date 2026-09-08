@@ -62,26 +62,47 @@ RaktDaan1/
 └── README.md                       # Project instructions
 ```
 
+## 📦 Dependency Manifests & Lockfiles
+
+This repository includes fully pinned dependency manifests and lockfiles for reproducible builds across development and production environments:
+
+- **Manifest Files**: `requirements.txt`, `package.json`
+- **Lockfile Copies**: `requirements.lock`, `package-lock.json`
+
 ---
 
 ## Setup & Quickstart Instructions
 
-### 1. Environment Setup
-Create a virtual environment and install requirements:
+### 1. Environment & Dependency Installation
+
+#### Option A: Python Virtual Environment (Recommended)
+Create a virtual environment and install pinned dependencies from `requirements.txt` or `requirements.lock`:
 ```bash
+# Create virtual environment
 python -m venv venv
+
+# Activate virtual environment
 # On Windows PowerShell:
 .\venv\Scripts\Activate.ps1
 # On Linux/macOS:
 source venv/bin/activate
 
+# Install dependencies using pinned lockfile (reproducible build)
+pip install -r requirements.lock
+
+# OR install from main manifest
 pip install -r requirements.txt
 ```
 
-### 2. Configure Environment Variables
-Copy `.env.example` to `.env`:
+#### Option B: NPM Lockfile Installation (Asset Build Tools)
 ```bash
-cp .env.example .env
+npm install
+```
+
+### 2. Configure Environment Variables
+Copy `example.env` to `.env`:
+```bash
+cp example.env .env
 ```
 
 ### 3. Run the Development Server
