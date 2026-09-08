@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Requester Dashboard — RaktDaan</title>
+    <link rel="stylesheet" href="/static/css/theme.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .dashboard-container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        .metrics-grid-6 { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 16px; margin-bottom: 30px; }
+        .metric-card { background: white; border-radius: 18px; padding: 20px; border: 1.5px solid var(--border-light); box-shadow: var(--shadow-sm); }
+        .metric-val { font-size: 2rem; font-weight: 900; color: var(--dark-navy); margin-bottom: 4px; }
+        .metric-lbl { font-size: 0.75rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+        .table-card { background: white; border-radius: 20px; padding: 24px; border: 1.5px solid var(--border-light); box-shadow: var(--shadow-md); }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th { padding: 12px 14px; font-size: 0.8rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; border-bottom: 2px solid #e2e8f0; }
+        td { padding: 14px; font-size: 0.9rem; font-weight: 600; border-bottom: 1px solid #f1f5f9; color: var(--dark-navy); }
+        .badge-tag { padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 800; display: inline-block; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar-sticky">
+        <div class="container navbar-flex">
+            <a href="/" class="brand-logo">
+                <img src="/static/images/logo.png" alt="RaktDaan Logo" style="height:44px;">
+                <div class="brand-text">RAKT<span style="color: var(--primary-red);">DAAN</span></div>
+            </a>
+            <div class="nav-portals-group">
+                <button onclick="toggleNotificationsModal()" class="btn-top-emergency" style="background:#eff6ff; color:#1d4ed8; border:1px solid #bfdbfe; cursor:pointer;">
+                    🔔 Notifications <span id="notif-unread-badge" style="background:#dc2626; color:white; border-radius:50%; padding:2px 6px; font-size:0.75rem; font-weight:900;">0</span>
+                </button>
+                <a href="/request-blood" class="btn-hero-primary" style="padding:8px 16px; font-size:0.9rem;">+ Request Blood</a>
+                <a href="/request-history" class="btn-portal-donor" style="background:#0f172a; color:white;">Request History</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; margin-bottom:24px;">
+            <div>
+                <div class="hero-badge-tag">📊 REQUEST MANAGEMENT HUB</div>
+                <h1 style="font-size: 2.2rem;">Requester Dashboard</h1>
+            </div>
+            <div>
+                <a href="/request-blood" class="btn-hero-primary">🩸 New Blood Request</a>
+            </div>
+        </div>
+
+        <!-- METRICS GRID -->
+        <div class="metrics-grid-6">
+            <div class="metric-card">
+                <div class="metric-val" id="metric-total">0</div>
+                <div class="metric-lbl">Total Requests</div>
+            </div>
+            <div class="metric-card" style="border-left: 4px solid #3b82f6;">
+                <div class="metric-val" id="metric-active" style="color: #1d4ed8;">0</div>
+                <div class="metric-lbl">Active Requests</div>
+            </div>
+            <div class="metric-card" style="border-left: 4px solid #f59e0b;">
+                <div class="metric-val" id="metric-pending" style="color: #b45309;">0</div>
+                <div class="metric-lbl">Pending Review</div>
+            </div>
+            <div class="metric-card" style="border-left: 4px solid #10b981;">
+                <div class="metric-val" id="metric-approved" style="color: #047857;">0</div>
+                <div class="metric-lbl">Approved</div>
+            </div>
+            <div class="metric-card" style="border-left: 4px solid #059669;">
+                <div class="metric-val" id="metric-fulfilled" style="color: #059669;">0</div>
+                <div class="metric-lbl">Fulfilled</div>
+            </div>
+            <div class="metric-card" style="border-left: 4px solid #dc2626;">
+                <div class="metric-val" id="metric-emergency" style="color: #dc2626;">0</div>
+                <div class="metric-lbl">Emergency</div>
+            </div>
+        </div>
+
+        <!-- RECENT REQUESTS TABLE -->
+        <div class="table-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                <h3 style="font-size: 1.3rem;">📋 Recent Blood Requests</h3>
+                <a href="/request-history" style="color: var(--primary-red); font-weight: 800; text-decoration: none; font-size: 0.9rem;">View All Requests →</a>
+            </div>
+
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Request ID</th>
+                            <th>Patient Name</th>
+                            <th>Group</th>
+                            <th>Units</th>
+                            <th>Hospital</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                            <th>Required Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dashboard-requests-tbody">
+                        <tr><td colspan="9" style="text-align:center; color:var(--text-muted); padding:30px;">Loading requests data...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTIFICATION CENTER MODAL -->
+    <div id="notif-modal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(15,23,42,0.6); z-index:9999; align-items:center; justify-content:center;">
+        <div style="background:white; border-radius:24px; padding:30px; max-width:600px; width:90%; max-height:80vh; overflow-y:auto; box-shadow:0 25px 50px rgba(0,0,0,0.25);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; border-bottom:1px solid #e2e8f0; padding-bottom:12px;">
+                <h3 style="font-size:1.4rem;">🔔 Notification Center</h3>
+                <div>
+                    <button onclick="markAllNotificationsRead()" style="background:none; border:none; color:var(--primary-red); font-weight:800; cursor:pointer; font-size:0.85rem;">Mark All Read</button>
+                    <button onclick="toggleNotificationsModal()" style="background:none; border:none; font-size:1.4rem; cursor:pointer; margin-left:12px;">✕</button>
+                </div>
+            </div>
+            <div id="notif-list-container" style="display:flex; flex-direction:column; gap:12px;"></div>
+        </div>
+    </div>
+
+    <script>
+        async function loadRequesterDashboard() {
+            try {
+                const res = await fetch('/api/requester/dashboard');
+                if (!res.ok) return;
+                const data = await res.json();
+
+                if (data.status === 'success') {
+                    const m = data.metrics;
+                    document.getElementById('metric-total').innerText = m.total_requests;
+                    document.getElementById('metric-active').innerText = m.active_requests;
+                    document.getElementById('metric-pending').innerText = m.pending_requests;
+                    document.getElementById('metric-approved').innerText = m.approved_requests;
+                    document.getElementById('metric-fulfilled').innerText = m.fulfilled_requests;
+                    document.getElementById('metric-emergency').innerText = m.emergency_requests;
+
+                    const tbody = document.getElementById('dashboard-requests-tbody');
+                    tbody.innerHTML = '';
+
+                    if (data.recent_requests && data.recent_requests.length > 0) {
+                        data.recent_requests.forEach(r => {
+                            tbody.innerHTML += `
+                                <tr>
+                                    <td style="font-family:monospace; font-weight:800; color:var(--primary-crimson);">${r.public_request_id}</td>
+                                    <td><strong>${r.patient_name}</strong></td>
+                                    <td><span class="badge-tag" style="background:#fff1f2; color:#dc2626;">${r.blood_group}</span></td>
+                                    <td>${r.units_required} Bag(s)</td>
+                                    <td>${r.hospital_name}</td>
+                                    <td><span class="badge-tag" style="background:#fef3c7; color:#b45309;">${r.urgency}</span></td>
+                                    <td><span class="badge-tag" style="background:#ecfdf5; color:#047857;">${r.status}</span></td>
+                                    <td>${r.required_date}</td>
+                                    <td>
+                                        <a href="/request-tracking/${r.public_request_id}" class="btn-hero-primary" style="padding:4px 10px; font-size:0.78rem;">Track</a>
+                                    </td>
+                                </tr>
+                            `;
+                        });
+                    } else {
+                        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; color:var(--text-muted); padding:30px;">No blood requests found. Click 'New Blood Request' above to create one.</td></tr>`;
+                    }
+                }
+            } catch (err) { console.error('Dashboard load error:', err); }
+        }
+
+        async function loadNotifications() {
+            try {
+                const res = await fetch('/api/notifications');
+                if (!res.ok) return;
+                const data = await res.json();
+                if (data.status === 'success') {
+                    document.getElementById('notif-unread-badge').innerText = data.unread_count || 0;
+                    const container = document.getElementById('notif-list-container');
+                    container.innerHTML = '';
+                    if (data.data && data.data.length > 0) {
+                        data.data.forEach(n => {
+                            container.innerHTML += `
+                                <div style="background:${n.is_read ? '#f8fafc' : '#eff6ff'}; padding:14px; border-radius:12px; border-left:4px solid ${n.is_read ? '#94a3b8' : '#3b82f6'};">
+                                    <div style="font-weight:800; font-size:0.95rem; margin-bottom:4px;">${n.title}</div>
+                                    <div style="font-size:0.85rem; color:#475569;">${n.message}</div>
+                                    <div style="font-size:0.75rem; color:#94a3b8; margin-top:6px;">${new Date(n.created_at).toLocaleString()}</div>
+                                </div>
+                            `;
+                        });
+                    } else {
+                        container.innerHTML = `<div style="text-align:center; color:var(--text-muted); padding:20px;">No notifications found.</div>`;
+                    }
+                }
+            } catch (err) { console.error('Notifications load error:', err); }
+        }
+
+        function toggleNotificationsModal() {
+            const modal = document.getElementById('notif-modal');
+            modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        async function markAllNotificationsRead() {
+            await fetch('/api/notifications/read-all', { method: 'PATCH' });
+            loadNotifications();
+        }
+
+        loadRequesterDashboard();
+        loadNotifications();
+    </script>
+</body>
+</html>

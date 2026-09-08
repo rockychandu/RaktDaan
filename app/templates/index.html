@@ -16,9 +16,6 @@
                 <span class="pulse-dot"></span>
                 <span>24/7 BLOOD EMERGENCY NETWORK</span>
             </div>
-            <div style="font-weight: 800; font-size: 0.95rem;">
-                📞 Emergency Hotline: <a href="tel:180072583226" style="color: #ffffff; text-decoration: underline;">1800-RAKT-DAAN</a>
-            </div>
             <div class="emergency-actions-mini">
                 <a href="#availability" class="btn-top-emergency">🩸 Check Blood Stock</a>
                 <a href="#emergency-dispatch-protocol" class="btn-top-emergency" style="background:#0f172a; color:#ffffff;">🚨 Request Emergency Blood</a>
@@ -39,6 +36,7 @@
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#services" class="nav-link">Services</a></li>
                 <li><a href="#donate" class="nav-link">Donate Blood</a></li>
+                <li><a href="/request-blood" class="nav-link" style="color: var(--primary-red); font-weight: 800;">Request Blood</a></li>
                 <li><a href="#availability" class="nav-link">Blood Availability</a></li>
                 <li><a href="#compatibility" class="nav-link">Compatibility</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
@@ -46,6 +44,7 @@
 
             <div class="nav-portals-group">
                 <a href="/donor/login" class="btn-portal-donor">❤️ DONOR PORTAL</a>
+                <a href="/request-blood" class="btn-portal-donor" style="background: #0f172a; color: #ffffff;">🩸 REQUEST BLOOD</a>
                 <a href="/admin/login" class="btn-portal-admin">🛡️ ADMIN PORTAL</a>
             </div>
         </div>
@@ -80,6 +79,9 @@
                     <a href="/donor/login" class="btn-hero-primary">
                         <span>🩸</span> Donate Blood
                     </a>
+                    <a href="/request-blood" class="btn-hero-primary" style="background: #0f172a; border-color: #0f172a;">
+                        <span>🩹</span> Request Blood
+                    </a>
                     <a href="#emergency-dispatch-protocol" class="btn-hero-emergency">
                         <span>🚨</span> Request Emergency Blood
                     </a>
@@ -99,15 +101,15 @@
                 <div class="floating-stat-card float-card-1">
                     <div class="float-icon" style="background:#ecfdf5; color:#047857;">👥</div>
                     <div>
-                        <div style="font-weight:900; font-size:1.1rem; color:var(--dark-navy);">12 Donors</div>
-                        <div style="font-size:0.75rem; color:var(--text-muted); font-weight:700;">Online & Ready</div>
+                        <div style="font-weight:900; font-size:1.1rem; color:var(--dark-navy);" id="float-donors-val">{{ total_donors }} Donors</div>
+                        <div style="font-size:0.75rem; color:var(--text-muted); font-weight:700;">Registered & Ready</div>
                     </div>
                 </div>
 
                 <div class="floating-stat-card float-card-2">
                     <div class="float-icon" style="background:#fff1f2; color:#dc2626;">🩸</div>
                     <div>
-                        <div style="font-weight:900; font-size:1.1rem; color:var(--primary-red);">O+ Available</div>
+                        <div style="font-weight:900; font-size:1.1rem; color:var(--primary-red);" id="float-units-val">{{ total_units }} Units</div>
                         <div style="font-size:0.75rem; color:var(--text-muted); font-weight:700;">Verified In Stock</div>
                     </div>
                 </div>
@@ -115,15 +117,15 @@
                 <div class="floating-stat-card float-card-3">
                     <div class="float-icon" style="background:#fef3c7; color:#b45309;">🚨</div>
                     <div>
-                        <div style="font-weight:900; font-size:1.1rem; color:var(--dark-navy);">Dispatch Active</div>
-                        <div style="font-size:0.75rem; color:var(--text-muted); font-weight:700;">STAT Protocol</div>
+                        <div style="font-weight:900; font-size:1.1rem; color:var(--dark-navy);" id="float-requests-val">{{ active_requests }} Active</div>
+                        <div style="font-size:0.75rem; color:var(--text-muted); font-weight:700;">Blood Requests</div>
                     </div>
                 </div>
 
                 <div class="floating-stat-card float-card-4">
-                    <div class="float-icon" style="background:#eff6ff; color:#1d4ed8;">🏥</div>
+                    <div class="float-icon" style="background:#eff6ff; color:#1d4ed8;">📍</div>
                     <div>
-                        <div style="font-weight:900; font-size:1.1rem; color:var(--dark-navy);">3 Hospitals</div>
+                        <div style="font-weight:900; font-size:1.1rem; color:var(--dark-navy);" id="float-cities-val">{{ total_cities }} Cities</div>
                         <div style="font-size:0.75rem; color:var(--text-muted); font-weight:700;">Connected</div>
                     </div>
                 </div>
@@ -137,30 +139,30 @@
             <div class="stats-grid">
                 <div class="stat-card-premium">
                     <div class="stat-icon-wrapper">🩸</div>
-                    <div class="stat-number-val" id="stat-donors-val">21+</div>
+                    <div class="stat-number-val" id="stat-donors-val">{{ total_donors }}</div>
                     <div class="stat-label-title">REGISTERED DONORS</div>
                     <div class="stat-subtext-desc">Verified & ready to help</div>
                 </div>
 
                 <div class="stat-card-premium">
                     <div class="stat-icon-wrapper" style="background:#ecfdf5; color:#047857;">💉</div>
-                    <div class="stat-number-val" id="stat-units-val">5+</div>
+                    <div class="stat-number-val" id="stat-units-val">{{ total_units }}</div>
                     <div class="stat-label-title">BLOOD UNITS AVAILABLE</div>
                     <div class="stat-subtext-desc">Tested & stock ready</div>
                 </div>
 
                 <div class="stat-card-premium">
                     <div class="stat-icon-wrapper" style="background:#eff6ff; color:#1d4ed8;">📍</div>
-                    <div class="stat-number-val" id="stat-cities-val">11+</div>
+                    <div class="stat-number-val" id="stat-cities-val">{{ total_cities }}</div>
                     <div class="stat-label-title">ACTIVE CITIES</div>
                     <div class="stat-subtext-desc">Connected network</div>
                 </div>
 
                 <div class="stat-card-premium">
                     <div class="stat-icon-wrapper" style="background:#fef3c7; color:#b45309;">🏥</div>
-                    <div class="stat-number-val" id="stat-users-val">23+</div>
+                    <div class="stat-number-val" id="stat-users-val">{{ total_users }}</div>
                     <div class="stat-label-title">SYSTEM ACCOUNTS</div>
-                    <div class="stat-subtext-desc">Hospitals & Staff</div>
+                    <div class="stat-subtext-desc">Users & Staff</div>
                 </div>
             </div>
         </div>
@@ -456,20 +458,17 @@
                 </div>
             </div>
 
-            <!-- Volunteer & Eligibility Forms -->
+            <!-- Emergency Contact & Portal Direct Access -->
             <div style="background: white; border: 1.5px solid var(--border-light); border-radius: 24px; padding: 32px; box-shadow: var(--shadow-md);">
-                <h3 style="font-size: 1.4rem; margin-bottom: 16px;">🙋 Quick Volunteer Registration</h3>
-                <form id="volunteer-form" style="display: flex; flex-direction: column; gap: 14px;">
-                    <input type="text" id="vol-name" placeholder="Full Name *" required style="padding: 12px; border-radius: 10px; border: 1px solid var(--border-light); font-weight: 600;">
-                    <input type="email" id="vol-email" placeholder="Email Address *" required style="padding: 12px; border-radius: 10px; border: 1px solid var(--border-light); font-weight: 600;">
-                    <select id="vol-role" style="padding: 12px; border-radius: 10px; border: 1px solid var(--border-light); font-weight: 700;">
-                        <option value="Camp Organizer">Camp Organizer</option>
-                        <option value="Blood Drive Volunteer" selected>Blood Drive Volunteer</option>
-                        <option value="Community Outreach">Community Outreach</option>
-                    </select>
-                    <button type="submit" class="btn-hero-primary" style="justify-content: center; border: none; cursor: pointer;">Submit Volunteer Application</button>
-                </form>
-                <div id="vol-msg-box" style="margin-top: 15px; display: none; padding: 12px; border-radius: 10px; font-weight: 700;"></div>
+                <h3 style="font-size: 1.4rem; margin-bottom: 12px; color: var(--primary-crimson);">❤️ Direct Portal Access</h3>
+                <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px;">
+                    Are you a voluntary donor or in urgent need of blood? Access our portals directly:
+                </p>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <a href="/donor/login" class="btn-hero-primary" style="justify-content: center; font-size: 0.95rem;">❤️ Donor Portal Login</a>
+                    <a href="/request-blood" class="btn-hero-primary" style="background: #0f172a; border-color: #0f172a; justify-content: center; font-size: 0.95rem;">🩸 Submit Blood Request</a>
+                    <a href="/admin/login" class="btn-hero-emergency" style="justify-content: center; font-size: 0.95rem;">🛡️ Admin Portal Access</a>
+                </div>
             </div>
         </div>
     </section>
@@ -486,7 +485,6 @@
                     <p style="font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px;">
                         Connecting voluntary blood donors with life-saving needs. Real-time stock tracking and emergency dispatch network.
                     </p>
-                    <div style="font-weight: 800; color: white;">📞 Helpline: 1800-RAKT-DAAN</div>
                 </div>
 
                 <div>
@@ -512,7 +510,6 @@
                     <h4 class="footer-title">Emergency Contact</h4>
                     <p style="font-size: 0.9rem; margin-bottom: 12px;">Central Blood Dispatch Command Center</p>
                     <p style="font-size: 0.9rem; color: #fecdd3; font-weight: 700;">Location: Central Medical Hub</p>
-                    <p style="font-size: 0.9rem; margin-top: 8px;">24/7 Hotline: 1800-7258-3226</p>
                 </div>
             </div>
 
@@ -606,7 +603,7 @@
                     box.style.background = '#ecfdf5';
                     box.style.color = '#047857';
                     box.style.border = '1.5px solid #a7f3d0';
-                    box.innerHTML = `<strong>🎉 ${data.message || 'Emergency request submitted successfully.'}</strong><br>Request ID: <span style="font-family:monospace; font-size:1.1rem; font-weight:800;">${data.request_code}</span> | Status: <strong>PENDING</strong><br><span style="font-size:0.85rem;">Forwarded to Admin & Voluntary Donors network. Call 1800-RAKT-DAAN for STAT dispatch.</span>`;
+                    box.innerHTML = `<strong>🎉 ${data.message || 'Emergency request submitted successfully.'}</strong><br>Request ID: <span style="font-family:monospace; font-size:1.1rem; font-weight:800;">${data.request_code}</span> | Status: <strong>PENDING</strong><br><span style="font-size:0.85rem;">Forwarded to Admin & Voluntary Donors network.</span>`;
                     document.getElementById('emergency-request-form').reset();
                 } else {
                     box.style.background = '#fef2f2';
@@ -621,36 +618,31 @@
             }
         });
 
-        // Volunteer Form Handler
-        document.getElementById('volunteer-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const name = document.getElementById('vol-name').value;
-            const email = document.getElementById('vol-email').value;
-            const role = document.getElementById('vol-role').value;
-            const box = document.getElementById('vol-msg-box');
-
+        async function fetchPublicStats() {
             try {
-                const res = await fetch('/api/v1/volunteers', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ full_name: name, email: email, role: role })
-                });
-                const data = await res.json();
-                box.style.display = 'block';
-                box.style.background = '#ecfdf5';
-                box.style.color = '#047857';
-                box.innerText = data.message || 'Thank you! Your volunteer application has been submitted.';
-                document.getElementById('volunteer-form').reset();
-            } catch (err) {
-                box.style.display = 'block';
-                box.style.background = '#ecfdf5';
-                box.style.color = '#047857';
-                box.innerText = 'Application submitted successfully!';
-            }
-        });
+                const res = await fetch('/api/v1/public/stats');
+                if (!res.ok) return;
+                const result = await res.json();
+                if (result.status === 'success' && result.data) {
+                    const d = result.data;
+                    if (document.getElementById('stat-donors-val')) document.getElementById('stat-donors-val').innerText = d.total_donors;
+                    if (document.getElementById('stat-units-val')) document.getElementById('stat-units-val').innerText = d.total_units;
+                    if (document.getElementById('stat-cities-val')) document.getElementById('stat-cities-val').innerText = d.total_cities;
+                    if (document.getElementById('stat-users-val')) document.getElementById('stat-users-val').innerText = d.total_users;
+                    if (document.getElementById('float-donors-val')) document.getElementById('float-donors-val').innerText = `${d.total_donors} Donors`;
+                    if (document.getElementById('float-units-val')) document.getElementById('float-units-val').innerText = `${d.total_units} Units`;
+                    if (document.getElementById('float-requests-val')) document.getElementById('float-requests-val').innerText = `${d.active_requests} Active`;
+                    if (document.getElementById('float-cities-val')) document.getElementById('float-cities-val').innerText = `${d.total_cities} Cities`;
+                    if (document.getElementById('active-req-stat-counter')) document.getElementById('active-req-stat-counter').innerText = `${d.active_requests} In Progress`;
+                    if (document.getElementById('live-donors-stat')) document.getElementById('live-donors-stat').innerText = `${d.total_donors} Active Donors`;
+                    if (document.getElementById('live-cities-stat')) document.getElementById('live-cities-stat').innerText = `${d.total_cities} Cities`;
+                }
+            } catch (err) { console.error('Error loading public stats:', err); }
+        }
 
         // Initialize on load
         fetchLiveStock();
+        fetchPublicStats();
         updateCompatibilityDisplay();
     </script>
 </body>

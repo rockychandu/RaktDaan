@@ -45,39 +45,4 @@ class User(db.Model):
         return f"<User id={self.id} email='{self.email}' role='{self.role}'>"
 
 
-class DonorProfile(db.Model):
-    """
-    Extended Profile information for Donor accounts.
-    Linked 1-to-1 with User table via Foreign Key.
-    """
-    __tablename__ = "donor_profiles"
-
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id", ondelete="CASCADE"), unique=True, nullable=False)
-    date_of_birth = db.Column(db.Date, nullable=False)
-    gender = db.Column(db.String(20), nullable=False)
-    blood_group = db.Column(db.String(10), nullable=False)
-    address = db.Column(db.String(255), nullable=False)
-    city = db.Column(db.String(100), nullable=False)
-    state = db.Column(db.String(100), nullable=False)
-    emergency_contact = db.Column(db.String(20), nullable=False)
-    created_at = db.Column(db.DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
-    updated_at = db.Column(db.DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
-
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "user_id": self.user_id,
-            "date_of_birth": self.date_of_birth.isoformat() if self.date_of_birth else None,
-            "gender": self.gender,
-            "blood_group": self.blood_group,
-            "address": self.address,
-            "city": self.city,
-            "state": self.state,
-            "emergency_contact": self.emergency_contact,
-            "created_at": self.created_at.isoformat() if self.created_at else None,
-            "updated_at": self.updated_at.isoformat() if self.updated_at else None
-        }
-
-    def __repr__(self):
-        return f"<DonorProfile id={self.id} user_id={self.user_id} blood_group='{self.blood_group}'>"
+from app.database.models.donor import DonorProfile  # Re-exported for backwards compatibility

@@ -5,7 +5,11 @@ Database Models Package Exports.
 from app.database.models.user import User, UserSession, UserAuditLog, PasswordHistory, SecurityQuestion
 from app.database.models.donor import DonorProfile, DonorMedicalHistory, DonorEligibility, DonorEmergencyContact, DonorPreference
 from app.database.models.donation import DonationRecord, DonationScreening
-from app.database.models.blood_bank import BloodInventory, BloodBag, BloodDrive, BloodRequest, RequestFulfillment, BloodCompatibilityMatrix
+from app.database.models.blood_bank import BloodInventory, BloodBag, BloodDrive, RequestFulfillment, BloodCompatibilityMatrix
+from app.database.models.blood_request import (
+    BloodRequest, Hospital, BloodRequestDonorMatch, RequestNotification,
+    RequestStatusHistory, RequestDocument
+)
 from app.database.models.inventory_extended import (
     StorageUnit, StorageLocation, BloodBagStatusLog, InventoryTransaction,
     StockThreshold, BloodReservation, BloodDispatch, QuarantineRecord,
@@ -37,6 +41,11 @@ __all__ = [
     "BloodBag",
     "BloodDrive",
     "BloodRequest",
+    "Hospital",
+    "BloodRequestDonorMatch",
+    "RequestNotification",
+    "RequestStatusHistory",
+    "RequestDocument",
     "RequestFulfillment",
     "BloodCompatibilityMatrix",
     "StorageUnit",

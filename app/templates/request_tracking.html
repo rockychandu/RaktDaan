@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Request {{ req_id }} — RaktDaan</title>
+    <link rel="stylesheet" href="/static/css/theme.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .track-container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+        .timeline-stepper { display: flex; justify-content: space-between; position: relative; margin: 40px 0; }
+        .timeline-stepper::before { content: ''; position: absolute; top: 20px; left: 10%; right: 10%; height: 4px; background: #e2e8f0; z-index: 1; }
+        .timeline-node { position: relative; z-index: 2; text-align: center; width: 120px; }
+        .node-circle { width: 44px; height: 44px; border-radius: 50%; background: white; border: 3px solid #cbd5e1; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px auto; font-weight: 800; color: #64748b; }
+        .node-circle.active { border-color: var(--primary-red); background: var(--primary-red); color: white; box-shadow: 0 0 15px rgba(220,38,38,0.3); }
+        .node-circle.completed { border-color: #10b981; background: #10b981; color: white; }
+        .node-title { font-size: 0.82rem; font-weight: 800; color: var(--dark-navy); }
+        .track-card { background: white; border-radius: 24px; padding: 32px; border: 1.5px solid var(--border-light); box-shadow: var(--shadow-md); margin-bottom: 24px; }
+        .badge-status { padding: 6px 14px; border-radius: 20px; font-weight: 800; font-size: 0.85rem; display: inline-block; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar-sticky">
+        <div class="container navbar-flex">
+            <a href="/" class="brand-logo">
+                <img src="/static/images/logo.png" alt="RaktDaan Logo" style="height:44px;">
+                <div class="brand-text">RAKT<span style="color: var(--primary-red);">DAAN</span></div>
+            </a>
+            <div class="nav-portals-group">
+                <a href="/" class="btn-top-emergency">🏠 Home</a>
+                <a href="/requester/dashboard" class="btn-portal-donor">📊 Requester Dashboard</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="track-container">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; margin-bottom:24px;">
+            <div>
+                <div class="hero-badge-tag">📍 REAL-TIME REQUEST TRACKER</div>
+                <h1 style="font-size:2.2rem; font-family:monospace;" id="req-title-id">RD-2026-XXXXXX</h1>
+            </div>
+            <div>
+                <span class="badge-status" id="header-status-badge" style="background:#eff6ff; color:#1d4ed8;">FETCHING STATUS...</span>
+            </div>
+        </div>
+
+        <!-- VISUAL STATUS PROGRESS TIMELINE -->
+        <div class="track-card">
+            <h3 style="font-size:1.2rem; margin-bottom:20px;">🔄 Visual Progress Lifecycle</h3>
+            <div class="timeline-stepper">
+                <div class="timeline-node">
+                    <div class="node-circle" id="node-1">1</div>
+                    <div class="node-title">Submitted</div>
+                </div>
+                <div class="timeline-node">
+                    <div class="node-circle" id="node-2">2</div>
+                    <div class="node-title">Under Review</div>
+                </div>
+                <div class="timeline-node">
+                    <div class="node-circle" id="node-3">3</div>
+                    <div class="node-title">Approved</div>
+                </div>
+                <div class="timeline-node">
+                    <div class="node-circle" id="node-4">4</div>
+                    <div class="node-title">Donors Contacted</div>
+                </div>
+                <div class="timeline-node">
+                    <div class="node-circle" id="node-5">5</div>
+                    <div class="node-title">Blood Arranged</div>
+                </div>
+                <div class="timeline-node">
+                    <div class="node-circle" id="node-6">6</div>
+                    <div class="node-title">Fulfilled</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- REQUEST METRICS GRID -->
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:20px; margin-bottom:24px;">
+            <div class="track-card">
+                <div style="font-size:0.8rem; font-weight:800; color:var(--text-muted);">PATIENT & REQUIREMENT</div>
+                <div style="font-size:1.4rem; font-weight:900; color:var(--dark-navy); margin:6px 0;" id="det-patient">--</div>
+                <div style="font-weight:700; font-size:0.95rem;">Blood Group: <span id="det-bg" style="color:var(--primary-red); font-weight:900;">--</span> | Component: <span id="det-component">--</span></div>
+                <div style="margin-top:10px; font-size:0.85rem;">Units: <strong id="det-units">--</strong> (Collected: <span id="det-collected" style="color:#047857;">0</span>, Remaining: <span id="det-remaining" style="color:#dc2626;">--</span>)</div>
+            </div>
+
+            <div class="track-card">
+                <div style="font-size:0.8rem; font-weight:800; color:var(--text-muted);">HOSPITAL LOCATION</div>
+                <div style="font-size:1.4rem; font-weight:900; color:var(--dark-navy); margin:6px 0;" id="det-hospital">--</div>
+                <div style="font-weight:700; font-size:0.95rem;">City: <span id="det-city">--</span></div>
+                <div style="margin-top:10px; font-size:0.85rem;">Ward/Bed: <span id="det-ward">--</span> | Doctor: <span id="det-doctor">--</span></div>
+            </div>
+
+            <div class="track-card">
+                <div style="font-size:0.8rem; font-weight:800; color:var(--text-muted);">PRIORITY & DATES</div>
+                <div style="font-size:1.4rem; font-weight:900; color:var(--primary-red); margin:6px 0;" id="det-urgency">--</div>
+                <div style="font-weight:700; font-size:0.85rem;">Required Date: <span id="det-req-date">--</span></div>
+                <div style="margin-top:10px; font-size:0.85rem;">Created: <span id="det-created-at">--</span></div>
+            </div>
+        </div>
+
+        <!-- DONOR OFFERS ("I CAN DONATE") CARD -->
+        <div class="track-card" style="border: 2px solid var(--primary-border); background: #fff1f2;">
+            <h3 style="font-size:1.3rem; color:var(--primary-crimson); margin-bottom:12px;">❤️ Donors Who Offered to Donate</h3>
+            <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:16px;">
+                The voluntary donors below clicked "I Can Donate". You can contact them directly using their phone numbers:
+            </p>
+            <div id="donor-offers-list" style="display:flex; flex-direction:column; gap:12px;">
+                <p style="color:var(--text-muted); font-style:italic;">Loading donor responses...</p>
+            </div>
+        </div>
+
+        <!-- STATUS HISTORY AUDIT LOG -->
+        <div class="track-card">
+            <h3 style="font-size:1.2rem; margin-bottom:16px;">📜 Audit History & Status Transitions</h3>
+            <div id="history-timeline-list" style="display:flex; flex-direction:column; gap:12px;"></div>
+        </div>
+    </div>
+
+    <script>
+        const reqId = "{{ req_id }}";
+        document.getElementById('req-title-id').innerText = reqId;
+
+        async function loadDonorOffers() {
+            try {
+                const res = await fetch(`/api/blood-requests/${reqId}/donor-offers`);
+                if (!res.ok) return;
+                const data = await res.json();
+                const container = document.getElementById('donor-offers-list');
+                if (!container) return;
+                container.innerHTML = '';
+
+                if (!data.data || data.data.length === 0) {
+                    container.innerHTML = `<div style="background:white; padding:16px; border-radius:12px; border:1px solid #fecdd3; color:var(--text-muted);">No donors have pledged to donate for this request yet.</div>`;
+                    return;
+                }
+
+                data.data.forEach(d => {
+                    container.innerHTML += `
+                        <div style="background:white; padding:16px; border-radius:12px; border:1.5px solid var(--primary-border); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+                            <div>
+                                <div style="font-size:1.1rem; font-weight:800; color:var(--dark-navy);">${d.donor_name} <span style="color:var(--primary-red); font-weight:900;">(${d.donor_blood_group})</span></div>
+                                <div style="font-size:0.88rem; color:var(--text-dark); margin-top:4px;">
+                                    <strong>Phone:</strong> <span style="font-size:1rem; font-weight:800; color:var(--primary-red);">📞 ${d.donor_phone}</span>
+                                    ${d.donor_city ? `| <strong>City:</strong> ${d.donor_city}` : ''}
+                                </div>
+                                <div style="font-size:0.8rem; color:var(--text-muted); margin-top:2px;">Offered on: ${d.created_at} ${d.notes ? `| Note: ${d.notes}` : ''}</div>
+                            </div>
+                            <div>
+                                <a href="tel:${d.donor_phone}" class="btn-hero-primary" style="padding:8px 16px; font-size:0.88rem; text-decoration:none;">📞 CALL DONOR</a>
+                            </div>
+                        </div>
+                    `;
+                });
+            } catch (err) { console.error('Error loading donor offers:', err); }
+        }
+
+        async function loadRequestTracking() {
+            try {
+                const res = await fetch(`/api/blood-requests/${reqId}`);
+                if (!res.ok) return;
+                const data = await res.json();
+                if (data.status === 'success' && data.data) {
+                    const req = data.data;
+
+                    document.getElementById('header-status-badge').innerText = req.status;
+                    document.getElementById('det-patient').innerText = `${req.patient_name} (${req.patient_age} yrs)`;
+                    document.getElementById('det-bg').innerText = req.blood_group;
+                    document.getElementById('det-component').innerText = req.component;
+                    document.getElementById('det-units').innerText = `${req.units_required} Unit(s)`;
+                    document.getElementById('det-collected').innerText = req.units_collected;
+                    document.getElementById('det-remaining').innerText = req.units_remaining;
+                    document.getElementById('det-hospital').innerText = req.hospital_name;
+                    document.getElementById('det-city').innerText = req.hospital_city;
+                    document.getElementById('det-ward').innerText = `${req.department_ward || 'N/A'} / ${req.bed_number || 'N/A'}`;
+                    document.getElementById('det-doctor').innerText = req.attending_doctor || 'N/A';
+                    document.getElementById('det-urgency').innerText = req.urgency;
+                    document.getElementById('det-req-date').innerText = req.required_date;
+                    document.getElementById('det-created-at').innerText = req.created_at ? new Date(req.created_at).toLocaleString() : 'N/A';
+
+                    // Update Stepper Nodes
+                    const statusMap = { 'SUBMITTED': 1, 'UNDER_REVIEW': 2, 'APPROVED': 3, 'MATCHING_DONORS': 4, 'DONOR_NOTIFIED': 4, 'PARTIALLY_FULFILLED': 5, 'FULFILLED': 6 };
+                    const currentStep = statusMap[req.status] || 1;
+
+                    for (let i = 1; i <= 6; i++) {
+                        const node = document.getElementById(`node-${i}`);
+                        if (i < currentStep) node.className = 'node-circle completed';
+                        else if (i === currentStep) node.className = 'node-circle active';
+                        else node.className = 'node-circle';
+                    }
+
+                    // Populate Audit History Timeline
+                    const histContainer = document.getElementById('history-timeline-list');
+                    histContainer.innerHTML = '';
+                    if (req.status_history && req.status_history.length > 0) {
+                        req.status_history.forEach(h => {
+                            histContainer.innerHTML += `
+                                <div style="background:#f8fafc; padding:12px 16px; border-radius:12px; border-left:4px solid var(--primary-red);">
+                                    <div style="display:flex; justify-content:space-between; font-size:0.85rem; font-weight:800;">
+                                        <span>Status: ${h.old_status} → <span style="color:var(--primary-red);">${h.new_status}</span></span>
+                                        <span style="color:var(--text-muted);">${new Date(h.created_at).toLocaleString()}</span>
+                                    </div>
+                                    <div style="font-size:0.82rem; color:var(--text-muted); margin-top:4px;">Changed by: ${h.changed_by} | Note: ${h.note || 'None'}</div>
+                                </div>
+                            `;
+                        });
+                    } else {
+                        histContainer.innerHTML = `<div style="color:var(--text-muted); font-size:0.9rem;">Initial submission recorded. Pending further status transitions.</div>`;
+                    }
+                }
+            } catch (err) { console.error('Error loading tracking:', err); }
+        }
+
+        loadRequestTracking();
+        loadDonorOffers();
+    </script>
+</body>
+</html>

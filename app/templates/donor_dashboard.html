@@ -393,11 +393,26 @@
                     <h2 style="color:var(--primary-dark);">🚨 Active Emergency Blood Requests</h2>
                     <p style="color: var(--text-muted);">Urgent blood requests submitted by patients & hospitals awaiting voluntary donor pledges:</p>
                 </div>
-                <button onclick="loadDonorEmergencyRequests()" style="background:var(--primary); color:white; border:none; padding:8px 16px; border-radius:8px; font-weight:700; cursor:pointer;">🔄 Refresh Requests</button>
+                <button onclick="loadDonorEmergencyRequests()" style="background:var(--primary); color:white; border:none; padding:8px 16px; border-radius:8px; font-weight:700; cursor:pointer;">🔄 Refresh Emergency Requests</button>
             </div>
 
             <div id="donor-emergency-requests-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:20px; margin-top:20px;">
                 <p style="color: var(--text-muted);">Loading active emergency requests...</p>
+            </div>
+        </div>
+
+        <!-- 🩸 ACTIVE STANDARD BLOOD REQUESTS SECTION FOR DONORS -->
+        <div class="card" style="border: 2.5px solid #bfdbfe; background: linear-gradient(180deg, #ffffff, #eff6ff);">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
+                <div>
+                    <h2 style="color:#1e40af;">🩸 Active Standard Blood Requests</h2>
+                    <p style="color: var(--text-muted);">Regular blood donation requests submitted by patients & hospitals awaiting voluntary donor pledges:</p>
+                </div>
+                <button onclick="loadDonorStandardRequests()" style="background:#1d4ed8; color:white; border:none; padding:8px 16px; border-radius:8px; font-weight:700; cursor:pointer;">🔄 Refresh Blood Requests</button>
+            </div>
+
+            <div id="donor-standard-requests-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:20px; margin-top:20px;">
+                <p style="color: var(--text-muted);">Loading active blood requests...</p>
             </div>
         </div>
 
@@ -599,8 +614,7 @@
                             <div style="display:flex; flex-direction:column; gap:8px; margin-top:15px; border-top:1px solid var(--border-light); padding-top:12px;">
                                 ${respondBtnHtml}
                                 <div style="display:flex; gap:8px;">
-                                    <button style="background:var(--bg-main); border:1px solid var(--border-light); padding:8px 12px; border-radius:8px; font-weight:700; font-size:0.82rem; flex:1; cursor:pointer;" onclick="alert('Emergency Request ${r.request_code}\\n\\nPatient: ${r.patient_name}\\nHospital: ${r.hospital_name}\\nAddress: ${r.hospital_address}\\nNotes: ${r.additional_reason || 'Urgent transfusion needed.'}')">👁️ VIEW DETAILS</button>
-                                    <a href="tel:${r.requester_phone}" style="background:var(--bg-main); border:1px solid var(--border-light); padding:8px 12px; border-radius:8px; font-weight:700; font-size:0.82rem; flex:1; text-align:center; text-decoration:none; color:var(--text-dark);">📞 CONTACT</a>
+                                    <button style="background:var(--bg-main); border:1px solid var(--border-light); padding:8px 12px; border-radius:8px; font-weight:700; font-size:0.82rem; width:100%; cursor:pointer;" onclick="alert('Emergency Request ${r.request_code}\\n\\nRequester: ${r.requester_name}\\nPatient: ${r.patient_name}\\nHospital: ${r.hospital_name}\\nAddress: ${r.hospital_address}\\nNotes: ${r.additional_reason || 'Urgent transfusion needed.'}')">👁️ VIEW DETAILS</button>
                                 </div>
                             </div>
                         </div>
@@ -639,6 +653,92 @@
             } catch (err) { alert('Network error recording response.'); }
         }
 
+        async function loadDonorStandardRequests() {
+            const grid = document.getElementById('donor-standard-requests-grid');
+            if (!grid) return;
+
+            try {
+                const res = await fetch('/api/donor/blood-requests');
+                const data = await res.json();
+                grid.innerHTML = '';
+
+                if (!data.data || data.data.length === 0) {
+                    grid.innerHTML = '<p style="color: var(--text-muted); grid-column:1/-1;">No active standard blood requests at this time.</p>';
+                    return;
+                }
+
+                data.data.forEach(r => {
+                    const reqId = r.public_request_id || r.request_id || r.id;
+                    const donorName = document.getElementById('val-name').innerText || '';
+                    const isResponded = r.donor_matches && r.donor_matches.some(m => m.donor_response === 'AVAILABLE');
+
+                    const respondBtnHtml = isResponded ?
+                        `<button style="background:#047857; color:white; border:none; padding:10px 16px; border-radius:8px; font-weight:800; width:100%; font-size:0.9rem;" disabled>✅ YOU RESPONDED</button>` :
+                        `<button style="background:#1d4ed8; color:white; border:none; padding:10px 16px; border-radius:8px; font-weight:800; cursor:pointer; width:100%; font-size:0.9rem;" onclick="respondToStandardRequest('${reqId}')">🩸 I CAN DONATE</button>`;
+
+                    grid.innerHTML += `
+                        <div style="background:white; border:1.5px solid #bfdbfe; border-radius:16px; padding:20px; box-shadow:0 6px 18px rgba(30,64,175,0.06); display:flex; flex-direction:column; justify-space-between;">
+                            <div>
+                                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                                    <span style="background:#eff6ff; color:#1d4ed8; font-weight:800; padding:4px 10px; border-radius:10px; font-size:0.78rem;">🩸 STANDARD BLOOD REQUEST</span>
+                                    <span style="background:#f0fdf4; color:#15803d; font-weight:800; padding:4px 10px; border-radius:10px; font-size:0.78rem;">${r.status}</span>
+                                </div>
+
+                                <div style="font-size:1.4rem; font-weight:800; color:#1e40af; margin-bottom:10px;">
+                                    ${r.blood_group} <span style="font-size:1rem; color:var(--text-dark);">(${r.units_required} Unit(s) Needed)</span>
+                                </div>
+
+                                <p style="font-size:0.88rem; line-height:1.6; color:var(--text-dark); margin-bottom:12px;">
+                                    <strong>Requested By:</strong> ${r.requester_name}<br>
+                                    <span style="font-size:0.8rem; color:var(--text-muted);">Requester Phone: ${r.requester_phone}</span><br><br>
+                                    <strong>Patient:</strong> ${r.patient_name} (${r.patient_age || 30} yrs)<br>
+                                    <strong>Hospital:</strong> ${r.hospital_name}<br>
+                                    <strong>Location:</strong> ${r.hospital_city || 'Central'}<br>
+                                    <strong>Required Date:</strong> ${r.required_date}<br>
+                                    <strong>Urgency Level:</strong> <span style="color:#b45309; font-weight:800;">${r.urgency}</span>
+                                </p>
+                            </div>
+
+                            <div style="display:flex; flex-direction:column; gap:8px; margin-top:15px; border-top:1px solid var(--border-light); padding-top:12px;">
+                                ${respondBtnHtml}
+                                <div style="display:flex; gap:8px;">
+                                    <button style="background:var(--bg-main); border:1px solid var(--border-light); padding:8px 12px; border-radius:8px; font-weight:700; font-size:0.82rem; width:100%; cursor:pointer;" onclick="alert('Blood Request ${reqId}\\n\\nRequester: ${r.requester_name}\\nPatient: ${r.patient_name}\\nHospital: ${r.hospital_name}\\nCity: ${r.hospital_city}\\nDoctor: ${r.attending_doctor || 'N/A'}')">👁️ VIEW DETAILS</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            } catch (err) { console.error('Error loading donor standard requests:', err); }
+        }
+
+        async function respondToStandardRequest(reqId) {
+            const donorName = document.getElementById('val-name').innerText || 'Voluntary Donor';
+            const donorBlood = document.getElementById('val-blood').innerText || 'O+';
+            const donorPhone = document.getElementById('val-emergency').innerText || '9876543210';
+
+            if (!confirm(`Confirm pledging your voluntary donation response for Request ${reqId}?`)) {
+                return;
+            }
+
+            try {
+                const res = await fetch(`/api/blood-requests/${reqId}/donor-response`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        response_status: 'AVAILABLE',
+                        notes: `Pledged donation by ${donorName} (${donorBlood}, 📞 ${donorPhone}).`
+                    })
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    alert(data.message || 'Thank you! Your donation response has been recorded.');
+                    loadDonorStandardRequests();
+                } else {
+                    alert('Error: ' + (data.message || 'Response failed'));
+                }
+            } catch (err) { alert('Network error recording response.'); }
+        }
+
         async function logout() {
             try {
                 await fetch('/api/v1/auth/logout', {
@@ -653,6 +753,7 @@
         loadProfile();
         loadTimelineHistory();
         loadDonorEmergencyRequests();
+        loadDonorStandardRequests();
     </script>
 </body>
 </html>

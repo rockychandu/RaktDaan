@@ -104,20 +104,7 @@ class BloodDrive(db.Model, BaseModelMixin):
     organizer_contact = db.Column(db.String(100), nullable=False)
 
 
-class BloodRequest(db.Model, BaseModelMixin):
-    """
-    Blood Request Table for Hospitals and Patients.
-    """
-    __tablename__ = "blood_requests"
-
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    request_code = db.Column(db.String(50), unique=True, nullable=False, index=True)
-    requester_user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    patient_name = db.Column(db.String(100), nullable=False)
-    blood_group = db.Column(db.String(10), nullable=False)
-    units_requested = db.Column(db.Integer, nullable=False)
-    hospital_name = db.Column(db.String(150), nullable=False)
-    status = db.Column(db.String(20), default="PENDING", nullable=False)
+from app.database.models.blood_request import BloodRequest  # Re-exported for backwards compatibility
 
 
 class RequestFulfillment(db.Model, BaseModelMixin):

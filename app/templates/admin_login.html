@@ -166,6 +166,7 @@
             <div class="brand-icon">🛡️</div>
             <h1>Admin Portal</h1>
             <p>System Administrator Authentication</p>
+            <p style="font-size:0.8rem; color:#64748b; margin-top:6px; font-weight:700;">Default Email: <code>admin@raktdaan.org</code> | Password: <code>RaktDaan@123</code></p>
         </div>
 
         <div id="alert-box" class="alert"></div>
@@ -173,12 +174,12 @@
         <form id="admin-login-form">
             <div class="form-group">
                 <label for="email">Administrator Email</label>
-                <input type="email" id="email" required placeholder="admin@raktdaan.org">
+                <input type="email" id="email" required value="admin@raktdaan.org" placeholder="admin@raktdaan.org">
             </div>
 
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" required placeholder="••••••••">
+                <input type="password" id="password" required value="RaktDaan@123" placeholder="••••••••">
             </div>
 
             <button type="submit" class="btn" id="submit-btn">Sign In to Admin Console</button>
@@ -223,15 +224,15 @@
 
                     setTimeout(() => {
                         window.location.href = '/admin/dashboard';
-                    }, 1000);
+                    }, 500);
                 } else {
                     alertBox.className = 'alert alert-danger';
-                    alertBox.innerText = data.detail || 'Invalid admin credentials or role mismatch.';
+                    alertBox.innerText = data.detail || data.message || 'Invalid admin credentials.';
                     alertBox.style.display = 'block';
                 }
             } catch (err) {
                 alertBox.className = 'alert alert-danger';
-                alertBox.innerText = 'Network error connecting to backend API.';
+                alertBox.innerText = 'Error logging in: ' + (err.message || 'Verification failed. Please check backend server.');
                 alertBox.style.display = 'block';
             } finally {
                 submitBtn.disabled = false;
