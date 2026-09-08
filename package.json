@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "RaktDaan Enterprise Blood Bank Management System",
   "main": "app/main.py",
+  "private": true,
+  "license": "UNLICENSED",
   "scripts": {
     "start": "python -m app.main",
     "test": "pytest"
@@ -13,6 +15,5 @@
     "flask",
     "raktdaan"
   ],
-  "author": "RaktDaan Team",
-  "license": "MIT"
+  "author": "RaktDaan Team"
 }
